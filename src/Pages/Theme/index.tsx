@@ -18,7 +18,7 @@ const Theme = () => {
   };
   return (
     <>
-      <h1 className="heading-font">
+      <h1 className="heading-font space-y-2">
         <p>Themes</p>
         <p className="caption-font">Manage your themes</p>
       </h1>

@@ -31,8 +31,11 @@ const CustomerList = () => {
   };
 
   return (
-    <div>
-      CustomerList
+    <>
+      <h1 className="heading-font space-y-2">
+        <p>Customers</p>
+        <p className="secondary-font">Manage your customers</p>
+      </h1>
       <CustomizedTable
         IsLoading={false}
         Data={{
@@ -64,7 +67,7 @@ const CustomerList = () => {
           "test";
         }}
       />
-    </div>
+    </>
   );
 };
 

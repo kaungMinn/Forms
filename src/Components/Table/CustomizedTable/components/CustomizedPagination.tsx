@@ -51,7 +51,7 @@ const CustomizedPagination = ({
   const lastPage = paginationRange[paginationRange.length - 1];
 
   return (
-    <div className=" grid grid-cols-2 space-y-2 pt-3 laptop:grid-cols-3 laptop:pt-0">
+    <div className=" grid grid-cols-2 gap-y-3 pt-3 laptop:grid-cols-3 laptop:pt-0">
       <div className="order-2 col-span-1 laptop:order-none  laptop:col-span-1">
         <div className="flex items-center justify-start space-x-3">
           {PageSizeComponent}
