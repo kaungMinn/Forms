@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import CustomizedTable from "../../../Components/Table/CustomizedTable";
 import { body, headers } from "./constants";
+import { useAppSelector } from "../../../Hooks/ReduxProvider";
 
 const CustomerList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(10);
   const [currentData, setCurrentData] = useState<typeof body>([]);
 
+  const { dashboardColor } = useAppSelector((state) => state.theme);
+  const [dashboardBg, dashboardText] = dashboardColor;
   // Calculate the indices for slicing the data
 
   // Change page by number
@@ -31,7 +34,7 @@ const CustomerList = () => {
   };
 
   return (
-    <>
+    <div className={`${dashboardBg} ${dashboardText}`}>
       <h1 className="heading-font space-y-2">
         <p>Customers</p>
         <p className="secondary-font">Manage your customers</p>
@@ -67,7 +70,7 @@ const CustomerList = () => {
           "test";
         }}
       />
-    </>
+    </div>
   );
 };
 

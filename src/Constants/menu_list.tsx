@@ -1,13 +1,18 @@
 import { MENU_LIST_TYPE } from "../Layouts/SidebarLayout/type";
-import { CUSTOMER_LIST_ROUTE, THEME_ROUTE } from "./route_paths";
-import { CiCircleList } from "react-icons/ci";
+import {
+  CUSTOMER_CREATE_ROUTE,
+  CUSTOMER_LIST_ROUTE,
+  THEME_ROUTE,
+} from "./route_paths";
+
 import { IoIosColorFilter } from "react-icons/io";
+import { CiUser } from "react-icons/ci";
 export const MENU_LIST: MENU_LIST_TYPE[] = [
   {
     id: 1,
     name: "List",
     path: "",
-    icon: <CiCircleList />,
+    icon: <CiUser />,
     expand: false,
     is_sub_menu: true,
     sub_menu: [
@@ -19,21 +24,8 @@ export const MENU_LIST: MENU_LIST_TYPE[] = [
       },
       {
         id: 2,
-        name: "Packages",
-        path: "/packages",
-        icon: <></>,
-      },
-
-      {
-        id: 5,
-        name: "Finance",
-        path: "/finance",
-        icon: <></>,
-      },
-      {
-        id: 6,
-        name: "Messages",
-        path: "/message",
+        name: "Create",
+        path: CUSTOMER_CREATE_ROUTE,
         icon: <></>,
       },
     ],
@@ -42,7 +34,7 @@ export const MENU_LIST: MENU_LIST_TYPE[] = [
     id: 2,
     name: "Theme",
     path: THEME_ROUTE,
-    icon: <IoIosColorFilter />,
+    icon: <IoIosColorFilter size={15} />,
     expand: false,
     is_sub_menu: false,
     sub_menu: [],

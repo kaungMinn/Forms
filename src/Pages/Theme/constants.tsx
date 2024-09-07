@@ -11,7 +11,12 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
     name: "Default Theme",
     primaryColor: ["bg-primary", "text-default"],
     secondaryColor: ["bg-secondary", "text-default"],
-    dashboardColor: ["bg-default", "text-black", "bg-primary", "text-default"],
+    dashboardColor: [
+      "bg-default",
+      "text-black",
+      "bg-primary_light",
+      "text-default",
+    ],
     navColor: [
       "bg-default",
       "text-black",
@@ -31,7 +36,12 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
     name: "Color Theme",
     primaryColor: ["bg-primary", "text-default"],
     secondaryColor: ["bg-secondary", "text-default"],
-    dashboardColor: ["bg-primary_light", "text-black"],
+    dashboardColor: [
+      "bg-primary_light",
+      "text-white",
+      "bg-default",
+      "text-black",
+    ],
     navColor: [
       "bg-primary",
       "text-default ",

@@ -20,11 +20,14 @@ const SideBar = ({
   handleClickOn: () => void;
   handleChangeOnLogoutBox: () => void;
 }) => {
-  const { navColor, logo } = useAppSelector((state) => state.theme);
+  const { navColor, logo, dashboardColor } = useAppSelector(
+    (state) => state.theme
+  );
+  const [dashboardBg] = dashboardColor;
   const [navBg, navText, selectedBg, selectedText] = navColor;
   return (
     <div
-      className={`absolute left-0 top-0 z-20 h-screen bg-transparent duration-300   ${
+      className={`absolute left-0 top-0 z-20 h-screen  duration-100 ${dashboardBg}   ${
         isOpenSide
           ? "w-2/3 translate-x-0 laptop:w-44"
           : "w-2/3 -translate-x-[95%] laptop:w-16 laptop:translate-x-0"
@@ -33,7 +36,7 @@ const SideBar = ({
       <div
         className={`relative left-0 top-1/2 h-[98%] w-full -translate-y-1/2 rounded-lg border  shadow-md laptop:left-2 ${navBg} ${navText}`}
       >
-        <div className="h-full w-full pt-12">
+        <div className="h-full w-full pt-12 ">
           <div>
             {/* <div>
               <img src={Connector} alt="gpon" className="h-8 w-8 " />
