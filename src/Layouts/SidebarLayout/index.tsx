@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import LogoutProvider from "../../Hooks/LogoutProvider";
 import SideBarProvider from "../../Hooks/SideBarProvider";
-import NavBarLayout from "../NavbarLayout";
+
 import SideBar from "./SideBar";
 import AskBox from "../../Components/ModalBox/AskBox";
 
@@ -11,10 +11,6 @@ const SideBarLayout = () => {
     LogoutProvider();
   return (
     <>
-      <NavBarLayout
-        isOpenSideBar={isOpenSideBar}
-        handleChangeOnSideBar={handleChangeOnSideBar}
-      />
       <div className="relative">
         <SideBar
           isOpenSide={isOpenSideBar}
