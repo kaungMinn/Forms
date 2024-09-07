@@ -104,7 +104,6 @@ const TableBody: React.FC<TABLE_BODY_PROPS_TYPE> = (props) => {
     /**
      * action
      */
-    handleOnClickMap,
   ] = Hook(props);
 
   return (
