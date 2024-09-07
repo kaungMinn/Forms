@@ -35,7 +35,7 @@ const AskBox: React.FC<AskBoxPropType> = ({
 }) => {
   return (
     <React.Fragment>
-      <Box open={isOpen} titleLabel="Hello World">
+      <Box open={isOpen} titleLabel="">
         <div className="space-y-6">
           {/* <RxCross1 className="mx-auto h-auto w-14 text-danger" /> */}
           <RxDragHandleDots1 className="mx-auto h-auto w-14 text-danger" />

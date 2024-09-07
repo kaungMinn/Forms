@@ -77,8 +77,6 @@ export function Hook(props: TABLE_PROPS_TYPE): HookType {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Data]);
 
-  console.log(tableData);
-
   const debounceSearchingData = useMemo(() => {
     return debounce(handleSearching, 1000);
   }, [handleSearching]);
@@ -104,7 +102,7 @@ export function Hook(props: TABLE_PROPS_TYPE): HookType {
     let tmp_headerColumn = tmp_tableData.HeadingColumn;
     const tmp_dataRow = tmp_tableData.DataRow;
 
-    tmp_dataRow.map((row) => (row.isExpand = !row.isExpand));
+    tmp_dataRow.map((row) => (row.isExpand = !tmp_headerColumn.isExpandAll));
     tmp_headerColumn = {
       ...tmp_headerColumn,
       isExpandAll: !tmp_headerColumn.isExpandAll,

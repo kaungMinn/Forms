@@ -1,80 +1,53 @@
+import { useCallback, useEffect, useState } from "react";
 import CustomizedTable from "../../../Components/Table/CustomizedTable";
-
-const headers = [
-  { _id: 1, key: "name", name: "Name" },
-  { _id: 2, key: "age", name: "Age" },
-  { _id: 3, key: "city", name: "City" },
-  { _id: 4, key: "country", name: "Country" },
-  { _id: 5, key: "village", name: "Village" },
-  { _id: 6, key: "school", name: "School" },
-  { _id: 7, key: "university", name: "University" },
-  { _id: 8, key: "position", name: "Position" },
-  { _id: 9, key: "lat", name: "Latitude" },
-  { _id: 10, key: "lng", name: "Longitude" },
-  { _id: 11, key: "package", name: "Package" },
-  { _id: 12, key: "plan", name: "Plan" },
-  { _id: 13, key: "pppoe", name: "PPPoe" },
-];
-const body = [
-  {
-    _id: 1,
-    name: "kaung min khant",
-    age: 22,
-    city: "Yangon",
-    country: "Myanmar",
-    village: "laydaungkan",
-    school: "BEHS.3.Dagon",
-    university: "Dagon University",
-    position: "Programmer",
-    lat: "1.1.1.1",
-    lng: "2.2.2.2",
-    package: "Sweet",
-    plan: "Sweet plan",
-    pppoe: "This is PPPOE",
-  },
-  {
-    _id: 2,
-    name: "min kaung khant",
-    age: 33,
-    city: "",
-    country: "",
-    village: "laydaungkan",
-    school: "BEHS.3.Dagon",
-    university: "Dagon University",
-    position: "Programmer",
-    lat: "1.1.1.1",
-    lng: "2.2.2.2",
-    package: "Sweet",
-    plan: "Sweet plan",
-    pppoe: "This is PPPOE",
-  },
-];
-
-const data = {
-  HeadingColumn: headers,
-  DataRow: body,
-  page: 1,
-  limit: 22,
-  count: 100,
-};
+import { body, headers } from "./constants";
 
 const CustomerList = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dataPerPage, setDataPerPage] = useState(10);
+  const [currentData, setCurrentData] = useState<typeof body>([]);
+
+  // Calculate the indices for slicing the data
+
+  // Change page by number
+  const handleChangeOnPagination = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const dataHandlerForPagination = useCallback(() => {
+    const indexOfLastItem = currentPage * dataPerPage;
+    const indexOfFirstItem = indexOfLastItem - dataPerPage;
+    const currentData = body.slice(indexOfFirstItem, indexOfLastItem);
+    setCurrentData(currentData);
+  }, [currentPage, dataPerPage]);
+
+  useEffect(() => {
+    dataHandlerForPagination();
+  }, [dataHandlerForPagination]);
+
+  const handleChangeOnPageSize = (pageSize: { id: number; value: number }) => {
+    const { value } = pageSize;
+    setDataPerPage(value);
+  };
+
   return (
     <div>
       CustomerList
       <CustomizedTable
         IsLoading={false}
-        Data={data}
-        PageSize={12}
-        PageNumber={1}
+        Data={{
+          HeadingColumn: headers,
+          DataRow: currentData,
+          page: currentPage,
+          limit: dataPerPage,
+          count: body.length,
+        }}
+        PageSize={dataPerPage}
+        PageNumber={currentPage}
         searchedData=""
         settingIconList={<></>}
-        handleOnChangePageSize={() => {
-          "test";
-        }}
-        handleOnChangePagination={() => {
-          "test";
-        }}
+        handleOnChangePageSize={handleChangeOnPageSize}
+        handleOnChangePagination={handleChangeOnPagination}
         handleSearching={() => {
           "test";
         }}

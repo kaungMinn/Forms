@@ -3,19 +3,19 @@ export const FIXED_COLUMN_WIDTH = 210;
 export const ROW_LIMIT = [
   {
     id: 1,
-    value: 25,
+    value: 10,
   },
   {
     id: 2,
-    value: 50,
+    value: 20,
   },
   {
     id: 3,
-    value: 75,
+    value: 30,
   },
   {
     id: 4,
-    value: 100,
+    value: 40,
   },
 ];
 

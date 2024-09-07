@@ -3,6 +3,7 @@ import { TbTrash } from "react-icons/tb";
 import PrimaryButton from "../../../Buttons/PrimaryButton";
 import Box from "../../../ModalBox/Box";
 import SecondaryButton from "../../../Buttons/SecondaryButton";
+import { useState } from "react";
 
 type DeleteBoxType = {
   isShow: boolean;
@@ -26,8 +27,9 @@ const DeleteBox = (props: DeleteBoxType) => {
      */
     handleClose,
     handleRouteConnection,
-    handleDeleteNode,
   } = props;
+
+  const [isShowCase, setIsShowCase] = useState(false);
 
   const icon =
     Number(subNodes) > 0 ? (
@@ -56,10 +58,14 @@ const DeleteBox = (props: DeleteBoxType) => {
     ) : (
       <div className="space-y-1">
         <p className="sub-heading-font text-center font-semibold text-danger">
-          Are you sure to delete this node?
+          {isShowCase
+            ? "You can't really delete it"
+            : " Are you sure to delete?"}
         </p>
         <p className="body-font text-center font-semibold text-base_light">
-          If you delete this node, you can't recover it.
+          {isShowCase
+            ? "It is only for show casing purpose."
+            : "If you delete this node, you can't recover it."}
         </p>
       </div>
     );
@@ -79,7 +85,10 @@ const DeleteBox = (props: DeleteBoxType) => {
         /**
          * action
          */
-        handleClickOn={() => handleDeleteNode()}
+        handleClickOn={() => {
+          setIsShowCase(true);
+          // handleDeleteNode();
+        }}
       />
     );
 
