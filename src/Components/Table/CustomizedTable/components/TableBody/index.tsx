@@ -3,7 +3,7 @@ import React from "react";
 // icons
 import { AiTwotoneEdit } from "react-icons/ai";
 import { BiChevronRight } from "react-icons/bi";
-import { TbMap2, TbTrash } from "react-icons/tb";
+import { TbTrash } from "react-icons/tb";
 
 // components
 import { ExpandDataBoxType, TABLE_BODY_PROPS_TYPE } from "./__type";
@@ -140,19 +140,6 @@ const TableBody: React.FC<TABLE_BODY_PROPS_TYPE> = (props) => {
               )}
             <td>
               <div className="flex items-center justify-center space-x-3">
-                <Tooltip
-                  position="top"
-                  tooltipLabel="This feature is still in development state"
-                >
-                  <TbMap2
-                    className="h-auto w-4 text-base_dark duration-200 laptop:cursor-wait laptop:hover:rotate-12 laptop:group-hover:text-default"
-                    /**
-                     * action
-                     */
-                    onClick={() => handleOnClickMap(col)}
-                  />
-                </Tooltip>
-                <div className="h-6 w-px bg-default_dark bg-opacity-60" />
                 <Tooltip position="top" tooltipLabel="edit node">
                   <AiTwotoneEdit
                     className="h-auto w-4 text-success duration-200 laptop:cursor-pointer laptop:hover:rotate-12 laptop:group-hover:text-default"
