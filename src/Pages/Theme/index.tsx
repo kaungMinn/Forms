@@ -6,7 +6,7 @@ import ThemeCards from "./Components/ThemeCards";
 import { DefaultThemeTypes } from "./_types";
 
 const Theme = () => {
-  const [themes, setThemes] = useState<DefaultThemeTypes[]>(DEFAULT_THEMES);
+  const [themes] = useState<DefaultThemeTypes[]>(DEFAULT_THEMES);
   const { dashboardColor } = useAppSelector((state) => state.theme);
   const [dashboardBg] = dashboardColor;
 

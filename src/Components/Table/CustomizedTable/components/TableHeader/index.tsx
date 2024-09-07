@@ -4,13 +4,12 @@ import React, { useMemo } from "react";
 import { BiChevronsRight, BiSortDown, BiSortUp } from "react-icons/bi";
 
 // components
+import { TABLE_HEADER_PROP_TYPE, COLUMN_HEADER_TYPE } from "./__type";
 import {
   ASCENDING_ORDER,
   DESCENDING_ORDER,
-  SORTING_TYPES,
-} from "Constants/sort_types";
-import { editTableColumnLength } from "Components/Table/CustomizedTable/utils";
-import { TABLE_HEADER_PROP_TYPE, COLUMN_HEADER_TYPE } from "./__type";
+} from "../../../../../Constants/sort_types";
+import { editTableColumnLength } from "../../utils";
 
 type HeaderColumnType = {
   headerData: COLUMN_HEADER_TYPE;

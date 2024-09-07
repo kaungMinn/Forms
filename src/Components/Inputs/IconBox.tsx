@@ -12,7 +12,7 @@ interface propsType {
 
 const CheckBox = ({
   primaryText,
-  secondaryText,
+
   uniqueKey,
   handleCheck,
 }: propsType) => {

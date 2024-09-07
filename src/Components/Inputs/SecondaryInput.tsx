@@ -1,7 +1,4 @@
 import React, { InputHTMLAttributes } from "react";
-import { BiSearchAlt2 } from "react-icons/bi";
-import { BsSearch } from "react-icons/bs";
-
 interface SecondaryInputPropType extends InputHTMLAttributes<HTMLInputElement> {
   type: string;
   id: string;

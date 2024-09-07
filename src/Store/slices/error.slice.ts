@@ -23,7 +23,7 @@ const errorSlice = createSlice({
     },
     setError: (state, action: PayloadAction<DefaultInitialStateType>) => {
       //This is for testing purposes only
-      state = action.payload;
+      Object.assign(state, action.payload);
     },
   },
   extraReducers: () => {

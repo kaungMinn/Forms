@@ -17,8 +17,6 @@ type HookType = [
 export function Hook(props: TABLE_BODY_PROPS_TYPE): HookType {
   const { data, numberOfColumn } = props;
 
-  const navigate = useNavigate();
-
   const dataList: any = useMemo(() => {
     const rowList = data.map((d: TABLE_BODY_ROW) => {
       d = {
@@ -36,6 +34,7 @@ export function Hook(props: TABLE_BODY_PROPS_TYPE): HookType {
   }, [data, numberOfColumn]);
 
   const handleOnClickMap = (cols: TABLE_BODY_ROW) => {
+    cols;
     // const tmpJoinedList = cols.invisibleCols.concat(cols.visibleCols);
     // const lat: number | string =
     //   tmpJoinedList.filter((list) => list.key === "Latitude")[0].value || 0;
