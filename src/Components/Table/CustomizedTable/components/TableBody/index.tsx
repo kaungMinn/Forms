@@ -138,7 +138,7 @@ const TableBody: React.FC<TABLE_BODY_PROPS_TYPE> = (props) => {
                   )
               )}
             <td>
-              <div className="flex items-center justify-center space-x-3">
+              <div className="flex items-center justify-center space-x-3 px-2">
                 <Tooltip position="top" tooltipLabel="edit node">
                   <AiTwotoneEdit
                     className="h-auto w-4 text-success duration-200 laptop:cursor-pointer laptop:hover:rotate-12 laptop:group-hover:text-default"
