@@ -1,0 +1,168 @@
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import _ from "lodash";
+
+// icons
+import { BsChevronRight } from "react-icons/bs";
+import { BiLogOut } from "react-icons/bi";
+import { MENU_LIST_PROPS_TYPE, MENU_LIST_TYPE, SUB_MENU_TYPE } from "../type";
+
+// components
+
+export const MenuItem = ({
+  menu,
+  currentPathName,
+  isOpenSide,
+  colors,
+}: {
+  menu: MENU_LIST_TYPE | SUB_MENU_TYPE;
+  currentPathName: string;
+  isOpenSide?: boolean;
+  colors: string[];
+}) => {
+  const [bgColor, textColor, selectedBg, selectedText, hoverBg, hoverText] =
+    colors;
+  return (
+    <Link
+      to={menu.path}
+      key={menu.id}
+      className={`${
+        currentPathName === menu.path
+          ? `${selectedBg} ${selectedText}`
+          : `${bgColor}  ${textColor} ${hoverBg} ${hoverText}  `
+      } flex items-center space-x-2 rounded-md px-2.5 py-2`}
+    >
+      <div className={`w-[16px] min-w-[16px]  `}>{menu.icon}</div>
+      <p
+        className={` ${
+          !isOpenSide && "hidden"
+        } secondary-font truncate font-medium`}
+      >
+        {menu.name}
+      </p>
+    </Link>
+  );
+};
+
+const MenuList: React.FC<MENU_LIST_PROPS_TYPE> = ({
+  list,
+  isOpenSide,
+  /**
+   * action
+   */
+  handleChangeOnLogoutBox,
+  handleClickOn,
+  colors,
+}) => {
+  const location = useLocation();
+
+  const { pathname } = location;
+
+  const [menuList, setMenuList] = useState<MENU_LIST_TYPE[]>(list);
+  const [navBg, textColor] = colors;
+
+  const clickOnExpandMenu = (menuId: number, value?: boolean) => {
+    const tmpList = _.cloneDeep(menuList);
+    const newList = tmpList.map((menu) => {
+      if (menu.id === menuId) {
+        return { ...menu, expand: value || !menu.expand };
+      }
+      return menu;
+    });
+    setMenuList(newList);
+  };
+
+  return (
+    <>
+      {menuList.length > 0 &&
+        menuList.map((menu) => (
+          <React.Fragment key={menu.id}>
+            {menu.is_sub_menu ? (
+              <div
+                key={menu.id}
+                className={`space-y-3 ${navBg} ${
+                  menu.expand ? "text-base_light" : "text-base_dark"
+                }`}
+              >
+                <div
+                  className="flex items-center justify-between px-3 laptop:hover:cursor-pointer"
+                  /**
+                   * action
+                   */
+                  onClick={() => {
+                    clickOnExpandMenu(menu.id);
+                    if (!isOpenSide) {
+                      handleClickOn();
+                      clickOnExpandMenu(menu.id, true);
+                    }
+                  }}
+                >
+                  <div className={`flex space-x-2  ${textColor}`}>
+                    {menu.icon}
+                    <p
+                      className={`secondary-font truncate  font-medium ${
+                        !isOpenSide && "hidden"
+                      }`}
+                    >
+                      {menu.name}
+                    </p>
+                  </div>
+                  <BsChevronRight
+                    className={`h-auto w-3.5 duration-200 ${textColor} ${
+                      menu.expand ? "rotate-90" : "rotate-0"
+                    }`}
+                  />
+                </div>
+                {menu.sub_menu && menu.expand && isOpenSide && (
+                  <div className="space-y-3 ">
+                    {menu.sub_menu.map((sub) => (
+                      <div key={sub.id} className="">
+                        <MenuItem
+                          menu={sub}
+                          currentPathName={pathname}
+                          isOpenSide={isOpenSide}
+                          colors={colors}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <MenuItem
+                key={menu.id}
+                menu={menu}
+                currentPathName={pathname}
+                isOpenSide={isOpenSide}
+                colors={colors}
+              />
+            )}
+          </React.Fragment>
+        ))}
+      <div className="absolute bottom-0 left-0 h-auto w-full">
+        <div className="mx-3 border-t border-default_dark py-2">
+          <div
+            className={`flex items-center space-x-2 rounded-md px-2.5 py-2 text-base_dark laptop:hover:cursor-pointer laptop:hover:bg-default_light laptop:hover:text-base_light ${textColor}`}
+            /**
+             * action
+             */
+            onClick={() => handleChangeOnLogoutBox()}
+          >
+            <div className="w-[20px] min-w-[20px]">
+              <BiLogOut className="h-auto w-4" />
+            </div>
+            <p
+              className={`secondary-font  ${
+                !isOpenSide && "scale-0"
+              } duration-100`}
+            >
+              Logout
+            </p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default MenuList;

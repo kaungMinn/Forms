@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Outfit&display=swap");
-
 /* Customized scrollbar */
 ::-webkit-scrollbar {
   width: 16px;
@@ -98,22 +96,22 @@ input:focus ~ label {
   }
 
   .heading-font {
-    @apply font-Outfit text-[26px] leading-[25px] tracking-[.15px] antialiased tablet:text-[30px];
+    @apply text-[26px] leading-[25px] tracking-[.15px] antialiased tablet:text-[30px];
   }
 
   .sub-heading-font {
-    @apply font-Outfit text-lg leading-[25px] tracking-[.15px] antialiased;
+    @apply text-lg leading-[25px] tracking-[.15px] antialiased;
   }
 
   .body-font {
-    @apply font-Outfit text-base antialiased laptop:text-sm;
+    @apply text-base antialiased laptop:text-sm;
   }
 
   .secondary-font {
-    @apply font-Outfit text-[0.8rem] antialiased;
+    @apply text-[0.8rem] antialiased;
   }
 
   .caption-font {
-    @apply font-Outfit text-sm antialiased laptop:text-xs;
+    @apply text-sm antialiased laptop:text-xs;
   }
 }

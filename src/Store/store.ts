@@ -1,9 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import getSlice from "./slices/get.slice";
+
+import errorSlice from "./slices/error.slice";
+import themeSlice from "./slices/theme.slice";
+import listSlice from "./slices/list.slice";
 
 const store = configureStore({
   reducer: {
-    get: getSlice.reducer,
+    list: listSlice.reducer,
+    error: errorSlice.reducer,
+    theme: themeSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
