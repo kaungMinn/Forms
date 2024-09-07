@@ -3,7 +3,7 @@ import React from "react";
 // icons
 import { AiTwotoneEdit } from "react-icons/ai";
 import { BiChevronRight } from "react-icons/bi";
-import { TbMap2, TbTrash, TbTrashOff } from "react-icons/tb";
+import { TbMap2, TbTrash } from "react-icons/tb";
 
 // components
 import { ExpandDataBoxType, TABLE_BODY_PROPS_TYPE } from "./__type";
