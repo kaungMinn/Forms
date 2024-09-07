@@ -1,5 +1,4 @@
 import Mukta from "../../assets/fonts/Mukta-Regular.ttf";
-import Tektur from "../../assets/fonts/Lato-Regular.ttf";
 
 import { SiGoogleearth } from "react-icons/si";
 import { DefaultThemeTypes } from "./_types";
@@ -42,7 +41,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "hover:text-black",
     ],
     description: "Welcome to the default theme",
-    font: Tektur,
+    font: Mukta,
     websiteLink: "www.google.com",
   },
 ];

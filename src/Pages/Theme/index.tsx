@@ -23,7 +23,7 @@ const Theme = () => {
         <p className="caption-font">Manage your themes</p>
       </h1>
       <div
-        className={`grid grid-cols-2 laptop:grid-cols-6 gap-x-5 mt-10 rounded-md p-5 shadow-md ${dashboardBg}`}
+        className={`grid  laptop:grid-cols-6 gap-x-5 mt-10 rounded-md p-5 shadow-md ${dashboardBg}`}
       >
         <ThemeCards
           themes={themes}
