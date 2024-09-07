@@ -17,13 +17,13 @@ const Theme = () => {
     dispatch(setTheme(theme));
   };
   return (
-    <div className="px-5 py-5 h-[98%]">
+    <>
       <h1 className="heading-font">
         <p>Themes</p>
         <p className="caption-font">Manage your themes</p>
       </h1>
       <div
-        className={`grid grid-cols-6 gap-x-5 mt-10 rounded-md p-5 shadow-md ${dashboardBg}`}
+        className={`grid grid-cols-2 laptop:grid-cols-6 gap-x-5 mt-10 rounded-md p-5 shadow-md ${dashboardBg}`}
       >
         <ThemeCards
           themes={themes}
@@ -32,7 +32,7 @@ const Theme = () => {
           selectedCardId={id}
         />
       </div>
-    </div>
+    </>
   );
 };
 
