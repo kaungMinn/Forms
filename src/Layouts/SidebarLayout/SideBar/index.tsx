@@ -21,7 +21,7 @@ const SideBar = ({
   handleChangeOnLogoutBox: () => void;
 }) => {
   const { navColor, logo } = useAppSelector((state) => state.theme);
-  const [navBg, navText] = navColor;
+  const [navBg, navText, selectedBg, selectedText] = navColor;
   return (
     <div
       className={`absolute left-0 top-0 z-20 h-screen bg-transparent duration-300   ${
@@ -67,7 +67,7 @@ const SideBar = ({
         <div
           className={`${
             !isOpenSide && "rotate-180"
-          } group absolute bottom-16 right-0  h-8 w-8 translate-x-3 items-center justify-center rounded-full  duration-300 laptop:flex laptop:hover:cursor-pointer`}
+          } group absolute bottom-16 right-0  h-8 w-8 translate-x-3 items-center justify-center rounded-full  duration-300 flex laptop:hover:cursor-pointer border ${selectedBg} ${selectedText}`}
           onClick={handleClickOn}
         >
           <HiOutlineChevronDoubleLeft className="h-auto w-4 duration-200 group-hover:-translate-x-1" />
