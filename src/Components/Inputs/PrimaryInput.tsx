@@ -71,9 +71,9 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
           value={value}
           required={isRequired}
           disabled={isDisabled}
-          className={`placeholder:caption-font secondary-font h-auto w-full rounded-md border border-default_dark border-opacity-60 bg-transparent pl-4 pr-6 text-base_light shadow-sm placeholder:font-medium ${
+          className={`placeholder:caption-font secondary-font h-auto w-full rounded-md border border-default_dark border-opacity-60 bg-transparent pl-4 pr-6  shadow-sm placeholder:font-medium ${
             backIcon && "pr-12"
-          } outline-none duration-300  focus:shadow-sm ${placeHolderColor} ${
+          } outline-none duration-300  focus:shadow-sm ${textColor} ${placeHolderColor} ${
             errorMessage
               ? "focus:border-danger focus:shadow-danger"
               : `${focusBorder} ${focusShadow}`

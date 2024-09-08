@@ -108,8 +108,9 @@ const TableBody: React.FC<TABLE_BODY_PROPS_TYPE> = (props) => {
   ] = Hook(props);
   const { tableColor, primaryColor } = theme;
   const [odd, even, hover] = tableColor;
-  const [primaryBg, primaryText, selectedBg, selectedText] = primaryColor;
 
+  const selectedBg = primaryColor[2];
+  const selectedText = primaryColor[3];
   return (
     <tbody>
       {dataList.map((col: any, index: any) => (
