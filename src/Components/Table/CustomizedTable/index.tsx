@@ -137,6 +137,7 @@ const CustomizedTable: React.FC<TABLE_PROPS_TYPE> = (props) => {
                * action
                */
               onPageChange={handleOnChangePagination}
+              theme={theme}
             />
           </div>
         ) : (

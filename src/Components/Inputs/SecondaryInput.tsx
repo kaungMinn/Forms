@@ -38,7 +38,7 @@ const SecondaryInput: React.FC<SecondaryInputPropType> = ({
   handleChangeOnInput,
 }: SecondaryInputPropType) => {
   const { inputColor } = theme;
-  const [placeHolderTextColor, inputText, focusBorder, focusShadow] =
+  const [placeHolderTextColor, inputText, focusBorder, focusShadow, borderColor] =
     inputColor;
 
   return (
@@ -51,13 +51,11 @@ const SecondaryInput: React.FC<SecondaryInputPropType> = ({
         value={value}
         required={isRequired}
         disabled={isDisabled}
-        className={`placeholder:caption-font bg-transparent secondary-font peer h-auto w-full rounded-none border-b border-default_dark  py-2 pl-8 focus:pl-2  ${
-          backIcon ? "pr-10" : "pr-6"
-        } text-base_light outline-none duration-300 placeholder:font-medium  focus:border-primary ${placeHolderTextColor} ${
-          errorMessage
+        className={`placeholder:caption-font bg-transparent secondary-font peer h-auto w-full rounded-none border-b   py-2 pl-8 focus:pl-2 ${borderColor}  ${backIcon ? "pr-10" : "pr-6"
+          } text-base_light outline-none duration-300 placeholder:font-medium  focus:border-primary ${placeHolderTextColor} ${errorMessage
             ? "focus:border-danger focus:shadow-danger"
             : `${focusShadow} ${focusBorder}`
-        }`}
+          }`}
         placeholder={placeHolderText}
         /**
          * action

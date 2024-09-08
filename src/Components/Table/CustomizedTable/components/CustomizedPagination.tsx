@@ -3,6 +3,7 @@ import React from "react";
 // icons
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { DOTS, usePagination } from "../Hooks/usePagination";
+import { DefaultThemeTypes } from "../../../../Pages/Theme/_types";
 
 // components
 
@@ -13,6 +14,7 @@ const CustomizedPagination = ({
   siblingCount = 3,
   currentPage,
   pageSize,
+  theme,
 
   /**
    * action
@@ -25,6 +27,7 @@ const CustomizedPagination = ({
   siblingCount?: number;
   currentPage: number;
   pageSize: number;
+  theme: DefaultThemeTypes
   /**
    * action
    */
@@ -50,6 +53,9 @@ const CustomizedPagination = ({
 
   const lastPage = paginationRange[paginationRange.length - 1];
 
+  const { primaryColor } = theme;
+  const [primaryBg, primaryText, selectedBg, selectedText, hoverBg, hoverText] = primaryColor;
+
   return (
     <div className=" grid grid-cols-2 gap-y-3 pt-3 laptop:grid-cols-3 laptop:pt-0">
       <div className="order-2 col-span-1 laptop:order-none  laptop:col-span-1">
@@ -65,11 +71,10 @@ const CustomizedPagination = ({
           {/* Left navigation arrow */}
           <button
             type="button"
-            className={`flex h-8 w-8 items-center  justify-center rounded-full duration-200 laptop:h-6 laptop:w-6 ${
-              currentPage === 1
-                ? "border bg-transparent text-default_dark"
-                : "border bg-transparent text-base_light laptop:cursor-pointer laptop:hover:border-base_light laptop:hover:text-base_light laptop:hover:shadow-sm"
-            }`}
+            className={`flex h-8 w-8 items-center  justify-center rounded-full duration-200 laptop:h-6 laptop:w-6 ${currentPage === 1
+              ? `border ${selectedBg} ${selectedText}`
+              : `border ${primaryBg} ${primaryText} ${hoverBg} ${hoverText}`
+              }`}
             disabled={currentPage === 1}
             /**
              * action
@@ -86,11 +91,10 @@ const CustomizedPagination = ({
               return (
                 <div
                   key={pageNumber}
-                  className={`flex h-8 w-8 items-center  justify-center rounded-full duration-200 laptop:h-6 laptop:w-6 laptop:cursor-pointer ${
-                    currentPage === pageNumber
-                      ? "bg-primary text-white"
-                      : "bg-transparent text-primary laptop:hover:bg-primary_light laptop:hover:shadow-md"
-                  }`}
+                  className={`flex h-8 w-8 items-center  justify-center rounded-full duration-200 laptop:h-6 laptop:w-6 laptop:cursor-pointer ${currentPage === pageNumber
+                    ? `border ${selectedBg} ${selectedText}`
+                    : `border  ${primaryBg} ${primaryText} ${hoverBg} ${hoverText}`
+                    }`}
                   /**
                    * action
                    */
@@ -104,11 +108,10 @@ const CustomizedPagination = ({
           {/* Right navigation arrow */}
           <button
             type="button"
-            className={`flex h-8 w-8 items-center  justify-center rounded-full duration-200 laptop:h-6 laptop:w-6 laptop:cursor-pointer ${
-              currentPage === lastPage
-                ? "border bg-transparent text-default_dark"
-                : "border bg-transparent text-base_light laptop:cursor-pointer laptop:hover:border-base_light laptop:hover:text-base_light laptop:hover:shadow-sm"
-            }`}
+            className={`flex h-8 w-8 items-center  justify-center rounded-full duration-200 laptop:h-6 laptop:w-6 laptop:cursor-pointer ${currentPage === lastPage
+              ? `"border ${selectedBg} ${selectedText}`
+              : `border ${primaryBg} ${primaryText} ${hoverBg} ${hoverText}`
+              }`}
             disabled={currentPage === lastPage}
             /**
              * action

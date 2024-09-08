@@ -14,6 +14,8 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "text-base_light",
       "bg-primary",
       "text-default",
+      "laptop:hover:bg-primary",
+      "laptop:hover:text-default"
     ],
     secondaryColor: ["bg-secondary", "text-default"],
     dashboardColor: [
@@ -21,6 +23,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "text-black",
       "bg-primary_light",
       "text-default",
+
     ],
     navColor: [
       "bg-default",
@@ -38,8 +41,9 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
     inputColor: [
       "placeholder:text-slate-400",
       " text-base_light",
-      "focus:border-primary_dark",
-      "focus:shadow-primary_dark",
+      "focus:border-primary",
+      "focus:shadow-primary",
+      "border:default_dark"
     ],
 
     description: "Welcome to the default theme",
@@ -54,12 +58,14 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
     primaryColor: [
       "bg-primary",
       "text-default",
-      "bg-default_light",
+      "bg-primary_light",
       "text-primary",
+      "laptop:hover:bg-default_light",
+      "laptop:hover:text-primary"
     ],
     secondaryColor: ["bg-secondary", "text-default"],
     dashboardColor: [
-      "bg-purple-300",
+      "bg-primary_dark",
       "text-default_light",
       "bg-default",
       "text-black",
@@ -73,15 +79,16 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "hover:text-black",
     ],
     tableColor: [
-      "odd:bg-primary_light",
-      " even:bg-default_light",
+      "odd:bg-default_light",
+      "even:bg-primary_light",
       "laptop:hover:bg-primary_dark",
     ],
     inputColor: [
       "placeholder:text-default_light",
-      "text-base_light ",
-      "focus:border-primary",
-      "focus:shadow-primary",
+      "text-default_light ",
+      "focus:border-default_light",
+      "focus:shadow-default_light",
+      "border:default_light"
     ],
     description: "Welcome to the default theme",
     font: Mukta,
