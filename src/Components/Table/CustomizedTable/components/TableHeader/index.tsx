@@ -34,7 +34,9 @@ export const HeaderColumn: React.FC<HeaderColumnType> = (
   } = props;
 
   const { primaryColor } = theme;
-  const [primaryBg, primaryText] = primaryColor;
+
+  const selectedBg = primaryColor[2];
+  const selectedText = primaryColor[3];
 
   const SortIcon = () => {
     if (headerData.sortType === DESCENDING_ORDER) {
@@ -59,7 +61,7 @@ export const HeaderColumn: React.FC<HeaderColumnType> = (
   if (headerData.hidden) return null;
 
   return (
-    <th className={` px-2 py-4  ${primaryBg} ${primaryText}`}>
+    <th className={` px-2 py-4  ${selectedBg} ${selectedText}`}>
       <div className="flex justify-center space-x-1">
         <p className="caption-font text-center font-semibold">
           {headerData.name}
@@ -118,7 +120,7 @@ const TableHeader: React.FC<TABLE_HEADER_PROP_TYPE> = (props) => {
               theme={theme}
             />
           ))}
-          <th className={`px-2 rounded-tr-md  ${primaryBg} ${primaryText}`}>
+          <th className={`px-2 rounded-tr-md  ${selectedBg} ${selectedText}`}>
             <p className="caption-font text-center ">Action</p>
           </th>
         </tr>

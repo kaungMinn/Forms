@@ -59,8 +59,8 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
     ],
     secondaryColor: ["bg-secondary", "text-default"],
     dashboardColor: [
-      "bg-primary_light",
-      "text-black",
+      "bg-purple-300",
+      "text-default_light",
       "bg-default",
       "text-black",
     ],
@@ -78,7 +78,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "laptop:hover:bg-primary_dark",
     ],
     inputColor: [
-      "placeholder:text-default_dark",
+      "placeholder:text-default_light",
       "text-base_light ",
       "focus:border-primary",
       "focus:shadow-primary",
