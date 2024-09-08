@@ -7,10 +7,10 @@ import { DefaultThemeTypes } from "./_types";
 
 const Theme = () => {
   const [themes] = useState<DefaultThemeTypes[]>(DEFAULT_THEMES);
-  const { dashboardColor } = useAppSelector((state) => state.theme);
 
   const dispatch = useAppDispatch();
   const { id, primaryColor } = useAppSelector((state) => state.theme);
+  const [primaryBg] = primaryColor;
 
   const handleTheme = (theme: DefaultThemeTypes) => {
     dispatch(setTheme(theme));
@@ -22,7 +22,7 @@ const Theme = () => {
         <p className="caption-font">Manage your themes</p>
       </h1>
       <div
-        className={`grid  laptop:grid-cols-6  gap-5 mt-10 rounded-md p-5 shadow-md ${dashboardColor[2]}`}
+        className={`grid  laptop:grid-cols-6  gap-5 mt-10 rounded-md p-5 shadow-md ${primaryBg}`}
       >
         <ThemeCards
           themes={themes}

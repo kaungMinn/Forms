@@ -35,7 +35,12 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "even:bg-default_light",
       "laptop:hover:bg-primary",
     ],
-    inputColor: [""],
+    inputColor: [
+      "placeholder:text-slate-400",
+      " text-base_light",
+      "focus:border-primary_dark",
+      "focus:shadow-primary_dark",
+    ],
 
     description: "Welcome to the default theme",
     font: Mukta,
@@ -55,7 +60,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
     secondaryColor: ["bg-secondary", "text-default"],
     dashboardColor: [
       "bg-primary_light",
-      "text-white",
+      "text-black",
       "bg-default",
       "text-black",
     ],
@@ -72,7 +77,12 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       " even:bg-default_light",
       "laptop:hover:bg-primary_dark",
     ],
-    inputColor: [""],
+    inputColor: [
+      "placeholder:text-default_dark",
+      "text-base_light ",
+      "focus:border-primary",
+      "focus:shadow-primary",
+    ],
     description: "Welcome to the default theme",
     font: Mukta,
     websiteLink: "www.google.com",

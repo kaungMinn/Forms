@@ -10,7 +10,6 @@ type ThemeCardsType = {
 
 const ThemeCards = (props: ThemeCardsType) => {
   const { themes, handleTheme, selectedCardId, primaryColor } = props;
-  const [primaryBg, primaryText] = primaryColor;
 
   const isSelected = (id: number) => {
     if (selectedCardId === id) return true;
@@ -27,8 +26,8 @@ const ThemeCards = (props: ThemeCardsType) => {
               label={name}
               logo={detailLogo}
               handleClick={() => handleTheme(theme)}
-              bgColor={isSelected(id) ? primaryBg : ""}
-              textColor={isSelected(id) ? primaryText : ""}
+              bgColor={isSelected(id) ? primaryColor[2] : ""}
+              textColor={isSelected(id) ? primaryColor[3] : ""}
             />
           </div>
         );

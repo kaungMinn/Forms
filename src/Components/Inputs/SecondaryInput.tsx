@@ -1,4 +1,5 @@
 import React, { InputHTMLAttributes } from "react";
+import { DefaultThemeTypes } from "../../Pages/Theme/_types";
 interface SecondaryInputPropType extends InputHTMLAttributes<HTMLInputElement> {
   type: string;
   id: string;
@@ -11,6 +12,7 @@ interface SecondaryInputPropType extends InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
   frontIcon?: React.ReactNode;
   backIcon?: React.ReactNode;
+  theme: DefaultThemeTypes;
   /**
    * action
    */
@@ -29,11 +31,16 @@ const SecondaryInput: React.FC<SecondaryInputPropType> = ({
   errorMessage,
   frontIcon,
   backIcon,
+  theme,
   /**
    * action
    */
   handleChangeOnInput,
 }: SecondaryInputPropType) => {
+  const { inputColor } = theme;
+  const [placeHolderTextColor, inputText, focusBorder, focusShadow] =
+    inputColor;
+
   return (
     <div className="relative space-y-1">
       <input
@@ -46,10 +53,10 @@ const SecondaryInput: React.FC<SecondaryInputPropType> = ({
         disabled={isDisabled}
         className={`placeholder:caption-font bg-transparent secondary-font peer h-auto w-full rounded-none border-b border-default_dark  py-2 pl-8 focus:pl-2  ${
           backIcon ? "pr-10" : "pr-6"
-        } text-base_light outline-none duration-300 placeholder:font-medium placeholder:text-slate-400 focus:border-primary ${
+        } text-base_light outline-none duration-300 placeholder:font-medium  focus:border-primary ${placeHolderTextColor} ${
           errorMessage
             ? "focus:border-danger focus:shadow-danger"
-            : "focus:border-primary  focus:shadow-primary"
+            : `${focusShadow} ${focusBorder}`
         }`}
         placeholder={placeHolderText}
         /**
@@ -63,12 +70,14 @@ const SecondaryInput: React.FC<SecondaryInputPropType> = ({
         </p>
       )}
       {frontIcon && (
-        <div className="absolute left-2 top-2 duration-100 peer-focus:scale-0">
+        <div
+          className={`absolute left-2 top-2 duration-100 peer-focus:scale-0 ${inputText}`}
+        >
           {frontIcon}
         </div>
       )}
       {backIcon && (
-        <div className="absolute right-4 top-1.5 cursor-pointer">
+        <div className={`absolute right-4 top-1.5 cursor-pointer ${inputText}`}>
           {backIcon}
         </div>
       )}

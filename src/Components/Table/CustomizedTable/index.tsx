@@ -75,6 +75,7 @@ const CustomizedTable: React.FC<TABLE_PROPS_TYPE> = (props) => {
                 )
               }
               handleChangeOnInput={handleOnChangeSearch}
+              theme={theme}
             />
           </div>
           <div className="laptop:basis-2/5">

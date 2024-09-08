@@ -1,10 +1,10 @@
 import React, { InputHTMLAttributes } from "react";
+import { DefaultThemeTypes } from "../../Pages/Theme/_types";
 
 interface PrimaryInputPropType extends InputHTMLAttributes<HTMLInputElement> {
   labelText?: string;
   labelIcon?: React.ReactNode;
   type: string;
-  id: string;
   name: string;
   inputRef?: React.ForwardedRef<HTMLInputElement>;
   value: any;
@@ -13,6 +13,7 @@ interface PrimaryInputPropType extends InputHTMLAttributes<HTMLInputElement> {
   isDisabled?: boolean;
   backIcon?: React.ReactNode;
   errorMessage?: string;
+  theme: DefaultThemeTypes;
   /**
    * action
    */
@@ -22,18 +23,18 @@ interface PrimaryInputPropType extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const PrimaryInput: React.FC<PrimaryInputPropType> = ({
-  labelText,
+  labelText = "",
   labelIcon,
-  type,
-  id,
-  name,
-  inputRef,
-  value,
-  placeHolderText,
+  type = "text",
+  name = "",
+  inputRef = null,
+  value = "",
+  placeHolderText = "",
   isRequired = false,
   isDisabled = false,
   backIcon,
-  errorMessage,
+  errorMessage = "",
+  theme,
   /**
    * action
    */
@@ -42,6 +43,9 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
   handleClickOnIcon,
   handleInputBlur,
 }: PrimaryInputPropType) => {
+  const { inputColor } = theme;
+  const [placeHolderColor, textColor, focusBorder, focusShadow] = inputColor;
+
   return (
     <div className="z-0 grid grid-cols-3 gap-y-1 tablet:gap-x-4 tablet:gap-y-0">
       {labelText && (
@@ -62,7 +66,6 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
       >
         <input
           type={type}
-          id={id}
           name={name}
           ref={inputRef}
           value={value}
@@ -70,10 +73,10 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
           disabled={isDisabled}
           className={`placeholder:caption-font secondary-font h-auto w-full rounded-md border border-default_dark border-opacity-60 bg-transparent pl-4 pr-6 text-base_light shadow-sm placeholder:font-medium ${
             backIcon && "pr-12"
-          } outline-none duration-300 placeholder:text-slate-400 focus:shadow-sm  ${
+          } outline-none duration-300  focus:shadow-sm ${placeHolderColor} ${
             errorMessage
               ? "focus:border-danger focus:shadow-danger"
-              : "focus:border-primary  focus:shadow-primary"
+              : `${focusBorder} ${focusShadow}`
           } py-1.5`}
           placeholder={placeHolderText}
           onBlur={handleInputBlur}
@@ -106,19 +109,6 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
       )}
     </div>
   );
-};
-
-PrimaryInput.defaultProps = {
-  labelText: "",
-  type: "text",
-  id: "",
-  name: "",
-  inputRef: null,
-  value: "",
-  placeHolderText: "",
-  isRequired: false,
-  isDisabled: false,
-  errorMessage: "",
 };
 
 export default PrimaryInput;
