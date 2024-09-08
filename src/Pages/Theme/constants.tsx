@@ -9,10 +9,15 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
     logo: <SiGoogleearth size={60} />,
     detailLogo: <SiGoogleearth size={60} />,
     name: "Default Theme",
-    primaryColor: ["bg-primary", "text-default"],
+    primaryColor: [
+      "bg-default",
+      "text-base_light",
+      "bg-primary",
+      "text-default",
+    ],
     secondaryColor: ["bg-secondary", "text-default"],
     dashboardColor: [
-      "bg-default",
+      "bg-default_light",
       "text-black",
       "bg-primary_light",
       "text-default",
@@ -25,6 +30,13 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "laptop:hover:bg-default_light",
       "hover:text-black",
     ],
+    tableColor: [
+      "odd:bg-default",
+      "even:bg-default_light",
+      "laptop:hover:bg-primary",
+    ],
+    inputColor: [""],
+
     description: "Welcome to the default theme",
     font: Mukta,
     websiteLink: "www.google.com",
@@ -34,7 +46,12 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
     logo: <HiColorSwatch size={60} />,
     detailLogo: <HiColorSwatch size={60} />,
     name: "Color Theme",
-    primaryColor: ["bg-primary", "text-default"],
+    primaryColor: [
+      "bg-primary",
+      "text-default",
+      "bg-default_light",
+      "text-primary",
+    ],
     secondaryColor: ["bg-secondary", "text-default"],
     dashboardColor: [
       "bg-primary_light",
@@ -50,6 +67,12 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "laptop:hover:bg-default_light",
       "hover:text-black",
     ],
+    tableColor: [
+      "odd:bg-primary_light",
+      " even:bg-default_light",
+      "laptop:hover:bg-primary_dark",
+    ],
+    inputColor: [""],
     description: "Welcome to the default theme",
     font: Mukta,
     websiteLink: "www.google.com",

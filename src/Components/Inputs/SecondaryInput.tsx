@@ -44,7 +44,7 @@ const SecondaryInput: React.FC<SecondaryInputPropType> = ({
         value={value}
         required={isRequired}
         disabled={isDisabled}
-        className={`placeholder:caption-font secondary-font peer h-auto w-full rounded-none border-b border-default_dark  py-2 pl-8 focus:pl-2  ${
+        className={`placeholder:caption-font bg-transparent secondary-font peer h-auto w-full rounded-none border-b border-default_dark  py-2 pl-8 focus:pl-2  ${
           backIcon ? "pr-10" : "pr-6"
         } text-base_light outline-none duration-300 placeholder:font-medium placeholder:text-slate-400 focus:border-primary ${
           errorMessage

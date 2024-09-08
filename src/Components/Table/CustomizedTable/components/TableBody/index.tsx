@@ -97,6 +97,7 @@ const TableBody: React.FC<TABLE_BODY_PROPS_TYPE> = (props) => {
     handleClickOnArrow,
     handleClickOnUpdate,
     handleClickOnDelete,
+    theme,
   } = props;
 
   const [
@@ -105,17 +106,22 @@ const TableBody: React.FC<TABLE_BODY_PROPS_TYPE> = (props) => {
      * action
      */
   ] = Hook(props);
+  const { tableColor, primaryColor } = theme;
+  const [odd, even, hover] = tableColor;
+  const [primaryBg, primaryText, selectedBg, selectedText] = primaryColor;
 
   return (
     <tbody>
       {dataList.map((col: any, index: any) => (
         <React.Fragment key={index}>
-          <tr className="group border-b border-default_light  duration-200 odd:bg-default even:bg-default_light laptop:hover:bg-primary">
-            <td>
+          <tr
+            className={`group border-b border-default_light  duration-200 odd:bg-default even:bg-default_light  ${odd} ${even} ${hover}`}
+          >
+            <td className={`  border-gray-500 ${selectedBg} ${selectedText}`}>
               <BiChevronRight
-                className={`mx-auto h-auto w-5 cursor-pointer text-base_light laptop:group-hover:text-default ${
+                className={`mx-auto h-auto w-5 cursor-pointer   ${
                   col.isExpand ? "rotate-90" : "rotate-0"
-                } duration-200`}
+                } duration-200 `}
                 /**
                  * action
                  */

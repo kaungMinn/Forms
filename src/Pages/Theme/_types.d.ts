@@ -9,6 +9,8 @@ export type DefaultThemeTypes = {
   secondaryColor: string[];
   dashboardColor: string[];
   navColor: string[];
+  tableColor: string[];
+  inputColor: string[];
   description: string;
   font: string;
   websiteLink: string;

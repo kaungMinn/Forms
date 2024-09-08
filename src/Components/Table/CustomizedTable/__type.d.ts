@@ -2,6 +2,7 @@ import { UPDATED_HEADER_TYPE } from "./components/TableHeader/__type";
 import { TABLE_BODY_ROW } from "./components/TableBody/__type";
 import { AxiosError } from "axios";
 import { ErrorResponseType } from "Types/list";
+import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
 
 export type TABLE_PROPS_TYPE = {
   IsLoading: boolean;
@@ -25,6 +26,7 @@ export type TABLE_PROPS_TYPE = {
   handleUpdateModal: (id: string) => void;
   handleOnRouteConnection: (nodeId: string | number | boolean) => void;
   handleOnDelete: (nodeId: string | number | boolean) => void;
+  theme: DefaultThemeTypes;
 };
 
 export interface UPDATE_TABLE_DATA_MODAL {

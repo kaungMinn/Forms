@@ -50,6 +50,7 @@ const CustomizedTable: React.FC<TABLE_PROPS_TYPE> = (props) => {
     handleOnChangePagination,
     handleUpdateModal,
     handleOnRouteConnection,
+    theme,
   } = props;
 
   const { numberOfColumn } = useWindowResize();
@@ -90,7 +91,7 @@ const CustomizedTable: React.FC<TABLE_PROPS_TYPE> = (props) => {
         ) : !!tableData.DataRow.length &&
           !!tableData.HeadingColumn.list.length ? (
           <div className="h-auto w-full space-y-2">
-            <table className="h-auto w-full table-auto border-collapse overflow-x-hidden border shadow-sm">
+            <table className="h-auto w-full table-auto border-collapse overflow-x-hidden shadow">
               <TableHeader
                 isExpandAll={tableData.HeadingColumn.isExpandAll}
                 data={tableData.HeadingColumn.list}
@@ -100,6 +101,7 @@ const CustomizedTable: React.FC<TABLE_PROPS_TYPE> = (props) => {
                  */
                 handleClickOnAllExpand={handleOnClickAllExpand}
                 handleChangeOnSort={handleOnChangeSorting}
+                theme={theme}
               />
 
               <TableBody
@@ -111,6 +113,7 @@ const CustomizedTable: React.FC<TABLE_PROPS_TYPE> = (props) => {
                 handleClickOnArrow={handleOnClickExpandArrow}
                 handleClickOnUpdate={handleUpdateModal}
                 handleClickOnDelete={handleDeleteModal}
+                theme={theme}
               />
             </table>
             <CustomizedPagination

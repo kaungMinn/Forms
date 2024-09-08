@@ -1,3 +1,5 @@
+import { DefaultThemeTypes } from "../../../../../Pages/Theme/_types";
+
 export type TABLE_BODY_ROW = {
   visibleCols: TABLE_BODY_COL[];
   invisibleCols: TABLE_BODY_COL[];
@@ -21,6 +23,7 @@ export type TABLE_BODY_PROPS_TYPE = {
   handleClickOnArrow: (index: number) => void;
   handleClickOnUpdate: (id: string) => void;
   handleClickOnDelete: (col?: TABLE_BODY_ROW) => void;
+  theme: DefaultThemeTypes;
 };
 
 export type ExpandDataBoxType = {

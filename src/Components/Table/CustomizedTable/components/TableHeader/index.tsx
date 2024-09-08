@@ -10,6 +10,7 @@ import {
   DESCENDING_ORDER,
 } from "../../../../../Constants/sort_types";
 import { editTableColumnLength } from "../../utils";
+import { DefaultThemeTypes } from "../../../../../Pages/Theme/_types";
 
 type HeaderColumnType = {
   headerData: COLUMN_HEADER_TYPE;
@@ -17,6 +18,7 @@ type HeaderColumnType = {
    * action
    */
   onChangeSort: (key: string, sortType: string) => void;
+  theme: DefaultThemeTypes;
 };
 
 export const HeaderColumn: React.FC<HeaderColumnType> = (
@@ -28,7 +30,11 @@ export const HeaderColumn: React.FC<HeaderColumnType> = (
      * action
      */
     onChangeSort,
+    theme,
   } = props;
+
+  const { primaryColor } = theme;
+  const [primaryBg, primaryText] = primaryColor;
 
   const SortIcon = () => {
     if (headerData.sortType === DESCENDING_ORDER) {
@@ -53,9 +59,9 @@ export const HeaderColumn: React.FC<HeaderColumnType> = (
   if (headerData.hidden) return null;
 
   return (
-    <th className="bg-transparent px-2 py-4">
-      <div className="flex justify-center space-x-1 text-primary">
-        <p className="caption-font text-center font-semibold ">
+    <th className={` px-2 py-4  ${primaryBg} ${primaryText}`}>
+      <div className="flex justify-center space-x-1">
+        <p className="caption-font text-center font-semibold">
           {headerData.name}
         </p>
         <SortIcon />
@@ -74,6 +80,7 @@ const TableHeader: React.FC<TABLE_HEADER_PROP_TYPE> = (props) => {
      */
     handleClickOnAllExpand,
     handleChangeOnSort,
+    theme,
   } = props;
 
   const headerList: COLUMN_HEADER_TYPE[] = useMemo(
@@ -82,14 +89,16 @@ const TableHeader: React.FC<TABLE_HEADER_PROP_TYPE> = (props) => {
   );
 
   if (headerList.length <= 0) return <></>;
+  const { primaryColor } = theme;
+  const [primaryBg, primaryText, selectedBg, selectedText] = primaryColor;
 
   return (
     <React.Fragment>
-      <thead>
-        <tr>
-          <th className="px-2">
+      <thead className="">
+        <tr className="rounded-md ">
+          <th className={`px-2 rounded-tl-md  ${selectedBg} ${selectedText}`}>
             <BiChevronsRight
-              className={`mx-auto h-auto w-5 cursor-pointer text-primary ${
+              className={`mx-auto h-auto w-5 cursor-pointer  ${
                 isExpandAll ? "rotate-90" : "rotate-0"
               } duration-200`}
               /**
@@ -106,12 +115,11 @@ const TableHeader: React.FC<TABLE_HEADER_PROP_TYPE> = (props) => {
                * action
                */
               onChangeSort={handleChangeOnSort}
+              theme={theme}
             />
           ))}
-          <th className="px-2">
-            <p className="caption-font text-center font-semibold text-primary">
-              Action
-            </p>
+          <th className={`px-2 rounded-tr-md  ${primaryBg} ${primaryText}`}>
+            <p className="caption-font text-center ">Action</p>
           </th>
         </tr>
       </thead>

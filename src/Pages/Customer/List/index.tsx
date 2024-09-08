@@ -8,7 +8,8 @@ const CustomerList = () => {
   const [dataPerPage, setDataPerPage] = useState(10);
   const [currentData, setCurrentData] = useState<typeof body>([]);
 
-  const { dashboardColor } = useAppSelector((state) => state.theme);
+  const theme = useAppSelector((state) => state.theme);
+  const { dashboardColor } = theme;
   const [dashboardBg, dashboardText] = dashboardColor;
   // Calculate the indices for slicing the data
 
@@ -69,6 +70,7 @@ const CustomerList = () => {
         setSearchedData={() => {
           "test";
         }}
+        theme={theme}
       />
     </div>
   );
