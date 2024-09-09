@@ -15,7 +15,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "bg-primary",
       "text-default",
       "laptop:hover:bg-primary",
-      "laptop:hover:text-default"
+      "laptop:hover:text-default",
     ],
     secondaryColor: ["bg-secondary", "text-default"],
     dashboardColor: [
@@ -23,7 +23,6 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "text-black",
       "bg-primary_light",
       "text-default",
-
     ],
     navColor: [
       "bg-default",
@@ -43,8 +42,9 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       " text-base_light",
       "focus:border-primary",
       "focus:shadow-primary",
-      "border:default_dark"
+      "border:default_dark",
     ],
+    textColor: ["text-base_light", "text-primary"],
 
     description: "Welcome to the default theme",
     font: Mukta,
@@ -61,7 +61,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "bg-primary_light",
       "text-primary",
       "laptop:hover:bg-default_light",
-      "laptop:hover:text-primary"
+      "laptop:hover:text-primary",
     ],
     secondaryColor: ["bg-secondary", "text-default"],
     dashboardColor: [
@@ -88,8 +88,10 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "text-default_light ",
       "focus:border-default_light",
       "focus:shadow-default_light",
-      "border:default_light"
+      "border:default_light",
     ],
+    textColor: ["text-default_light", "text-default"],
+
     description: "Welcome to the default theme",
     font: Mukta,
     websiteLink: "www.google.com",

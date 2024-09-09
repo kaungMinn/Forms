@@ -1,5 +1,6 @@
 import { createRef } from "react";
 import { DataCenterTypes, ErrorCenterTypes, RefCenterTypes } from "./_types";
+import { TabType } from "../../../Components/Menus/TabMenu/_types";
 
 export const DEFAULT_DATA_CENTER: DataCenterTypes = {
   brandName: "",
@@ -121,3 +122,13 @@ export const DEFAULT_REF_CENTER: RefCenterTypes = {
   remark: createRef(),
   enable: createRef(),
 };
+
+export const TABS: TabType[] = [
+  { id: 1, name: "General" },
+  { id: 2, name: "Network And Billing" },
+  { id: 3, name: "Billing Contact Information" },
+];
+
+export const GENERAL_ID = 1;
+export const NETWORK_AND_BILLING_ID = 2;
+export const BILLING_CONTACT_INFORMATION_ID = 3;
