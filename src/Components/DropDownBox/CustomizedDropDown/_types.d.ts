@@ -14,8 +14,14 @@ export type CustomizedDropDownTypes = {
   theme: DefaultThemeTypes;
   errorMessage?: string;
   value: string;
-  dataKey: string;
-  dropDownData: CustomizedDropDownDataTypes[];
-  handleSelect: (data: CustomizedDropDownDataTypes, dataKey: string) => void;
   hasMultiSelect?: boolean;
+  dropDownData: CustomizedDropDownDataTypes[];
+  dataKey: string;
+  dataCenterKey: string;
+  secondaryDataKey?: string;
+  secondaryDataCenterKey?: string;
+  /*
+    Actions
+  */
+  handleSelect: (data: CustomizedDropDownDataTypes, dataKey: string) => void;
 };

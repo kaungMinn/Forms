@@ -1,3 +1,7 @@
+type CustomerFormTypes = {
+  theme: DefaultThemeTypes
+}
+
 const CustomerForm = () => {
   return <div>CustomerForm</div>;
 };

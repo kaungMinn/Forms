@@ -1,43 +1,19 @@
-import CustomizedDropDown from "../../../Components/DropDownBox/CustomizedDropDown";
-import { CustomizedDropDownDataTypes } from "../../../Components/DropDownBox/CustomizedDropDown/_types";
-import PrimaryInput from "../../../Components/Inputs/PrimaryInput";
 import Heading from "../../../Components/Labels/Heading";
+
 import { useAppSelector } from "../../../Hooks/ReduxProvider";
-import { PACKAGES } from "./constants";
+import CustomerForm from "../Components/Forms/CustomerForm";
 
 const CustomerCreate = () => {
   const theme = useAppSelector((state) => state.theme);
   const { dashboardColor } = theme;
   const [dashboardBg, dashboardText] = dashboardColor;
-  const handleSelect = (data: CustomizedDropDownDataTypes, dataKey: string) => {
-    console.log(data, dataKey);
-  };
+
   return (
     <div className={`${dashboardBg} ${dashboardText}`}>
       <Heading heading="Create Customers" subHeading="Create your customers" />
-      <PrimaryInput
-        labelText="Hello"
-        isRequired={true}
-        type="string"
-        name="test"
-        value={""}
-        placeHolderText="Hello"
-        handleChangeOnInput={() => {
-          console.log("hello");
-        }}
-        theme={theme}
-      />
-
-      <CustomizedDropDown
-        theme={theme}
-        label="Kaung"
-        isRequired={true}
-        dataKey="label"
-        value="Basic Internet Plan,Unlimited Streaming Plan"
-        dropDownData={PACKAGES}
-        handleSelect={handleSelect}
-        hasMultiSelect={true}
-      />
+      <div className="mt-5">
+        <CustomerForm />
+      </div>
     </div>
   );
 };
