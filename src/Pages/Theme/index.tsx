@@ -4,34 +4,40 @@ import { useAppDispatch, useAppSelector } from "../../Hooks/ReduxProvider";
 import { setTheme } from "../../Store/slices/theme.slice";
 import ThemeCards from "./Components/ThemeCards";
 import { DefaultThemeTypes } from "./_types";
+import PrimaryWrapper from "../../Components/Wrappers/PrimaryWrapper";
 
 const Theme = () => {
   const [themes] = useState<DefaultThemeTypes[]>(DEFAULT_THEMES);
 
   const dispatch = useAppDispatch();
-  const { id, primaryColor } = useAppSelector((state) => state.theme);
+  const theme = useAppSelector((state) => state.theme);
+  const { id, primaryColor, dashboardColor } = theme;
   const [primaryBg] = primaryColor;
+  const [dashboardBg, dashboardText] = dashboardColor;
 
   const handleTheme = (theme: DefaultThemeTypes) => {
     dispatch(setTheme(theme));
   };
   return (
-    <>
+    <div className={`${dashboardBg} ${dashboardText}`}>
       <h1 className="heading-font space-y-2">
         <p>Themes</p>
         <p className="caption-font">Manage your themes</p>
       </h1>
-      <div
-        className={`grid  laptop:grid-cols-6  gap-5 mt-10 rounded-md p-5 shadow-md ${primaryBg}`}
-      >
-        <ThemeCards
-          themes={themes}
-          handleTheme={handleTheme}
-          primaryColor={primaryColor}
-          selectedCardId={id}
-        />
+
+      <div className="mt-10">
+        <PrimaryWrapper theme={theme}>
+          <div className={`grid  laptop:grid-cols-6  gap-5`}>
+            <ThemeCards
+              themes={themes}
+              handleTheme={handleTheme}
+              primaryColor={primaryColor}
+              selectedCardId={id}
+            />
+          </div>
+        </PrimaryWrapper>
       </div>
-    </>
+    </div>
   );
 };
 

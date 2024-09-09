@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import CustomizedTable from "../../../Components/Table/CustomizedTable";
 import { body, headers } from "./constants";
 import { useAppSelector } from "../../../Hooks/ReduxProvider";
+import Heading from "../../../Components/Labels/Heading";
 
 const CustomerList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,10 +37,8 @@ const CustomerList = () => {
 
   return (
     <div className={`${dashboardBg} ${dashboardText}`}>
-      <h1 className="heading-font space-y-2">
-        <p>Customers</p>
-        <p className="secondary-font">Manage your customers</p>
-      </h1>
+      <Heading heading="Customers" subHeading="Manage your customers" />
+
       <CustomizedTable
         IsLoading={false}
         Data={{
