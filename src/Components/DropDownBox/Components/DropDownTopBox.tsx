@@ -24,9 +24,8 @@ const Chev = ({
     <>
       {hasChev && (
         <span
-          className={` duration-200 block ${hasDropDown ? "rotate-180" : "0"} ${
-            errorMessage && "text-red-500"
-          }`}
+          className={` duration-200 block ${hasDropDown ? "rotate-180" : "0"} ${errorMessage && "text-red-500"
+            }`}
         >
           <CiCircleChevDown size={20} />
         </span>
@@ -43,6 +42,7 @@ const DropDownTopBox = (props: DropDownTopBoxType) => {
     mainText = "",
     hasChev = false,
     hasDropDown,
+    theme
   } = props;
 
   const handleOnClick = () => {
@@ -55,13 +55,11 @@ const DropDownTopBox = (props: DropDownTopBoxType) => {
   return (
     <>
       <div
-        className={`caption-font py-2 px-3 relative rounded-md cursor-pointer outline-none w-full border h-8 ${
-          isDisabled && "bg-[#E5E5E5] border"
-        }  ${
-          errorMessage
+        className={`caption-font py-2 px-3 relative rounded-lg cursor-pointer outline-none w-full border h-8 ${theme.primaryColor[1]} ${isDisabled && "bg-[#E5E5E5] border"
+          }  ${errorMessage
             ? "border-red-500 text-red-500"
             : " border-gray-400 text-black"
-        } `}
+          } `}
         onClick={() => handleOnClick()}
       >
         {mainText && mainText}

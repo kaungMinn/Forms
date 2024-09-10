@@ -30,6 +30,11 @@ const CustomerCreate = () => {
         selectedTab={selectedTab}
         theme={theme}
         handleSelectTab={handleSelectTab}
+        dataCenter={dataCenter}
+        errorCenter={errorCenter}
+        refCenter={refCenter}
+        handleOnChange={handleOnChange}
+        handleSelect={handleSelect}
       />
     </div>
   );

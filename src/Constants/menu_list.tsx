@@ -2,6 +2,7 @@ import { MENU_LIST_TYPE } from "../Layouts/SidebarLayout/type";
 import {
   CUSTOMER_CREATE_ROUTE,
   CUSTOMER_LIST_ROUTE,
+  CUSTOMER_UPDATE_ROUTE,
   THEME_ROUTE,
 } from "./route_paths";
 
@@ -10,7 +11,7 @@ import { CiUser } from "react-icons/ci";
 export const MENU_LIST: MENU_LIST_TYPE[] = [
   {
     id: 1,
-    name: "List",
+    name: "Customer",
     path: "",
     icon: <CiUser />,
     expand: false,
@@ -18,7 +19,7 @@ export const MENU_LIST: MENU_LIST_TYPE[] = [
     sub_menu: [
       {
         id: 1,
-        name: "Customers",
+        name: "List",
         path: CUSTOMER_LIST_ROUTE,
         icon: <></>,
       },
@@ -28,6 +29,12 @@ export const MENU_LIST: MENU_LIST_TYPE[] = [
         path: CUSTOMER_CREATE_ROUTE,
         icon: <></>,
       },
+      // {
+      //   id: 3,
+      //   name: "Update",
+      //   path: CUSTOMER_UPDATE_ROUTE,
+      //   icon: <></>,
+      // },
     ],
   },
   {

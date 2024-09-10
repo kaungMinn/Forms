@@ -3,8 +3,6 @@ import { CustomizedDropDownDataTypes } from "./_types";
 import HoverWrapper from "../../Wrappers/HoverWrapper";
 import React, { useState } from "react";
 import TertiaryInput from "../../Inputs/TertiaryInput";
-import { canBeSplit } from "../../../Utils/Data/string.utils";
-import { TiTick } from "react-icons/ti";
 
 const DEFAULT_SEARCHED_VALUE = {
   searchedData: "",
@@ -28,13 +26,15 @@ const ShowData = ({
   hasMultiSelect?: boolean;
   handleSelect: (data: CustomizedDropDownDataTypes, dataKey: string) => void;
 }) => {
+
+  const { primaryColor } = theme;
+  const [primaryBg] = primaryColor;
   return (
     <>
       {dropDownData.length > 0 ? (
         <div
-          className={`space-y-2 bg-red-200 p-4 rounded-md ${
-            dropDownData.length > 5 && "h-[13rem] overflow-auto"
-          }`}
+          className={`space-y-2 p-4 rounded-md ${primaryBg} ${dropDownData.length > 5 && "h-[13rem] overflow-auto"
+            }`}
         >
           {dropDownData.map((data, index) => {
             const { label } = data;
@@ -52,14 +52,13 @@ const ShowData = ({
             return (
               <div
                 key={index}
-                className={`${
-                  typeof selectedValue === "string" &&
+                className={`${typeof selectedValue === "string" &&
                   selectedValue
                     .toLowerCase()
                     .includes(searchedValue.normalizedSearchedData)
-                    ? "block"
-                    : "hidden"
-                }`}
+                  ? "block"
+                  : "hidden"
+                  }`}
                 onClick={() => handleSelect(data, dataKey)}
               >
                 <HoverWrapper
@@ -104,6 +103,8 @@ const DataShower = (props: DataShowerType) => {
     handleSelect,
   } = props;
 
+  const { dashboardColor } = theme;
+  const [dashboardBg] = dashboardColor;
   const [searchedValue, setSearchedValue] = useState(DEFAULT_SEARCHED_VALUE);
   const handleSearchedValue = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const name = ev.target.name;
@@ -117,12 +118,13 @@ const DataShower = (props: DataShowerType) => {
   };
 
   return (
-    <div className="border p-4 rounded-lg space-y-2">
+    <div className={`border shadow-md p-4 rounded-lg space-y-2 ${dashboardBg}`}>
       {hasSearch && (
         <TertiaryInput
           name="searchedData"
           value={searchedValue.searchedData}
           theme={theme}
+          placeHolderText="Search..."
           /* 
           Actions
           */

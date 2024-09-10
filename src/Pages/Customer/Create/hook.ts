@@ -17,7 +17,7 @@ type HookType = [
   handleOnChange: (ev: ChangeEvent<HTMLInputElement>) => void,
   handleSelect: (
     data: CustomizedDropDownDataTypes,
-    dataKey: keyof CustomizedDropDownDataTypes,
+    dataKey: string,
     dataCenterKey: string
   ) => void,
   selectedTab: TabType,
@@ -40,10 +40,10 @@ const Hook = (): HookType => {
 
   const handleSelect = (
     data: CustomizedDropDownDataTypes,
-    dataKey: keyof CustomizedDropDownDataTypes,
+    dataKey: string,
     dataCenterKey: string
   ) => {
-    const value = data[dataKey];
+    const value = data[dataKey as keyof CustomizedDropDownDataTypes];
     setStateObject(dataCenterKey, value, setDataCenter);
     setStateObject(dataCenterKey, "", setErrorCenter);
   };

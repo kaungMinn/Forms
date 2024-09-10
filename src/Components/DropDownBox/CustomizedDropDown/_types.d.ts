@@ -1,3 +1,4 @@
+import { RefObject } from "react";
 import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
 
 export type CustomizedDropDownDataTypes = {
@@ -20,8 +21,13 @@ export type CustomizedDropDownTypes = {
   dataCenterKey: string;
   secondaryDataKey?: string;
   secondaryDataCenterKey?: string;
+  containerRef?: RefObject;
   /*
     Actions
   */
-  handleSelect: (data: CustomizedDropDownDataTypes, dataKey: string) => void;
+  handleSelect: (
+    data: CustomizedDropDownDataTypes,
+    dataKey: string,
+    dataCenterKey: string
+  ) => void;
 };
