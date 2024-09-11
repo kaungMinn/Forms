@@ -103,6 +103,8 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
           </div>
         </>
       )}
+
+      {!errorMessage && <div className="py-2"></div>}
     </div>
   );
 };

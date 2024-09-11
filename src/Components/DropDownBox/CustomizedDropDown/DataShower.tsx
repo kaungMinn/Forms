@@ -24,7 +24,6 @@ const ShowData = ({
   hasMultiSelect?: boolean;
   handleSelect: (data: CustomizedDropDownDataTypes, dataKey: string) => void;
 }) => {
-
   const { primaryColor } = theme;
   const [primaryBg] = primaryColor;
 
@@ -35,26 +34,21 @@ const ShowData = ({
       isSelected = stringParts.includes(label);
     }
     return isSelected;
-  }
-
-
+  };
 
   return (
     <>
       {dropDownData.length > 0 ? (
         <div
-          className={`space-y-2 p-4 rounded-md ${primaryBg} ${dropDownData.length > 5 && "h-[13rem] overflow-auto"
-            }`}
+          className={`space-y-2 p-4 rounded-md ${primaryBg} ${
+            dropDownData.length > 5 && "h-[13rem] overflow-auto"
+          }`}
         >
           {dropDownData.map((data, index) => {
             const { label } = data;
-            const isSelected = handleIsSelected(label)
+            const isSelected = handleIsSelected(label);
             return (
-              <div
-                key={index}
-
-                onClick={() => handleSelect(data, dataKey)}
-              >
+              <div key={index} onClick={() => handleSelect(data, dataKey)}>
                 <HoverWrapper
                   theme={theme}
                   isSelected={
@@ -70,7 +64,9 @@ const ShowData = ({
           })}
         </div>
       ) : (
-        <div className="flex items-center justify-center caption-font">No Data</div>
+        <div className="flex items-center justify-center caption-font">
+          No Data
+        </div>
       )}
     </>
   );
@@ -100,7 +96,9 @@ const DataShower = (props: DataShowerType) => {
   const { dashboardColor } = theme;
   const [dashboardBg] = dashboardColor;
   const [searchedValue, setSearchedValue] = useState(DEFAULT_SEARCHED_VALUE);
-  const [searchedDropDownData, setSearchDropDownData] = useState([...dropDownData]);
+  const [searchedDropDownData, setSearchDropDownData] = useState([
+    ...dropDownData,
+  ]);
   const handleSearchedValue = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const name = ev.target.name;
     const value = ev.target.value;
@@ -114,13 +112,17 @@ const DataShower = (props: DataShowerType) => {
 
   useEffect(() => {
     if (!searchedValue.normalizedSearchedData) {
-      setSearchDropDownData(dropDownData)
-      return
-    };
-    let tmp_dropdown_data = dropDownData.filter((data) => data.label.toLocaleLowerCase().includes(searchedValue.normalizedSearchedData))
+      setSearchDropDownData(dropDownData);
+      return;
+    }
+    const tmp_dropdown_data = dropDownData.filter((data) =>
+      data.label
+        .toLocaleLowerCase()
+        .includes(searchedValue.normalizedSearchedData)
+    );
 
-    setSearchDropDownData(tmp_dropdown_data)
-  }, [searchedValue])
+    setSearchDropDownData(tmp_dropdown_data);
+  }, [searchedValue, dropDownData]);
 
   return (
     <div className={`border shadow-md p-4 rounded-lg space-y-2 ${dashboardBg}`}>

@@ -22,7 +22,7 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
   } = props;
   const [hasDropDown, setHasDropDown] = useState(false);
   const [isNoSpace, setIsNoSpace] = useState(false);
-  const ref = useRef<any>(null)
+  const ref = useRef<any>(null);
   const dropDownRef = useRef<any>(null);
 
   const handleHasDropDown = () => {
@@ -50,7 +50,7 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
     return () => {
       document.removeEventListener("mousedown", checkClickedOutside);
     };
-  }, [hasDropDown])
+  }, [hasDropDown]);
 
   useEffect(() => {
     if (hasDropDown && ref.current && dropDownRef.current) {
@@ -62,7 +62,7 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
 
       setIsNoSpace(dropDownHeight > spaceBelow && spaceAbove > spaceBelow);
     }
-  }, [hasDropDown])
+  }, [hasDropDown]);
 
   return (
     <div className="relative" ref={ref}>
@@ -81,8 +81,9 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
       />
 
       <div
-        className={` absolute w-full ${isNoSpace ? "-top-[18rem]" : "top-[3.8rem] "} ${hasDropDown ? "scale-1" : "scale-0"
-          } duration-150`}
+        className={` absolute w-full z-10 ${
+          isNoSpace ? "-top-[18rem]" : "top-[3.8rem] "
+        } ${hasDropDown ? "scale-1" : "scale-0"} duration-150`}
         ref={dropDownRef}
       >
         <DataShower

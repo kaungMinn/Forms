@@ -12,7 +12,11 @@ import BillingContactInformation from "./Components/BillingContactInformation";
 import General from "./Components/General";
 import NetworkAndBilling from "./Components/NetworkAndBilling";
 import { CustomizedDropDownDataTypes } from "../../../../../Components/DropDownBox/CustomizedDropDown/_types";
-import { DataCenterTypes, ErrorCenterTypes, RefCenterTypes } from "../../../Create/_types";
+import {
+  DataCenterTypes,
+  ErrorCenterTypes,
+  RefCenterTypes,
+} from "../../../Create/_types";
 
 type CustomerFormTypes = {
   tabs: TabType[];
@@ -25,12 +29,26 @@ type CustomerFormTypes = {
     Actions
   */
   handleSelectTab: (tab: TabType) => void;
-  handleSelect: (data: CustomizedDropDownDataTypes, dataKey: string, dataCenterKey: string) => void;
+  handleSelect: (
+    data: CustomizedDropDownDataTypes,
+    dataKey: string,
+    dataCenterKey: string
+  ) => void;
   handleOnChange: (ev: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const CustomerForm = (props: CustomerFormTypes) => {
-  const { tabs, selectedTab, theme, handleSelectTab, dataCenter, errorCenter, refCenter, handleOnChange, handleSelect } = props;
+  const {
+    tabs,
+    selectedTab,
+    theme,
+    handleSelectTab,
+    dataCenter,
+    errorCenter,
+    refCenter,
+    handleOnChange,
+    handleSelect,
+  } = props;
 
   return (
     <PrimaryWrapper theme={theme}>
@@ -45,16 +63,23 @@ const CustomerForm = (props: CustomerFormTypes) => {
           handleSelectTab={handleSelectTab}
         />
 
-        {
-          selectedTab.id === GENERAL_ID && <General theme={theme} dataCenter={dataCenter} errorCenter={errorCenter} refCenter={refCenter} handleOnChange={handleOnChange} handleSelect={handleSelect} />
-        }
+        <div className="p-4">
+          {selectedTab.id === GENERAL_ID && (
+            <General
+              theme={theme}
+              dataCenter={dataCenter}
+              errorCenter={errorCenter}
+              refCenter={refCenter}
+              handleOnChange={handleOnChange}
+              handleSelect={handleSelect}
+            />
+          )}
 
-        {
-          selectedTab.id === NETWORK_AND_BILLING_ID && <NetworkAndBilling />
-        }
-        {
-          selectedTab.id === BILLING_CONTACT_INFORMATION_ID && <BillingContactInformation />
-        }
+          {selectedTab.id === NETWORK_AND_BILLING_ID && <NetworkAndBilling />}
+          {selectedTab.id === BILLING_CONTACT_INFORMATION_ID && (
+            <BillingContactInformation />
+          )}
+        </div>
       </div>
     </PrimaryWrapper>
   );
