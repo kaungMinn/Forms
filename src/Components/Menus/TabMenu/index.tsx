@@ -16,29 +16,29 @@ const TabMenu = (props: TabMenuTypes) => {
   const selectedTextColor = textColor[1];
   const selectedBg = primaryColor[2];
 
-
   const moveGenerator = (id: number) => {
     let calculatedRem = 0;
     for (let i = 1; i < id; i++) {
       calculatedRem += 15.7;
     }
-    return id === 1 ? `${0}rem` : `${calculatedRem}rem`
-
+    return id === 1 ? `${0}rem` : `${calculatedRem}rem`;
   };
 
   return (
     <div
-      className={`relative  items-center space-x-3 overflow-x-auto border-b border-gray-300 pb-3 ${tabs.length > 4
-        ? `grid grid-cols-4 gap-y-4 py-4 rounded-lg border`
-        : "flex flex-nowrap"
-        }`}
+      className={`relative  items-center space-x-3 overflow-x-auto border-b border-gray-300 pb-3 ${
+        tabs.length > 4
+          ? `grid grid-cols-4 gap-y-4 py-4 rounded-lg border`
+          : "flex flex-nowrap"
+      }`}
     >
       {tabs.map((tab, index) => {
         return (
           <div
             key={index}
-            className={`h-auto  w-60 laptop:cursor-pointer  ${tab.id === selectedTab.id && `${selectedTextColor}`
-              }`}
+            className={`h-auto  w-60 laptop:cursor-pointer  ${
+              tab.id === selectedTab.id && `${selectedTextColor}`
+            }`}
             onClick={() => {
               handleSelectTab(tab);
             }}
@@ -51,8 +51,9 @@ const TabMenu = (props: TabMenuTypes) => {
       })}
 
       <div
-        className={`hidden  rounded-full absolute bottom-0 left-0 h-[2px] w-20 tablet:w-60  duration-200 ${tabs.length > 3 ? "hidden" : "laptop:block"
-          } ${selectedBg}`}
+        className={`hidden  rounded-full absolute bottom-0 left-0 h-[2px] w-20 tablet:w-60  duration-200 ${
+          tabs.length > 3 ? "hidden" : "laptop:block"
+        } ${selectedBg}`}
         style={{ translate: `${moveGenerator(selectedTab.id)}` }}
       />
     </div>

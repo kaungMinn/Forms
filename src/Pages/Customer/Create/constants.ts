@@ -125,8 +125,8 @@ export const DEFAULT_REF_CENTER: RefCenterTypes = {
 
 export const TABS: TabType[] = [
   { id: 1, name: "General" },
-  { id: 2, name: "Network And Billing" },
-  { id: 3, name: "Billing Contact Information" },
+  { id: 2, name: "Network" },
+  { id: 3, name: "Billing" },
 ];
 
 export const GENERAL_ID = 1;
