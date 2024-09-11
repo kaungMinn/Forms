@@ -81,9 +81,9 @@ const NetworkAndBilling = (props: NetworkType) => {
         )}
       </ExtraInputWrapper>
 
-      {/* {!dataCenter.autoGeneratePPOEAccountServer && (
+      {!dataCenter.autoGeneratePPOEAccountServer && (
         <div className="laptop:col-span-2 py-2"></div>
-      )} */}
+      )}
 
       <ExtraInputWrapper theme={theme}>
         <CustomizedDropDown
