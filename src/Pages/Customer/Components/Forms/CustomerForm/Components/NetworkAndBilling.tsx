@@ -32,7 +32,6 @@ const NetworkAndBilling = (props: NetworkType) => {
   const { dataCenter, errorCenter, theme, handleSelect, handleOnChange } =
     props;
 
-  const { secondaryColor } = theme;
   return (
     <div className="">
       <ExtraInputWrapper
