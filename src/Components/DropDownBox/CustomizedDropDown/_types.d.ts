@@ -5,7 +5,7 @@ export type CustomizedDropDownDataTypes = {
   id?: number;
   _id?: number;
   label: string;
-  value?: string;
+  value?: string | boolean;
 };
 
 export type CustomizedDropDownTypes = {
@@ -22,6 +22,7 @@ export type CustomizedDropDownTypes = {
   secondaryDataKey?: string;
   secondaryDataCenterKey?: string;
   containerRef?: RefObject;
+  hasSearch?: boolean;
   /*
     Actions
   */

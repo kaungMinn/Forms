@@ -17,7 +17,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "laptop:hover:bg-primary",
       "laptop:hover:text-default",
     ],
-    secondaryColor: ["bg-secondary", "text-default"],
+    secondaryColor: ["bg-primary_light", "text-base_light"],
     dashboardColor: [
       "bg-default_light",
       "text-black",
@@ -43,7 +43,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "focus:border-primary",
       "focus:shadow-primary",
       "border:default_dark",
-      "shadow-sm shadow-primary"
+      "shadow-sm shadow-primary",
     ],
     textColor: ["text-base_light", "text-primary"],
 
@@ -64,7 +64,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "laptop:hover:bg-default_light",
       "laptop:hover:text-primary",
     ],
-    secondaryColor: ["bg-secondary", "text-default"],
+    secondaryColor: ["bg-primary_dark", "text-default"],
     dashboardColor: [
       "bg-primary_dark",
       "text-default_light",
@@ -90,7 +90,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "focus:border-default_light",
       "focus:shadow-default_light",
       "border:default_light",
-      "shadow shadow-default"
+      "shadow shadow-default",
     ],
     textColor: ["text-default_light", "text-default"],
 

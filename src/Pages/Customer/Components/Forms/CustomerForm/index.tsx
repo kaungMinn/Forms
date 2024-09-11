@@ -75,7 +75,16 @@ const CustomerForm = (props: CustomerFormTypes) => {
             />
           )}
 
-          {selectedTab.id === NETWORK_AND_BILLING_ID && <NetworkAndBilling />}
+          {selectedTab.id === NETWORK_AND_BILLING_ID && (
+            <NetworkAndBilling
+              theme={theme}
+              dataCenter={dataCenter}
+              errorCenter={errorCenter}
+              refCenter={refCenter}
+              handleOnChange={handleOnChange}
+              handleSelect={handleSelect}
+            />
+          )}
           {selectedTab.id === BILLING_CONTACT_INFORMATION_ID && (
             <BillingContactInformation />
           )}

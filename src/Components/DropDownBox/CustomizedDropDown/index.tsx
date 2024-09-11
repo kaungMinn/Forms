@@ -15,15 +15,18 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
     dropDownData = [],
     hasMultiSelect = false,
     dataCenterKey,
+    secondaryDataKey,
+    secondaryDataCenterKey,
     /*
       Actions
     */
     handleSelect,
+    hasSearch = false,
   } = props;
   const [hasDropDown, setHasDropDown] = useState(false);
   const [isNoSpace, setIsNoSpace] = useState(false);
-  const ref = useRef<any>(null);
-  const dropDownRef = useRef<any>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
+  const dropDownRef = useRef<HTMLDivElement | null>(null);
 
   const handleHasDropDown = () => {
     setHasDropDown(!hasDropDown);
@@ -31,20 +34,24 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
 
   const updatedHandleSelect = (
     data: CustomizedDropDownDataTypes,
-    dataKey: string
+    dataKey: string,
+    dataCenterKey: string
   ) => {
     handleSelect(data, dataKey, dataCenterKey);
     if (hasMultiSelect) return;
     handleHasDropDown();
   };
 
-  const checkClickedOutside = (e: any) => {
-    if (hasDropDown && ref.current && !ref.current?.contains(e.target)) {
-      setHasDropDown(false);
-    }
-  };
-
   useEffect(() => {
+    const checkClickedOutside = (e: MouseEvent) => {
+      if (
+        hasDropDown &&
+        ref.current &&
+        !ref.current?.contains(e.target as Node)
+      ) {
+        setHasDropDown(false);
+      }
+    };
     document.addEventListener("mousedown", checkClickedOutside);
 
     return () => {
@@ -64,6 +71,13 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
     }
   }, [hasDropDown]);
 
+  const dataListRef = useRef<HTMLDivElement | null>(null);
+  const [height, setHeight] = useState("-top[4.2rem]");
+  useEffect(() => {
+    if (!dataListRef.current) return;
+    setHeight(`${dataListRef.current?.offsetHeight + 45}px`);
+  }, [hasDropDown, dataListRef]);
+
   return (
     <div className="relative" ref={ref}>
       <DropDownHeader
@@ -81,19 +95,34 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
       />
 
       <div
-        className={` absolute w-full z-50 ${
-          isNoSpace ? "-top-[18rem]" : "top-[4.2rem] "
-        } ${hasDropDown ? "scale-1" : "scale-0"} duration-150`}
+        className={` absolute w-full z-50  ${
+          hasDropDown ? "scale-1" : "scale-0"
+        } duration-150`}
         ref={dropDownRef}
+        style={
+          hasDropDown
+            ? isNoSpace
+              ? {
+                  transform: `translateY(-${height})`,
+                }
+              : {
+                  transform: `translateY(0.5rem)`,
+                }
+            : {}
+        }
       >
         <DataShower
-          hasSearch={true}
+          hasSearch={hasSearch}
           dropDownData={dropDownData}
           theme={theme}
           value={value}
           dataKey={dataKey}
+          dataCenterKey={dataCenterKey}
           handleSelect={updatedHandleSelect}
           hasMultiSelect={hasMultiSelect}
+          secondaryDataCenterKey={secondaryDataCenterKey}
+          secondaryDataKey={secondaryDataKey}
+          dataShowerRef={dataListRef}
         />
       </div>
 

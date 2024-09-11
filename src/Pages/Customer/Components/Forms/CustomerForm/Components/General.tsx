@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef } from "react";
+import { ChangeEvent } from "react";
 import CustomizedDropDown from "../../../../../../Components/DropDownBox/CustomizedDropDown";
 import { CustomizedDropDownDataTypes } from "../../../../../../Components/DropDownBox/CustomizedDropDown/_types";
 import { DefaultThemeTypes } from "../../../../../Theme/_types";
@@ -9,6 +9,7 @@ import {
 } from "../../../../Create/_types";
 import { PACKAGES } from "../../../../../../Constants/Packages/constants";
 import PrimaryInput from "../../../../../../Components/Inputs/PrimaryInput";
+import { CUSTOMER_TYPES } from "../../../../../../Constants/Customers/customer.type";
 
 type GeneralType = {
   dataCenter: DataCenterTypes;
@@ -29,13 +30,8 @@ type GeneralType = {
 const General = (props: GeneralType) => {
   const { dataCenter, theme, handleOnChange, handleSelect } = props;
 
-  const containerRef = useRef<any>(null);
-
   return (
-    <div
-      className="grid grid-cols-1 laptop:grid-cols-2 gap-x-5 "
-      ref={containerRef}
-    >
+    <div className="grid grid-cols-1 laptop:grid-cols-2 gap-x-5 ">
       <CustomizedDropDown
         label="Brand Name"
         theme={theme}
@@ -44,7 +40,7 @@ const General = (props: GeneralType) => {
         dataKey="label"
         dataCenterKey="brandName"
         handleSelect={handleSelect}
-        containerRef={containerRef}
+        hasSearch={true}
       />
 
       <PrimaryInput
@@ -61,14 +57,27 @@ const General = (props: GeneralType) => {
         label="Customer Type"
         theme={theme}
         value={dataCenter.customerType || "Select a brand name"}
-        dropDownData={PACKAGES}
+        dropDownData={CUSTOMER_TYPES}
         dataKey="label"
         dataCenterKey="customerType"
         secondaryDataKey="value"
         secondaryDataCenterKey="customerTypeServer"
         handleSelect={handleSelect}
-        containerRef={containerRef}
       />
+
+      {dataCenter.customerTypeServer === "company" && (
+        <div>
+          <PrimaryInput
+            value={dataCenter.companyName}
+            handleChangeOnInput={handleOnChange}
+            labelText="Company Name"
+            placeHolderText="Enter company name"
+            name="companyName"
+            type="text"
+            theme={theme}
+          />
+        </div>
+      )}
     </div>
   );
 };

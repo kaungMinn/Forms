@@ -1,7 +1,7 @@
 import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
 import { CustomizedDropDownDataTypes } from "./_types";
 import HoverWrapper from "../../Wrappers/HoverWrapper";
-import React, { useEffect, useState } from "react";
+import React, { RefObject, useEffect, useState } from "react";
 import TertiaryInput from "../../Inputs/TertiaryInput";
 
 const DEFAULT_SEARCHED_VALUE = {
@@ -10,19 +10,32 @@ const DEFAULT_SEARCHED_VALUE = {
 };
 
 const ShowData = ({
-  dataKey,
+  dataKey = "",
+  dataCenterKey = "",
   dropDownData,
   theme,
   value,
   hasMultiSelect,
   handleSelect,
+  secondaryDataCenterKey = "",
+  secondaryDataKey = "",
 }: {
   dataKey: string;
+  dataCenterKey: string;
   dropDownData: CustomizedDropDownDataTypes[];
   theme: DefaultThemeTypes;
   value: string;
   hasMultiSelect?: boolean;
-  handleSelect: (data: CustomizedDropDownDataTypes, dataKey: string) => void;
+  secondaryDataKey?: string;
+  secondaryDataCenterKey?: string;
+  /*
+    Actions
+  */
+  handleSelect: (
+    data: CustomizedDropDownDataTypes,
+    dataKey: string,
+    dataCenterKey: string
+  ) => void;
 }) => {
   const { primaryColor } = theme;
   const [primaryBg] = primaryColor;
@@ -48,7 +61,19 @@ const ShowData = ({
             const { label } = data;
             const isSelected = handleIsSelected(label);
             return (
-              <div key={index} onClick={() => handleSelect(data, dataKey)}>
+              <div
+                key={index}
+                onClick={() => {
+                  handleSelect(data, dataKey, dataCenterKey);
+                  if (secondaryDataCenterKey && secondaryDataCenterKey) {
+                    handleSelect(
+                      data,
+                      secondaryDataKey,
+                      secondaryDataCenterKey
+                    );
+                  }
+                }}
+              >
                 <HoverWrapper
                   theme={theme}
                   isSelected={
@@ -78,8 +103,16 @@ type DataShowerType = {
   theme: DefaultThemeTypes;
   value?: string;
   dataKey?: string;
-  handleSelect: (data: CustomizedDropDownDataTypes, dataKey: string) => void;
+  dataCenterKey: string;
+  handleSelect: (
+    data: CustomizedDropDownDataTypes,
+    dataKey: string,
+    dataCenterKey: string
+  ) => void;
   hasMultiSelect?: boolean;
+  secondaryDataKey?: string;
+  secondaryDataCenterKey?: string;
+  dataShowerRef?: RefObject<HTMLDivElement>;
 };
 
 const DataShower = (props: DataShowerType) => {
@@ -89,8 +122,12 @@ const DataShower = (props: DataShowerType) => {
     theme,
     value = "",
     dataKey = "",
+    dataCenterKey = "",
     hasMultiSelect,
     handleSelect,
+    secondaryDataKey,
+    secondaryDataCenterKey,
+    dataShowerRef,
   } = props;
 
   const { dashboardColor } = theme;
@@ -125,7 +162,10 @@ const DataShower = (props: DataShowerType) => {
   }, [searchedValue, dropDownData]);
 
   return (
-    <div className={`border shadow-md p-4 rounded-lg space-y-2 ${dashboardBg}`}>
+    <div
+      className={`border shadow-md p-4 rounded-lg space-y-2 ${dashboardBg}`}
+      ref={dataShowerRef}
+    >
       {hasSearch && (
         <TertiaryInput
           name="searchedData"
@@ -142,9 +182,15 @@ const DataShower = (props: DataShowerType) => {
       <ShowData
         dropDownData={searchedDropDownData}
         dataKey={dataKey}
+        dataCenterKey={dataCenterKey}
         theme={theme}
         value={value}
         hasMultiSelect={hasMultiSelect}
+        secondaryDataCenterKey={secondaryDataCenterKey}
+        secondaryDataKey={secondaryDataKey}
+        /*
+          Actions
+        */
         handleSelect={handleSelect}
       />
     </div>
