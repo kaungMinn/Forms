@@ -81,7 +81,7 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
       />
 
       <div
-        className={` absolute w-full z-10 ${
+        className={` absolute w-full z-50 ${
           isNoSpace ? "-top-[18rem]" : "top-[4.2rem] "
         } ${hasDropDown ? "scale-1" : "scale-0"} duration-150`}
         ref={dropDownRef}

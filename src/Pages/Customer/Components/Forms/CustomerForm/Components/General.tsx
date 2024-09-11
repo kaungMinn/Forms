@@ -31,8 +31,6 @@ const General = (props: GeneralType) => {
 
   const containerRef = useRef<any>(null);
 
-  console.log("BrandName", dataCenter.brandName);
-
   return (
     <div
       className="grid grid-cols-1 laptop:grid-cols-2 gap-x-5 "
