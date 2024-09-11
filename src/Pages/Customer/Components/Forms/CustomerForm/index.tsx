@@ -63,7 +63,7 @@ const CustomerForm = (props: CustomerFormTypes) => {
           handleSelectTab={handleSelectTab}
         />
 
-        <div className="p-4">
+        <div className="">
           {selectedTab.id === GENERAL_ID && (
             <General
               theme={theme}

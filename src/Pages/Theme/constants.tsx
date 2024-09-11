@@ -17,7 +17,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "laptop:hover:bg-primary",
       "laptop:hover:text-default",
     ],
-    secondaryColor: ["bg-primary_light", "text-base_light"],
+    secondaryColor: ["bg-slate-100", "text-base_light"],
     dashboardColor: [
       "bg-default_light",
       "text-black",
@@ -64,7 +64,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "laptop:hover:bg-default_light",
       "laptop:hover:text-primary",
     ],
-    secondaryColor: ["bg-primary_dark", "text-default"],
+    secondaryColor: ["bg-purple-600", "text-default"],
     dashboardColor: [
       "bg-primary_dark",
       "text-default_light",

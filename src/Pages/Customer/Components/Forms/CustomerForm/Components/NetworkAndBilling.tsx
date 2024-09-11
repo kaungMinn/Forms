@@ -10,6 +10,7 @@ import CustomizedDropDown from "../../../../../../Components/DropDownBox/Customi
 import { DEFAULT_ON_OFF } from "../../../../../../Constants/General/general.constants";
 import PrimaryInput from "../../../../../../Components/Inputs/PrimaryInput";
 import { SERVICE_CODES } from "../../../../../../Constants/Customers/customer.type";
+import ExtraInputWrapper from "./ExtraInputWrapper";
 
 type NetworkType = {
   dataCenter: DataCenterTypes;
@@ -30,36 +31,43 @@ type NetworkType = {
 const NetworkAndBilling = (props: NetworkType) => {
   const { dataCenter, errorCenter, theme, handleSelect, handleOnChange } =
     props;
+
+  const { secondaryColor } = theme;
   return (
-    <div className="grid grid-cols-1 laptop:grid-cols-2 gap-x-5">
-      <CustomizedDropDown
-        dropDownData={DEFAULT_ON_OFF}
-        label={"Auto Generate PPPOE Account"}
+    <div className="">
+      <ExtraInputWrapper
+        colorCondition={
+          !dataCenter.autoGeneratePPOEAccountServer ? true : false
+        }
         theme={theme}
-        value={dataCenter.autoGeneratePPOEAccount}
-        dataKey="label"
-        dataCenterKey="autoGeneratePPOEAccount"
-        secondaryDataKey="value"
-        secondaryDataCenterKey="autoGeneratePPOEAccountServer"
-        handleSelect={handleSelect}
-      />
-
-      {!dataCenter.autoGeneratePPOEAccountServer && (
-        <PrimaryInput
-          type="text"
-          name="radUserName"
-          value={dataCenter.radUserName}
-          handleChangeOnInput={handleOnChange}
-          placeHolderText="Enter rad user name"
-          labelText="Rad User Name"
-          isRequired={true}
-          errorMessage={errorCenter.radUserName}
+      >
+        <CustomizedDropDown
+          dropDownData={DEFAULT_ON_OFF}
+          label={"Auto Generate PPPOE Account"}
           theme={theme}
+          value={dataCenter.autoGeneratePPOEAccount}
+          dataKey="label"
+          dataCenterKey="autoGeneratePPOEAccount"
+          secondaryDataKey="value"
+          secondaryDataCenterKey="autoGeneratePPOEAccountServer"
+          handleSelect={handleSelect}
         />
-      )}
 
-      {!dataCenter.autoGeneratePPOEAccountServer && (
-        <div className="laptop:col-span-2 grid grid-cols-1 laptop:grid-cols-2 gap-x-5">
+        {!dataCenter.autoGeneratePPOEAccountServer && (
+          <PrimaryInput
+            type="text"
+            name="radUserName"
+            value={dataCenter.radUserName}
+            handleChangeOnInput={handleOnChange}
+            placeHolderText="Enter rad user name"
+            labelText="Rad User Name"
+            isRequired={true}
+            errorMessage={errorCenter.radUserName}
+            theme={theme}
+          />
+        )}
+
+        {!dataCenter.autoGeneratePPOEAccountServer && (
           <PrimaryInput
             type="text"
             name="radPassword"
@@ -71,43 +79,49 @@ const NetworkAndBilling = (props: NetworkType) => {
             errorMessage={errorCenter.radPassword}
             theme={theme}
           />
-          <div></div>
-        </div>
-      )}
+        )}
+      </ExtraInputWrapper>
 
-      <CustomizedDropDown
-        dropDownData={SERVICE_CODES}
-        label={"Service ID"}
-        theme={theme}
-        value={dataCenter.serviceID || "Select a service ID"}
-        dataKey="label"
-        dataCenterKey="serviceID"
-        secondaryDataKey="value"
-        handleSelect={handleSelect}
-      />
+      {/* {!dataCenter.autoGeneratePPOEAccountServer && (
+        <div className="laptop:col-span-2 py-2"></div>
+      )} */}
 
-      <PrimaryInput
-        type="text"
-        name="serviceIDName"
-        value={dataCenter.serviceIDName}
-        handleChangeOnInput={handleOnChange}
-        placeHolderText="Enter service id name"
-        labelText="Service ID Name"
-        isRequired={true}
-        errorMessage={errorCenter.serviceIDName}
-        theme={theme}
-      />
+      <ExtraInputWrapper theme={theme}>
+        <CustomizedDropDown
+          dropDownData={SERVICE_CODES}
+          label={"Service ID"}
+          theme={theme}
+          value={dataCenter.serviceID || "Select a service ID"}
+          dataKey="label"
+          dataCenterKey="serviceID"
+          secondaryDataKey="value"
+          handleSelect={handleSelect}
+        />
+        <PrimaryInput
+          type="text"
+          name="serviceIDName"
+          value={dataCenter.serviceIDName}
+          handleChangeOnInput={handleOnChange}
+          placeHolderText="Enter service id name"
+          labelText="Service ID Name"
+          isRequired={true}
+          errorMessage={errorCenter.serviceIDName}
+          theme={theme}
+        />
+      </ExtraInputWrapper>
 
-      <CustomizedDropDown
-        dropDownData={DEFAULT_ON_OFF}
-        label={"Contain IP"}
-        theme={theme}
-        value={dataCenter.containIP || "Select contain ip"}
-        dataKey="label"
-        dataCenterKey="containIP"
-        secondaryDataKey="value"
-        handleSelect={handleSelect}
-      />
+      <ExtraInputWrapper theme={theme}>
+        <CustomizedDropDown
+          dropDownData={DEFAULT_ON_OFF}
+          label={"Contain IP"}
+          theme={theme}
+          value={dataCenter.containIP || "Select contain ip"}
+          dataKey="label"
+          dataCenterKey="containIP"
+          secondaryDataKey="value"
+          handleSelect={handleSelect}
+        />
+      </ExtraInputWrapper>
     </div>
   );
 };
