@@ -59,7 +59,7 @@ const NetworkAndBilling = (props: NetworkType) => {
       )}
 
       {!dataCenter.autoGeneratePPOEAccountServer && (
-        <div className="col-span-2 grid grid-cols-2 gap-x-5">
+        <div className="laptop:col-span-2 grid grid-cols-1 laptop:grid-cols-2 gap-x-5">
           <PrimaryInput
             type="text"
             name="radPassword"
@@ -82,6 +82,29 @@ const NetworkAndBilling = (props: NetworkType) => {
         value={dataCenter.serviceID || "Select a service ID"}
         dataKey="label"
         dataCenterKey="serviceID"
+        secondaryDataKey="value"
+        handleSelect={handleSelect}
+      />
+
+      <PrimaryInput
+        type="text"
+        name="serviceIDName"
+        value={dataCenter.serviceIDName}
+        handleChangeOnInput={handleOnChange}
+        placeHolderText="Enter service id name"
+        labelText="Service ID Name"
+        isRequired={true}
+        errorMessage={errorCenter.serviceIDName}
+        theme={theme}
+      />
+
+      <CustomizedDropDown
+        dropDownData={DEFAULT_ON_OFF}
+        label={"Contain IP"}
+        theme={theme}
+        value={dataCenter.containIP || "Select contain ip"}
+        dataKey="label"
+        dataCenterKey="containIP"
         secondaryDataKey="value"
         handleSelect={handleSelect}
       />
