@@ -43,6 +43,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "focus:border-primary",
       "focus:shadow-primary",
       "border:default_dark",
+      "shadow-sm shadow-primary"
     ],
     textColor: ["text-base_light", "text-primary"],
 
@@ -85,10 +86,11 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
     ],
     inputColor: [
       "placeholder:text-default_light",
-      "text-default_light ",
+      "text-base_light ",
       "focus:border-default_light",
       "focus:shadow-default_light",
       "border:default_light",
+      "shadow shadow-default"
     ],
     textColor: ["text-default_light", "text-default"],
 

@@ -11,7 +11,6 @@ const DropDownHeader = (props: DropDownHeaderType) => {
     theme,
     mainText = "",
     hasDropDown = false,
-
     /* 
       Actions
     */

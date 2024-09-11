@@ -8,6 +8,7 @@ import {
   RefCenterTypes,
 } from "../../../../Create/_types";
 import { PACKAGES } from "../../../../../../Constants/Packages/constants";
+import PrimaryInput from "../../../../../../Components/Inputs/PrimaryInput";
 
 type GeneralType = {
   dataCenter: DataCenterTypes;
@@ -38,20 +39,48 @@ const General = (props: GeneralType) => {
 
   const containerRef = useRef<any>(null)
 
+  console.log("BrandName", dataCenter.brandName)
+
 
   return (
     <div className="grid grid-cols-1 laptop:grid-cols-2 gap-x-5 " ref={containerRef}>
-      {/* <div className="bg-red-500 h-[60vh] col-span-2"></div> */}
+
+
       <CustomizedDropDown
         label="Brand Name"
         theme={theme}
         value={dataCenter.brandName || "Select a brand name"}
         dropDownData={PACKAGES}
         dataKey="label"
-        dataCenterKey="branName"
+        dataCenterKey="brandName"
         handleSelect={handleSelect}
         containerRef={containerRef}
       />
+
+      <PrimaryInput
+        labelText="Customer Name"
+        type="text"
+        name="customerName"
+        value={dataCenter.customerName}
+        placeHolderText="Enter customer name"
+        theme={theme}
+        handleChangeOnInput={() => { }}
+      />
+
+      <CustomizedDropDown
+        label="Customer Type"
+        theme={theme}
+        value={dataCenter.customerType || "Select a brand name"}
+        dropDownData={PACKAGES}
+        dataKey="label"
+        dataCenterKey="customerType"
+        secondaryDataKey="value"
+        secondaryDataCenterKey="customerTypeServer"
+        handleSelect={handleSelect}
+        containerRef={containerRef}
+      />
+
+
     </div>
   );
 };

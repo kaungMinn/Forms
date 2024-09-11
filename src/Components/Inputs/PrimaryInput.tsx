@@ -43,26 +43,23 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
   handleClickOnIcon,
   handleInputBlur,
 }: PrimaryInputPropType) => {
-  const { inputColor } = theme;
+  const { inputColor, primaryColor } = theme;
   const [placeHolderColor, textColor, focusBorder, focusShadow] = inputColor;
 
   return (
-    <div className="z-0 grid grid-cols-3 gap-y-1 tablet:gap-x-4 tablet:gap-y-0">
+    <div className="">
       {labelText && (
-        <div className="col-span-3 flex items-center justify-start space-x-2 tablet:col-span-1 tablet:justify-end">
-          <label className="caption-font font-medium text-base_dark">
-            {labelText}
-            {isRequired && (
-              <span className="caption-font text-danger"> ** </span>
-            )}
-          </label>
-          {labelIcon && labelIcon}
-        </div>
+        <label className={`caption-font font-medium block mb-2 ${primaryColor[1]}`}>
+          {labelText}
+          {isRequired && (
+            <span className="caption-font text-danger"> ** </span>
+          )}
+        </label>
+
       )}
       <div
-        className={`relative col-span-3 space-y-2 ${
-          labelText && "tablet:col-span-2"
-        }`}
+        className={`relative col-span-3 space-y-2 ${labelText && "tablet:col-span-2"
+          }`}
       >
         <input
           type={type}
@@ -71,13 +68,11 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
           value={value}
           required={isRequired}
           disabled={isDisabled}
-          className={`placeholder:caption-font secondary-font h-auto w-full rounded-md border border-default_dark border-opacity-60 bg-transparent pl-4 pr-6  shadow-sm placeholder:font-medium ${
-            backIcon && "pr-12"
-          } outline-none duration-300  focus:shadow-sm ${textColor} ${placeHolderColor} ${
-            errorMessage
+          className={`placeholder:caption-font secondary-font h-8 w-full rounded-lg border border-default_dark border-opacity-60 bg-transparent pl-4 pr-6  shadow-sm placeholder:font-medium ${backIcon && "pr-12"
+            } outline-none duration-300  focus:shadow-sm ${textColor} ${placeHolderColor} ${errorMessage
               ? "focus:border-danger focus:shadow-danger"
               : `${focusBorder} ${focusShadow}`
-          } py-1.5`}
+            } `}
           placeholder={placeHolderText}
           onBlur={handleInputBlur}
           /**

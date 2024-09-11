@@ -1,7 +1,7 @@
 import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
 import { CustomizedDropDownDataTypes } from "./_types";
 import HoverWrapper from "../../Wrappers/HoverWrapper";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TertiaryInput from "../../Inputs/TertiaryInput";
 
 const DEFAULT_SEARCHED_VALUE = {
@@ -12,7 +12,6 @@ const DEFAULT_SEARCHED_VALUE = {
 const ShowData = ({
   dataKey,
   dropDownData,
-  searchedValue,
   theme,
   value,
   hasMultiSelect,
@@ -20,7 +19,6 @@ const ShowData = ({
 }: {
   dataKey: string;
   dropDownData: CustomizedDropDownDataTypes[];
-  searchedValue: typeof DEFAULT_SEARCHED_VALUE;
   theme: DefaultThemeTypes;
   value: string;
   hasMultiSelect?: boolean;
@@ -29,6 +27,18 @@ const ShowData = ({
 
   const { primaryColor } = theme;
   const [primaryBg] = primaryColor;
+
+  const handleIsSelected = (label: string) => {
+    let isSelected = false;
+    if (hasMultiSelect) {
+      const stringParts = value.split(",");
+      isSelected = stringParts.includes(label);
+    }
+    return isSelected;
+  }
+
+
+
   return (
     <>
       {dropDownData.length > 0 ? (
@@ -38,27 +48,11 @@ const ShowData = ({
         >
           {dropDownData.map((data, index) => {
             const { label } = data;
-            const selectedValue =
-              data[dataKey as keyof CustomizedDropDownDataTypes];
-            let isSelected = false;
-            if (hasMultiSelect) {
-              const stringParts = value.split(",");
-              isSelected = stringParts.includes(label);
-              console.log(stringParts);
-              console.log(isSelected);
-              console.log(label);
-            }
-
+            const isSelected = handleIsSelected(label)
             return (
               <div
                 key={index}
-                className={`${typeof selectedValue === "string" &&
-                  selectedValue
-                    .toLowerCase()
-                    .includes(searchedValue.normalizedSearchedData)
-                  ? "block"
-                  : "hidden"
-                  }`}
+
                 onClick={() => handleSelect(data, dataKey)}
               >
                 <HoverWrapper
@@ -76,7 +70,7 @@ const ShowData = ({
           })}
         </div>
       ) : (
-        <div className="flex items-center justify-center">No Data</div>
+        <div className="flex items-center justify-center caption-font">No Data</div>
       )}
     </>
   );
@@ -106,6 +100,7 @@ const DataShower = (props: DataShowerType) => {
   const { dashboardColor } = theme;
   const [dashboardBg] = dashboardColor;
   const [searchedValue, setSearchedValue] = useState(DEFAULT_SEARCHED_VALUE);
+  const [searchedDropDownData, setSearchDropDownData] = useState([...dropDownData]);
   const handleSearchedValue = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const name = ev.target.name;
     const value = ev.target.value;
@@ -116,6 +111,16 @@ const DataShower = (props: DataShowerType) => {
       normalizedSearchedData: value.toLowerCase(),
     });
   };
+
+  useEffect(() => {
+    if (!searchedValue.normalizedSearchedData) {
+      setSearchDropDownData(dropDownData)
+      return
+    };
+    let tmp_dropdown_data = dropDownData.filter((data) => data.label.toLocaleLowerCase().includes(searchedValue.normalizedSearchedData))
+
+    setSearchDropDownData(tmp_dropdown_data)
+  }, [searchedValue])
 
   return (
     <div className={`border shadow-md p-4 rounded-lg space-y-2 ${dashboardBg}`}>
@@ -133,8 +138,7 @@ const DataShower = (props: DataShowerType) => {
       )}
 
       <ShowData
-        dropDownData={dropDownData}
-        searchedValue={searchedValue}
+        dropDownData={searchedDropDownData}
         dataKey={dataKey}
         theme={theme}
         value={value}

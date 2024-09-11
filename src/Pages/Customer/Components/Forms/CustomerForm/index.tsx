@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent } from "react";
 import TabMenu from "../../../../../Components/Menus/TabMenu";
 import { TabType } from "../../../../../Components/Menus/TabMenu/_types";
 import PrimaryWrapper from "../../../../../Components/Wrappers/PrimaryWrapper";
@@ -31,18 +31,6 @@ type CustomerFormTypes = {
 
 const CustomerForm = (props: CustomerFormTypes) => {
   const { tabs, selectedTab, theme, handleSelectTab, dataCenter, errorCenter, refCenter, handleOnChange, handleSelect } = props;
-  const DEFAULT_TAB_COMPONENTS = {
-    [GENERAL_ID]: <General theme={theme} dataCenter={dataCenter} errorCenter={errorCenter} refCenter={refCenter} handleOnChange={handleOnChange} handleSelect={handleSelect} />,
-    [NETWORK_AND_BILLING_ID]: <NetworkAndBilling />,
-    [BILLING_CONTACT_INFORMATION_ID]: <BillingContactInformation />,
-  };
-
-  const [tabComponents] = useState(DEFAULT_TAB_COMPONENTS);
-  const handleTabComponents = useCallback(() => {
-    const Component =
-      tabComponents[selectedTab.id as keyof typeof tabComponents];
-    return Component ? Component : null;
-  }, [selectedTab, tabComponents]);
 
   return (
     <PrimaryWrapper theme={theme}>
@@ -56,7 +44,17 @@ const CustomerForm = (props: CustomerFormTypes) => {
         */
           handleSelectTab={handleSelectTab}
         />
-        <>{handleTabComponents()}</>
+
+        {
+          selectedTab.id === GENERAL_ID && <General theme={theme} dataCenter={dataCenter} errorCenter={errorCenter} refCenter={refCenter} handleOnChange={handleOnChange} handleSelect={handleSelect} />
+        }
+
+        {
+          selectedTab.id === NETWORK_AND_BILLING_ID && <NetworkAndBilling />
+        }
+        {
+          selectedTab.id === BILLING_CONTACT_INFORMATION_ID && <BillingContactInformation />
+        }
       </div>
     </PrimaryWrapper>
   );

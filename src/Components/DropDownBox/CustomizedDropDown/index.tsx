@@ -1,4 +1,4 @@
-import React, { LegacyRef, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DropDownHeader from "../DropDownHeader";
 import { CustomizedDropDownDataTypes, CustomizedDropDownTypes } from "./_types";
 import DataShower from "./DataShower";
@@ -15,8 +15,6 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
     dropDownData = [],
     hasMultiSelect = false,
     dataCenterKey,
-
-
     /*
       Actions
     */
@@ -30,8 +28,6 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
   const handleHasDropDown = () => {
     setHasDropDown(!hasDropDown);
   };
-
-
 
   const updatedHandleSelect = (
     data: CustomizedDropDownDataTypes,
@@ -47,7 +43,6 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
       setHasDropDown(false);
     }
   };
-
 
   useEffect(() => {
     document.addEventListener("mousedown", checkClickedOutside);
@@ -100,6 +95,8 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
           hasMultiSelect={hasMultiSelect}
         />
       </div>
+
+      {errorMessage ? <div>{errorMessage}</div> : <div className="py-2"></div>}
     </div>
   );
 };

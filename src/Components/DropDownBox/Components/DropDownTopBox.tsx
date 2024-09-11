@@ -45,6 +45,8 @@ const DropDownTopBox = (props: DropDownTopBoxType) => {
     theme
   } = props;
 
+  const { inputColor } = theme;
+  const shadowColor = inputColor[5]
   const handleOnClick = () => {
     if (isDisabled) {
       return;
@@ -55,11 +57,11 @@ const DropDownTopBox = (props: DropDownTopBoxType) => {
   return (
     <>
       <div
-        className={`caption-font py-2 px-3 relative rounded-lg cursor-pointer outline-none w-full border h-8 ${theme.primaryColor[1]} ${isDisabled && "bg-[#E5E5E5] border"
+        className={`caption-font py-2 px-3 relative rounded-lg cursor-pointer outline-none w-full border h-8 ${hasDropDown && shadowColor} ${theme.primaryColor[1]} ${isDisabled && "bg-[#E5E5E5] border"
           }  ${errorMessage
             ? "border-red-500 text-red-500"
             : " border-gray-400 text-black"
-          } `}
+          } duration-200 `}
         onClick={() => handleOnClick()}
       >
         {mainText && mainText}
