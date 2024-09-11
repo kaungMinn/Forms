@@ -2,7 +2,6 @@ import { MENU_LIST_TYPE } from "../Layouts/SidebarLayout/type";
 import {
   CUSTOMER_CREATE_ROUTE,
   CUSTOMER_LIST_ROUTE,
-  CUSTOMER_UPDATE_ROUTE,
   THEME_ROUTE,
 } from "./route_paths";
 

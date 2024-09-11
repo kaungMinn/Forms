@@ -24,7 +24,6 @@ interface PrimaryInputPropType extends InputHTMLAttributes<HTMLInputElement> {
 
 const PrimaryInput: React.FC<PrimaryInputPropType> = ({
   labelText = "",
-  labelIcon,
   type = "text",
   name = "",
   inputRef = null,
@@ -49,17 +48,17 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
   return (
     <div className="">
       {labelText && (
-        <label className={`caption-font font-medium block mb-2 ${primaryColor[1]}`}>
+        <label
+          className={`caption-font font-medium block mb-2 ${primaryColor[1]}`}
+        >
           {labelText}
-          {isRequired && (
-            <span className="caption-font text-danger"> ** </span>
-          )}
+          {isRequired && <span className="caption-font text-danger"> ** </span>}
         </label>
-
       )}
       <div
-        className={`relative col-span-3 space-y-2 ${labelText && "tablet:col-span-2"
-          }`}
+        className={`relative col-span-3 space-y-2 ${
+          labelText && "tablet:col-span-2"
+        }`}
       >
         <input
           type={type}
@@ -68,11 +67,13 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
           value={value}
           required={isRequired}
           disabled={isDisabled}
-          className={`placeholder:caption-font secondary-font h-8 w-full rounded-lg border border-default_dark border-opacity-60 bg-transparent pl-4 pr-6  shadow-sm placeholder:font-medium ${backIcon && "pr-12"
-            } outline-none duration-300  focus:shadow-sm ${textColor} ${placeHolderColor} ${errorMessage
+          className={`placeholder:caption-font secondary-font h-8 w-full rounded-lg border border-default_dark border-opacity-60 bg-transparent pl-4 pr-6  shadow-sm placeholder:font-medium ${
+            backIcon && "pr-12"
+          } outline-none duration-300  focus:shadow-sm ${textColor} ${placeHolderColor} ${
+            errorMessage
               ? "focus:border-danger focus:shadow-danger"
               : `${focusBorder} ${focusShadow}`
-            } `}
+          } `}
           placeholder={placeHolderText}
           onBlur={handleInputBlur}
           /**

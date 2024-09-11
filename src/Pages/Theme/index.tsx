@@ -12,7 +12,6 @@ const Theme = () => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.theme);
   const { id, primaryColor, dashboardColor } = theme;
-  const [primaryBg] = primaryColor;
   const [dashboardBg, dashboardText] = dashboardColor;
 
   const handleTheme = (theme: DefaultThemeTypes) => {

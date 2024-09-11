@@ -27,25 +27,17 @@ type GeneralType = {
 };
 
 const General = (props: GeneralType) => {
-  const {
-    dataCenter,
-    errorCenter,
-    refCenter,
-    theme,
-    handleOnChange,
-    handleSelect,
-  } = props;
+  const { dataCenter, theme, handleOnChange, handleSelect } = props;
 
+  const containerRef = useRef<any>(null);
 
-  const containerRef = useRef<any>(null)
-
-  console.log("BrandName", dataCenter.brandName)
-
+  console.log("BrandName", dataCenter.brandName);
 
   return (
-    <div className="grid grid-cols-1 laptop:grid-cols-2 gap-x-5 " ref={containerRef}>
-
-
+    <div
+      className="grid grid-cols-1 laptop:grid-cols-2 gap-x-5 "
+      ref={containerRef}
+    >
       <CustomizedDropDown
         label="Brand Name"
         theme={theme}
@@ -64,7 +56,7 @@ const General = (props: GeneralType) => {
         value={dataCenter.customerName}
         placeHolderText="Enter customer name"
         theme={theme}
-        handleChangeOnInput={() => { }}
+        handleChangeOnInput={handleOnChange}
       />
 
       <CustomizedDropDown
@@ -79,8 +71,6 @@ const General = (props: GeneralType) => {
         handleSelect={handleSelect}
         containerRef={containerRef}
       />
-
-
     </div>
   );
 };
