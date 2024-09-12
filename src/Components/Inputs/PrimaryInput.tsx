@@ -7,7 +7,7 @@ interface PrimaryInputPropType extends InputHTMLAttributes<HTMLInputElement> {
   type: string;
   name: string;
   inputRef?: React.ForwardedRef<HTMLInputElement>;
-  value: any;
+  value: string;
   placeHolderText: string;
   isRequired?: boolean;
   isDisabled?: boolean;

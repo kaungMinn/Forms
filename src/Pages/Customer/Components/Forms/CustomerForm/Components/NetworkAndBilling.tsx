@@ -103,7 +103,7 @@ const NetworkAndBilling = (props: NetworkType) => {
           handleSelect={handleSelect}
         />
         <PrimaryInput
-          type="text"
+          type="datetime-local"
           name="serviceIDName"
           value={dataCenter.serviceIDName}
           handleChangeOnInput={handleOnChange}

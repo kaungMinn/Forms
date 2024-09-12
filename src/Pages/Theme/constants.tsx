@@ -86,7 +86,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
     ],
     inputColor: [
       "placeholder:text-default_light",
-      "text-base_light ",
+      "text-default ",
       "focus:border-default_light",
       "focus:shadow-default_light",
       "border:default_light",
