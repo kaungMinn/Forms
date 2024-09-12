@@ -1,4 +1,4 @@
-import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
+import { DefaultThemeTypes } from "../../../../Pages/Theme/_types";
 
 export type DropDownHeaderType = {
   label?: string;

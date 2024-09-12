@@ -1,7 +1,7 @@
 import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
 import { CustomizedDropDownDataTypes } from "./_types";
 import HoverWrapper from "../../Wrappers/HoverWrapper";
-import React, { RefObject, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import TertiaryInput from "../../Inputs/TertiaryInput";
 
 const DEFAULT_SEARCHED_VALUE = {
@@ -112,7 +112,6 @@ type DataShowerType = {
   hasMultiSelect?: boolean;
   secondaryDataKey?: string;
   secondaryDataCenterKey?: string;
-  dataShowerRef?: RefObject<HTMLDivElement>;
 };
 
 const DataShower = (props: DataShowerType) => {
@@ -127,7 +126,6 @@ const DataShower = (props: DataShowerType) => {
     handleSelect,
     secondaryDataKey,
     secondaryDataCenterKey,
-    dataShowerRef,
   } = props;
 
   const { dashboardColor } = theme;
@@ -162,10 +160,7 @@ const DataShower = (props: DataShowerType) => {
   }, [searchedValue, dropDownData]);
 
   return (
-    <div
-      className={`border shadow-md p-4 rounded-lg space-y-2 ${dashboardBg}`}
-      ref={dataShowerRef}
-    >
+    <div className={`border shadow-md p-4 rounded-lg space-y-2 ${dashboardBg}`}>
       {hasSearch && (
         <TertiaryInput
           name="searchedData"

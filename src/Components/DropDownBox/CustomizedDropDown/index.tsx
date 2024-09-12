@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import DropDownHeader from "../DropDownHeader";
+import { useCallback, useEffect, useRef, useState } from "react";
+import DropDownHeader from "../Components/DropDownHeader";
 import { CustomizedDropDownDataTypes, CustomizedDropDownTypes } from "./_types";
 import DataShower from "./DataShower";
+import { dropDownHeightFinder, hasBelowSpace } from "../Utils/position.utils";
+import DropDownWrapper from "../Components/DropDownWrapper";
 
 const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
   const {
@@ -25,6 +27,8 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
   } = props;
   const [hasDropDown, setHasDropDown] = useState(false);
   const [isNoSpace, setIsNoSpace] = useState(false);
+  const [height, setHeight] = useState<string>("4.2rem");
+
   const ref = useRef<HTMLDivElement | null>(null);
   const dropDownRef = useRef<HTMLDivElement | null>(null);
 
@@ -42,8 +46,8 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
     handleHasDropDown();
   };
 
-  useEffect(() => {
-    const checkClickedOutside = (e: MouseEvent) => {
+  const checkClickedOutside = useCallback(
+    (e: MouseEvent) => {
       if (
         hasDropDown &&
         ref.current &&
@@ -51,32 +55,24 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
       ) {
         setHasDropDown(false);
       }
-    };
+    },
+    [hasDropDown]
+  );
+
+  useEffect(() => {
     document.addEventListener("mousedown", checkClickedOutside);
 
     return () => {
       document.removeEventListener("mousedown", checkClickedOutside);
     };
-  }, [hasDropDown]);
+  }, [hasDropDown, checkClickedOutside]);
+
+  //LIFE CIRCLES
 
   useEffect(() => {
-    if (hasDropDown && ref.current && dropDownRef.current) {
-      const rect = ref.current.getBoundingClientRect();
-      const dropDownHeight = dropDownRef.current.offsetHeight;
-      const windowHeight = window.innerHeight;
-      const spaceBelow = windowHeight - rect.bottom;
-      const spaceAbove = rect.top;
-
-      setIsNoSpace(dropDownHeight > spaceBelow && spaceAbove > spaceBelow);
-    }
-  }, [hasDropDown]);
-
-  const dataListRef = useRef<HTMLDivElement | null>(null);
-  const [height, setHeight] = useState("-top[4.2rem]");
-  useEffect(() => {
-    if (!dataListRef.current) return;
-    setHeight(`${dataListRef.current?.offsetHeight + 45}px`);
-  }, [hasDropDown, dataListRef]);
+    setIsNoSpace(hasBelowSpace(dropDownRef, ref, hasDropDown));
+    setHeight(dropDownHeightFinder(dropDownRef));
+  }, [hasDropDown, dropDownRef]);
 
   return (
     <div className="relative" ref={ref}>
@@ -94,22 +90,11 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
         onClick={handleHasDropDown}
       />
 
-      <div
-        className={` absolute w-full z-50  ${
-          hasDropDown ? "scale-1" : "scale-0"
-        } duration-150`}
-        ref={dropDownRef}
-        style={
-          hasDropDown
-            ? isNoSpace
-              ? {
-                  transform: `translateY(-${height})`,
-                }
-              : {
-                  transform: `translateY(0.5rem)`,
-                }
-            : {}
-        }
+      <DropDownWrapper
+        hasDropDown={hasDropDown}
+        dropDownRef={dropDownRef}
+        isNoSpace={isNoSpace}
+        dropDownHeight={height}
       >
         <DataShower
           hasSearch={hasSearch}
@@ -122,9 +107,8 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
           hasMultiSelect={hasMultiSelect}
           secondaryDataCenterKey={secondaryDataCenterKey}
           secondaryDataKey={secondaryDataKey}
-          dataShowerRef={dataListRef}
         />
-      </div>
+      </DropDownWrapper>
 
       {errorMessage ? <div>{errorMessage}</div> : <div className="py-2"></div>}
     </div>

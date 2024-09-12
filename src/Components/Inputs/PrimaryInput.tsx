@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react";
+import React, { InputHTMLAttributes, RefObject } from "react";
 import { DefaultThemeTypes } from "../../Pages/Theme/_types";
 
 interface PrimaryInputPropType extends InputHTMLAttributes<HTMLInputElement> {
@@ -6,7 +6,7 @@ interface PrimaryInputPropType extends InputHTMLAttributes<HTMLInputElement> {
   labelIcon?: React.ReactNode;
   type: string;
   name: string;
-  inputRef?: React.ForwardedRef<HTMLInputElement>;
+  inputRef?: RefObject<HTMLInputElement>;
   value: string;
   placeHolderText: string;
   isRequired?: boolean;
@@ -26,7 +26,7 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
   labelText = "",
   type = "text",
   name = "",
-  inputRef = null,
+  inputRef,
   value = "",
   placeHolderText = "",
   isRequired = false,
@@ -44,6 +44,11 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
 }: PrimaryInputPropType) => {
   const { inputColor, primaryColor } = theme;
   const [placeHolderColor, textColor, focusBorder, focusShadow] = inputColor;
+
+  const handleClick = () => {
+    if (!inputRef || !inputRef.current) return;
+    inputRef.current.showPicker(); // Trigger the native picker
+  };
 
   return (
     <div className="">
@@ -80,6 +85,7 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
            * action
            */
           onChange={(event) => handleChangeOnInput(event)}
+          onClick={handleClick}
         />
         {backIcon && (
           <div

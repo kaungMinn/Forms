@@ -35,11 +35,17 @@ type NetworkType = {
 };
 
 const NetworkAndBilling = (props: NetworkType) => {
-  const { dataCenter, errorCenter, theme, handleSelect, handleOnChange } =
-    props;
+  const {
+    dataCenter,
+    errorCenter,
+    refCenter,
+    theme,
+    handleSelect,
+    handleOnChange,
+  } = props;
 
   return (
-    <div className="">
+    <>
       <ExtraInputWrapper
         colorCondition={
           !dataCenter.autoGeneratePPOEAccountServer ? true : false
@@ -103,7 +109,7 @@ const NetworkAndBilling = (props: NetworkType) => {
           handleSelect={handleSelect}
         />
         <PrimaryInput
-          type="datetime-local"
+          type="text"
           name="serviceIDName"
           value={dataCenter.serviceIDName}
           handleChangeOnInput={handleOnChange}
@@ -250,8 +256,46 @@ const NetworkAndBilling = (props: NetworkType) => {
           errorMessage={errorCenter.serviceStatus}
           theme={theme}
         />
+
+        <PrimaryInput
+          type="datetime-local"
+          name="serviceStartDate"
+          value={dataCenter.serviceStartDate}
+          handleChangeOnInput={handleOnChange}
+          placeHolderText="Enter service start date"
+          labelText="Service Start Date"
+          isRequired={true}
+          errorMessage={errorCenter.serviceStartDate}
+          inputRef={refCenter.serviceStartDate}
+          theme={theme}
+        />
+
+        <PrimaryInput
+          type="datetime-local"
+          name="serviceEndDate"
+          value={dataCenter.serviceEndDate}
+          handleChangeOnInput={handleOnChange}
+          placeHolderText="Enter service end date"
+          labelText="Service End Date"
+          isRequired={true}
+          errorMessage={errorCenter.serviceEndDate}
+          inputRef={refCenter.serviceEndDate}
+          theme={theme}
+        />
+
+        <PrimaryInput
+          type="text"
+          name="durationNumber"
+          value={dataCenter.durationNumber}
+          handleChangeOnInput={handleOnChange}
+          placeHolderText="Enter duration"
+          labelText="Duration"
+          isRequired={true}
+          errorMessage={errorCenter.durationNumber}
+          theme={theme}
+        />
       </ExtraInputWrapper>
-    </div>
+    </>
   );
 };
 

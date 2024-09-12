@@ -1,6 +1,9 @@
 import { createRef } from "react";
 import { DataCenterTypes, ErrorCenterTypes, RefCenterTypes } from "./_types";
 import { TabType } from "../../../Components/Menus/TabMenu/_types";
+import { inputAcceptableDate } from "../../../Utils/Date/date.utils";
+
+const date = new Date();
 
 export const DEFAULT_DATA_CENTER: DataCenterTypes = {
   brandName: "",
@@ -28,7 +31,7 @@ export const DEFAULT_DATA_CENTER: DataCenterTypes = {
   billingMethod: "Prepaid",
   billingMethodServer: "pre",
   serviceStatus: "New",
-  serviceStartDate: "",
+  serviceStartDate: inputAcceptableDate(date),
   serviceEndDate: "",
   duration: "hours",
   durationNumber: "",

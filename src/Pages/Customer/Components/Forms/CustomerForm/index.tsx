@@ -70,6 +70,9 @@ const CustomerForm = (props: CustomerFormTypes) => {
               dataCenter={dataCenter}
               errorCenter={errorCenter}
               refCenter={refCenter}
+              /*
+                Actions
+              */
               handleOnChange={handleOnChange}
               handleSelect={handleSelect}
             />
@@ -81,12 +84,25 @@ const CustomerForm = (props: CustomerFormTypes) => {
               dataCenter={dataCenter}
               errorCenter={errorCenter}
               refCenter={refCenter}
+              /*
+                Actions
+              */
               handleOnChange={handleOnChange}
               handleSelect={handleSelect}
             />
           )}
           {selectedTab.id === BILLING_CONTACT_INFORMATION_ID && (
-            <BillingContactInformation />
+            <BillingContactInformation
+              theme={theme}
+              dataCenter={dataCenter}
+              errorCenter={errorCenter}
+              refCenter={refCenter}
+              /*
+                Actions
+              */
+              handleOnChange={handleOnChange}
+              handleSelect={handleSelect}
+            />
           )}
         </div>
       </div>

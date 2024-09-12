@@ -1,5 +1,6 @@
-import DropDownLabel from "../Components/DropDownLabel";
-import DropDownTopBox from "../Components/DropDownTopBox";
+import DropDownLabel from "./DropDownLabel";
+import DropDownTopBox from "./DropDownTopBox";
+
 import { DropDownHeaderType } from "./_types";
 
 const DropDownHeader = (props: DropDownHeaderType) => {
@@ -20,7 +21,7 @@ const DropDownHeader = (props: DropDownHeaderType) => {
   } = props;
 
   return (
-    <div>
+    <>
       <div className="mb-2">
         <DropDownLabel label={label} isRequired={isRequired} />
       </div>
@@ -33,7 +34,7 @@ const DropDownHeader = (props: DropDownHeaderType) => {
         mainText={mainText}
         theme={theme}
       />
-    </div>
+    </>
   );
 };
 
