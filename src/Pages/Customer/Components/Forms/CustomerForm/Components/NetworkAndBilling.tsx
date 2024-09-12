@@ -11,6 +11,12 @@ import { DEFAULT_ON_OFF } from "../../../../../../Constants/General/general.cons
 import PrimaryInput from "../../../../../../Components/Inputs/PrimaryInput";
 import { SERVICE_CODES } from "../../../../../../Constants/Customers/customer.type";
 import ExtraInputWrapper from "./ExtraInputWrapper";
+import { DEFAULT_MODES_FOR_IP } from "../../../../../../Constants/Network/network.constants";
+import { PACKAGES } from "../../../../../../Constants/Packages/constants";
+import {
+  DEFAULT_BILLING_METHODS,
+  PAYMENTS,
+} from "../../../../../../Constants/Customers/payment.constants";
 
 type NetworkType = {
   dataCenter: DataCenterTypes;
@@ -109,7 +115,14 @@ const NetworkAndBilling = (props: NetworkType) => {
         />
       </ExtraInputWrapper>
 
-      <ExtraInputWrapper theme={theme}>
+      <ExtraInputWrapper
+        theme={theme}
+        colorCondition={
+          dataCenter.containIPServer || dataCenter.modeServer === "staticip"
+            ? true
+            : false
+        }
+      >
         <CustomizedDropDown
           dropDownData={DEFAULT_ON_OFF}
           label={"Contain IP"}
@@ -118,7 +131,124 @@ const NetworkAndBilling = (props: NetworkType) => {
           dataKey="label"
           dataCenterKey="containIP"
           secondaryDataKey="value"
+          secondaryDataCenterKey="containIPServer"
           handleSelect={handleSelect}
+        />
+
+        {dataCenter.containIPServer && (
+          <CustomizedDropDown
+            dropDownData={DEFAULT_MODES_FOR_IP}
+            label={"Mode"}
+            theme={theme}
+            value={dataCenter.mode || "Select contain ip"}
+            dataKey="label"
+            dataCenterKey="mode"
+            secondaryDataKey="value"
+            secondaryDataCenterKey="modeServer"
+            handleSelect={handleSelect}
+          />
+        )}
+
+        {dataCenter.modeServer === "staticip" && (
+          <PrimaryInput
+            type="text"
+            name="staticIP"
+            value={dataCenter.staticIP}
+            handleChangeOnInput={handleOnChange}
+            placeHolderText="Enter service static ip"
+            labelText="Static IP"
+            isRequired={true}
+            errorMessage={errorCenter.staticIP}
+            theme={theme}
+          />
+        )}
+      </ExtraInputWrapper>
+
+      <ExtraInputWrapper theme={theme}>
+        <CustomizedDropDown
+          dropDownData={PACKAGES}
+          label={"packages"}
+          theme={theme}
+          value={dataCenter.serviceType || "Select service type"}
+          dataKey="label"
+          dataCenterKey="serviceType"
+          secondaryDataKey="value"
+          secondaryDataCenterKey="serviceTypeServer"
+          handleSelect={handleSelect}
+          hasSearch={true}
+        />
+        <CustomizedDropDown
+          dropDownData={PACKAGES}
+          label={"Plans"}
+          theme={theme}
+          value={dataCenter.plan || "Select service type"}
+          dataKey="label"
+          dataCenterKey="plan"
+          secondaryDataKey="id"
+          secondaryDataCenterKey="planServer"
+          handleSelect={handleSelect}
+          hasSearch={true}
+        />
+      </ExtraInputWrapper>
+
+      <ExtraInputWrapper theme={theme}>
+        <CustomizedDropDown
+          dropDownData={PAYMENTS}
+          label={"Payment Currency"}
+          theme={theme}
+          value={dataCenter.paymentCurrency || "Select service type"}
+          dataKey="label"
+          dataCenterKey="paymentCurrency"
+          handleSelect={handleSelect}
+        />
+        <PrimaryInput
+          type="text"
+          name="price"
+          value={dataCenter.price}
+          handleChangeOnInput={handleOnChange}
+          placeHolderText="Enter the price"
+          labelText="Price"
+          isRequired={true}
+          errorMessage={errorCenter.price}
+          theme={theme}
+        />
+
+        <CustomizedDropDown
+          dropDownData={DEFAULT_BILLING_METHODS}
+          label={"Billing Method"}
+          theme={theme}
+          value={dataCenter.billingMethod || "Select a method"}
+          dataKey="label"
+          dataCenterKey="billingMethod"
+          secondaryDataKey="value"
+          secondaryDataCenterKey="billingMethodServer"
+          errorMessage={errorCenter.billingMethod}
+          handleSelect={handleSelect}
+        />
+
+        <CustomizedDropDown
+          dropDownData={DEFAULT_ON_OFF}
+          label={"Enable"}
+          theme={theme}
+          value={dataCenter.enable || "Select a value"}
+          dataKey="label"
+          dataCenterKey="enable"
+          secondaryDataKey="value"
+          secondaryDataCenterKey="enableServer"
+          errorMessage={errorCenter.enable}
+          handleSelect={handleSelect}
+        />
+
+        <PrimaryInput
+          type="text"
+          name="serviceStatus"
+          value={dataCenter.serviceStatus}
+          handleChangeOnInput={handleOnChange}
+          placeHolderText="Enter service status"
+          labelText="Service Status"
+          isRequired={true}
+          errorMessage={errorCenter.serviceStatus}
+          theme={theme}
         />
       </ExtraInputWrapper>
     </div>
