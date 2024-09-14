@@ -12,11 +12,15 @@ const CustomerCreate = () => {
     dataCenter,
     errorCenter,
     refCenter,
+    selectedTab,
+    tabs,
+    /*
+      Actions
+    */
+    handleSelectTab,
     handleOnChange,
     handleSelect,
-    selectedTab,
-    handleSelectTab,
-    tabs,
+    handleCheck,
   ] = Hook();
 
   return (
@@ -29,12 +33,16 @@ const CustomerCreate = () => {
         tabs={tabs}
         selectedTab={selectedTab}
         theme={theme}
-        handleSelectTab={handleSelectTab}
         dataCenter={dataCenter}
         errorCenter={errorCenter}
         refCenter={refCenter}
+        /*
+         Actions
+        */
+        handleSelectTab={handleSelectTab}
         handleOnChange={handleOnChange}
         handleSelect={handleSelect}
+        handleCheck={handleCheck}
       />
     </div>
   );

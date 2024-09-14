@@ -35,17 +35,7 @@ export const DEFAULT_DATA_CENTER: DataCenterTypes = {
   serviceEndDate: "",
   duration: "hours",
   durationNumber: "",
-  memberID: "",
-  cities: "",
-  townships: "",
-  address: "",
-  coordinates: "",
-  phoneNumber: "",
-  email: "",
-  viberNumber: "",
-  remark: "",
-  enable: "OFF",
-  enableServer: false,
+  paymentTypes: "",
 };
 
 export const DEFAULT_ERROR_CENTER: ErrorCenterTypes = {
@@ -78,17 +68,7 @@ export const DEFAULT_ERROR_CENTER: ErrorCenterTypes = {
   serviceEndDate: "",
   duration: "",
   durationNumber: "",
-  memberID: "",
-  cities: "",
-  townships: "",
-  address: "",
-  coordinates: "",
-  phoneNumber: "",
-  email: "",
-  viberNumber: "",
-  remark: "",
-  enable: "",
-  enableServer: "",
+  paymentTypes: "",
 };
 
 export const DEFAULT_REF_CENTER: RefCenterTypes = {
@@ -114,16 +94,7 @@ export const DEFAULT_REF_CENTER: RefCenterTypes = {
   serviceEndDate: createRef(),
   duration: createRef(),
   durationNumber: createRef(),
-  memberID: createRef(),
-  cities: createRef(),
-  townships: createRef(),
-  address: createRef(),
-  coordinates: createRef(),
-  phoneNumber: createRef(),
-  email: createRef(),
-  viberNumber: createRef(),
-  remark: createRef(),
-  enable: createRef(),
+  paymentTypes: createRef(),
 };
 
 export const TABS: TabType[] = [

@@ -9,7 +9,9 @@ export const DEFAULT_BILLING_METHODS = [
   { id: 2, label: "Postpaid", value: "post" },
 ];
 
-export const AVA_PAYMENTS = [
+export type AvaPaymentTypes = { id: number; label: string; value: string };
+
+export const AVA_PAYMENTS: AvaPaymentTypes[] = [
   { id: 1, label: "MMK", value: "mmk" },
   { id: 2, label: "SGD", value: "sgd" },
   { id: 3, label: "BAHT", value: "baht" },

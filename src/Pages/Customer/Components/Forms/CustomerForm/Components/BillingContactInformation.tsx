@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef } from "react";
+import { ChangeEvent } from "react";
 import { CustomizedDropDownDataTypes } from "../../../../../../Components/DropDownBox/CustomizedDropDown/_types";
 import { DefaultThemeTypes } from "../../../../../Theme/_types";
 import {
@@ -7,7 +7,10 @@ import {
   RefCenterTypes,
 } from "../../../../Create/_types";
 import ExtraInputWrapper from "./ExtraInputWrapper";
-import SelectDropDown from "../../../../../../Components/DropDownBox/SelectDropDown";
+import SelectDropDown, {
+  AvaliableSelectionType,
+} from "../../../../../../Components/DropDownBox/SelectDropDown";
+import { AVA_PAYMENTS } from "../../../../../../Constants/Customers/payment.constants";
 
 type BillingType = {
   dataCenter: DataCenterTypes;
@@ -23,6 +26,11 @@ type BillingType = {
     dataCenterKey: string
   ) => void;
   handleOnChange: (ev: ChangeEvent<HTMLInputElement>) => void;
+  handleCheck: (
+    data: AvaliableSelectionType,
+    dataKey: string,
+    dataCenterKey: string
+  ) => void;
 };
 
 const BillingContactInformation = (props: BillingType) => {
@@ -33,18 +41,24 @@ const BillingContactInformation = (props: BillingType) => {
     refCenter,
     handleOnChange,
     handleSelect,
+    handleCheck,
   } = props;
-  const dateInputRef = useRef<HTMLInputElement>(null);
 
-  const handleClick = () => {
-    if (!dateInputRef || !dateInputRef.current) return;
-    dateInputRef.current.showPicker(); // Trigger the native picker
-  };
   return (
     <>
       <ExtraInputWrapper theme={theme}>
-        <SelectDropDown label="Currency" theme={theme} />
-        <input type="datetime-local" />
+        <SelectDropDown
+          label="Currency"
+          theme={theme}
+          avaliableSelections={AVA_PAYMENTS}
+          dataKey="label"
+          dataCenterKey="paymentTypes"
+          value={dataCenter.paymentTypes}
+          /*
+            Actions
+          */
+          handleCheck={handleCheck}
+        />
       </ExtraInputWrapper>
     </>
   );

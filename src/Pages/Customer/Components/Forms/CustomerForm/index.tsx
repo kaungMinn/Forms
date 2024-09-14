@@ -17,6 +17,7 @@ import {
   ErrorCenterTypes,
   RefCenterTypes,
 } from "../../../Create/_types";
+import { AvaliableSelectionType } from "../../../../../Components/DropDownBox/SelectDropDown";
 
 type CustomerFormTypes = {
   tabs: TabType[];
@@ -35,6 +36,11 @@ type CustomerFormTypes = {
     dataCenterKey: string
   ) => void;
   handleOnChange: (ev: ChangeEvent<HTMLInputElement>) => void;
+  handleCheck: (
+    data: AvaliableSelectionType,
+    dataKey: string,
+    dataCenterKey: string
+  ) => void;
 };
 
 const CustomerForm = (props: CustomerFormTypes) => {
@@ -42,12 +48,16 @@ const CustomerForm = (props: CustomerFormTypes) => {
     tabs,
     selectedTab,
     theme,
-    handleSelectTab,
     dataCenter,
     errorCenter,
     refCenter,
+    /*
+      Actions
+    */
+    handleSelectTab,
     handleOnChange,
     handleSelect,
+    handleCheck,
   } = props;
 
   return (
@@ -102,6 +112,7 @@ const CustomerForm = (props: CustomerFormTypes) => {
               */
               handleOnChange={handleOnChange}
               handleSelect={handleSelect}
+              handleCheck={handleCheck}
             />
           )}
         </div>

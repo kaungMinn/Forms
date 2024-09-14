@@ -1,18 +1,33 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
-import DropDownHeader from "../Components/DropDownHeader";
+import DropDownContainer from "../Components/DropDownContainer";
 import BottomMenu from "./BottomMenu";
-import DropDownWrapper from "../Components/DropDownWrapper";
+
+export type AvaliableSelectionType = {
+  id?: number;
+  _id?: number;
+  label: string;
+  value?: string | boolean;
+};
+
 type SelectDropDownTypes = {
   label?: string;
   isRequired?: boolean;
   theme: DefaultThemeTypes;
   errorMessage?: string;
   isDisabled?: boolean;
-
+  value?: string;
+  avaliableSelections: AvaliableSelectionType[];
+  dataKey: string;
+  dataCenterKey: string;
   /*
     Actions
   */
+  handleCheck: (
+    data: AvaliableSelectionType,
+    dataKey: string,
+    dataCenterKey: string
+  ) => void;
 };
 
 const SelectDropDown = (props: SelectDropDownTypes) => {
@@ -22,43 +37,56 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
     errorMessage = "",
     isDisabled = false,
     theme,
+    value = "Select something",
+    avaliableSelections,
+    dataKey,
+    dataCenterKey,
+    /*
+      Actions
+    */
+    handleCheck,
   } = props;
-  const [mainText, setMainText] = useState("Select values");
-  const [isNoSpace, setIsNoSpace] = useState(false);
   const [hasDropDown, setHasDropDown] = useState(false);
 
-  const ref = useRef<HTMLDivElement | null>(null);
-  const dropDownRef = useRef<HTMLDivElement | null>(null);
-
-  const handleHasDropDown = () => {
-    setHasDropDown(!hasDropDown);
+  const handleHasDropDown = (value: boolean) => {
+    setHasDropDown(value);
   };
 
   return (
     <>
-      <div className="relative">
-        <DropDownHeader
-          label={label}
-          isDisabled={isDisabled}
-          isRequired={isRequired}
-          errorMessage={errorMessage}
-          theme={theme}
-          mainText={mainText}
-          hasDropDown={hasDropDown}
-          /*
+      <DropDownContainer
+        label={label}
+        isDisabled={isDisabled}
+        isRequired={isRequired}
+        errorMessage={errorMessage}
+        theme={theme}
+        mainText={value}
+        hasDropDown={hasDropDown}
+        dataShower={
+          <BottomMenu
+            value={value}
+            avaliableSelection={avaliableSelections}
+            theme={theme}
+            dataKey={dataKey}
+            dataCenterKey={dataCenterKey}
+            /*
               Actions
-          */
-          onClick={handleHasDropDown}
-        />
+            */
+            handleCheck={handleCheck}
+          />
+        }
+        /*
+          Actions
+        */
+        handleHasDropDown={handleHasDropDown}
+        onClick={() => handleHasDropDown(!hasDropDown)}
+      ></DropDownContainer>
 
-        {/* <DropDownWrapper
-          hasDropDown={hasDropDown}
-          dropDownRef={dropDownRef}
-          isNoSpace={isNoSpace}
-        >
-          <BottomMenu />
-        </DropDownWrapper> */}
-      </div>
+      {errorMessage ? (
+        <div className="text-xs ps-1 text-red-500">{errorMessage}</div>
+      ) : (
+        <div className="py-2"></div>
+      )}
     </>
   );
 };

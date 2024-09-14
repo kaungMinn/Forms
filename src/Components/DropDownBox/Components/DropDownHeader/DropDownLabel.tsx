@@ -7,9 +7,9 @@ const DropDownLabel = (props: DropDownLabelType) => {
   return (
     <>
       {label && (
-        <label htmlFor="" className="block caption-font">
+        <div className="block caption-font">
           {label} {isRequired && <span className="text-red-500">**</span>}
-        </label>
+        </div>
       )}
     </>
   );

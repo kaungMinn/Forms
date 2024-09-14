@@ -53,12 +53,12 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
   return (
     <div className="">
       {labelText && (
-        <label
+        <div
           className={`caption-font font-medium block mb-2 ${primaryColor[1]}`}
         >
           {labelText}
           {isRequired && <span className="caption-font text-danger"> ** </span>}
-        </label>
+        </div>
       )}
       <div
         className={`relative col-span-3 space-y-2 ${

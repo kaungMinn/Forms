@@ -1,3 +1,5 @@
+import { RefObject } from "react";
+
 export type DataCenterTypes = {
   brandName: string;
   customerName: string;
@@ -28,17 +30,7 @@ export type DataCenterTypes = {
   serviceEndDate: string;
   duration: string;
   durationNumber: string;
-  memberID: string;
-  cities: string;
-  townships: string;
-  address: string;
-  coordinates: string;
-  phoneNumber: string;
-  email: string;
-  viberNumber: string;
-  remark: string;
-  enable: string;
-  enableServer: boolean | string;
+  paymentTypes: string;
 };
 
 export type ErrorCenterTypes = {
@@ -71,17 +63,7 @@ export type ErrorCenterTypes = {
   serviceEndDate: string;
   duration: string;
   durationNumber: string;
-  memberID: string;
-  cities: string;
-  townships: string;
-  address: string;
-  coordinates: string;
-  phoneNumber: string;
-  email: string;
-  viberNumber: string;
-  remark: string;
-  enable: string;
-  enableServer: boolean | string;
+  paymentTypes: string;
 };
 
 export type RefCenterTypes = {
@@ -107,14 +89,5 @@ export type RefCenterTypes = {
   serviceEndDate: RefObject;
   duration: RefObject;
   durationNumber: RefObject;
-  memberID: RefObject;
-  cities: RefObject;
-  townships: RefObject;
-  address: RefObject;
-  coordinates: RefObject;
-  phoneNumber: RefObject;
-  email: RefObject;
-  viberNumber: RefObject;
-  remark: RefObject;
-  enable: RefObject;
+  paymentTypes: RefObject;
 };
