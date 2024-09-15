@@ -1,5 +1,5 @@
 import { CiCircleChevDown } from "react-icons/ci";
-import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
+import { DefaultThemeTypes } from "../../../../Pages/Theme/_types";
 
 type DropDownTopBoxType = {
   isDisabled: boolean;

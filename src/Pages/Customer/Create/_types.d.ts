@@ -1,4 +1,5 @@
 import { RefObject } from "react";
+import { AvaliableSelectionType } from "../../../Components/DropDownBox/SelectDropDown";
 
 export type DataCenterTypes = {
   brandName: string;
@@ -30,7 +31,12 @@ export type DataCenterTypes = {
   serviceEndDate: string;
   duration: string;
   durationNumber: string;
+  enable: string;
+  enableServer: boolean;
   paymentTypes: string;
+  mmk: string;
+  sgd: string;
+  baht: string;
 };
 
 export type ErrorCenterTypes = {
@@ -63,7 +69,12 @@ export type ErrorCenterTypes = {
   serviceEndDate: string;
   duration: string;
   durationNumber: string;
+  enable: string;
+  enableServer: string;
   paymentTypes: string;
+  mmk: string;
+  sgd: string;
+  baht: string;
 };
 
 export type RefCenterTypes = {
@@ -90,4 +101,11 @@ export type RefCenterTypes = {
   duration: RefObject;
   durationNumber: RefObject;
   paymentTypes: RefObject;
+  mmk: RefObject;
+  sgd: RefObject;
+  baht: RefObject;
+};
+
+export type SelectInputTypes = {
+  paymentTypes: AvaliableSelectionType[];
 };

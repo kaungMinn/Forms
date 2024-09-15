@@ -1,13 +1,20 @@
 export const arrayToggle = <T>(
-  data: T[],
-  dataKey: keyof T,
-  value: string
-): string[] => {
-  const dataArr = data.map((dataValue) => String(dataValue[dataKey]));
-
-  if (dataArr.includes(value)) {
-    return dataArr.filter((data) => data !== value);
+  selectedDataCenter: T[],
+  data: T,
+  dataKey: string
+) => {
+  const key = dataKey as keyof T;
+  let tmp_data_center = [...selectedDataCenter];
+  const hasSelectedData = tmp_data_center.some(
+    (dataValue) => dataValue[key] === data[key]
+  );
+  if (hasSelectedData) {
+    tmp_data_center = tmp_data_center.filter(
+      (dataValue) => dataValue[key] !== data[key]
+    );
   } else {
-    return [...dataArr, value];
+    tmp_data_center.push(data);
   }
+
+  return tmp_data_center;
 };

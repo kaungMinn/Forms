@@ -51,13 +51,14 @@ const BillingContactInformation = (props: BillingType) => {
           label="Currency"
           theme={theme}
           avaliableSelections={AVA_PAYMENTS}
-          dataKey="label"
+          dataKey={"label"}
           dataCenterKey="paymentTypes"
-          value={dataCenter.paymentTypes}
+          dataCenter={dataCenter}
           /*
             Actions
           */
           handleCheck={handleCheck}
+          handleOnChange={handleOnChange}
         />
       </ExtraInputWrapper>
     </>

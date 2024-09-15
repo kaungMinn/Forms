@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
 import DropDownContainer from "../Components/DropDownContainer";
 import BottomMenu from "./BottomMenu";
+import { valueFinder } from "../Utils/data.utils";
 
 export type AvaliableSelectionType = {
   id?: number;
@@ -16,10 +17,10 @@ type SelectDropDownTypes = {
   theme: DefaultThemeTypes;
   errorMessage?: string;
   isDisabled?: boolean;
-  value?: string;
   avaliableSelections: AvaliableSelectionType[];
   dataKey: string;
   dataCenterKey: string;
+  dataCenter: Record<string, string | boolean | number>;
   /*
     Actions
   */
@@ -28,6 +29,7 @@ type SelectDropDownTypes = {
     dataKey: string,
     dataCenterKey: string
   ) => void;
+  handleOnChange: (ev: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const SelectDropDown = (props: SelectDropDownTypes) => {
@@ -37,20 +39,23 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
     errorMessage = "",
     isDisabled = false,
     theme,
-    value = "Select something",
     avaliableSelections,
     dataKey,
     dataCenterKey,
+    dataCenter,
     /*
       Actions
     */
     handleCheck,
+    handleOnChange,
   } = props;
   const [hasDropDown, setHasDropDown] = useState(false);
 
   const handleHasDropDown = (value: boolean) => {
     setHasDropDown(value);
   };
+
+  const value = valueFinder(dataCenter, dataCenterKey);
 
   return (
     <>
@@ -60,7 +65,7 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
         isRequired={isRequired}
         errorMessage={errorMessage}
         theme={theme}
-        mainText={value}
+        mainText={value || "Select something"}
         hasDropDown={hasDropDown}
         dataShower={
           <BottomMenu
@@ -69,10 +74,12 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
             theme={theme}
             dataKey={dataKey}
             dataCenterKey={dataCenterKey}
+            dataCenter={dataCenter}
             /*
               Actions
             */
             handleCheck={handleCheck}
+            handleOnChange={handleOnChange}
           />
         }
         /*
@@ -80,7 +87,7 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
         */
         handleHasDropDown={handleHasDropDown}
         onClick={() => handleHasDropDown(!hasDropDown)}
-      ></DropDownContainer>
+      />
 
       {errorMessage ? (
         <div className="text-xs ps-1 text-red-500">{errorMessage}</div>

@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 
-export const setStateObject = (
+export const modifyState = <T>(
   key: string,
-  value: any,
-  setState: Dispatch<SetStateAction<any>>
+  value: T[keyof T],
+  setState: Dispatch<SetStateAction<T>>
 ) => {
-  setState((prev: any) => ({ ...prev, [key]: value }));
+  setState((prev) => ({ ...prev, [key as keyof T]: value }));
 };

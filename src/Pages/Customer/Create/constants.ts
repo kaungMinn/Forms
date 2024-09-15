@@ -1,5 +1,10 @@
 import { createRef } from "react";
-import { DataCenterTypes, ErrorCenterTypes, RefCenterTypes } from "./_types";
+import {
+  DataCenterTypes,
+  ErrorCenterTypes,
+  RefCenterTypes,
+  SelectInputTypes,
+} from "./_types";
 import { TabType } from "../../../Components/Menus/TabMenu/_types";
 import { inputAcceptableDate } from "../../../Utils/Date/date.utils";
 
@@ -35,7 +40,12 @@ export const DEFAULT_DATA_CENTER: DataCenterTypes = {
   serviceEndDate: "",
   duration: "hours",
   durationNumber: "",
+  enable: "Off",
+  enableServer: false,
   paymentTypes: "",
+  mmk: "",
+  sgd: "",
+  baht: "",
 };
 
 export const DEFAULT_ERROR_CENTER: ErrorCenterTypes = {
@@ -68,7 +78,12 @@ export const DEFAULT_ERROR_CENTER: ErrorCenterTypes = {
   serviceEndDate: "",
   duration: "",
   durationNumber: "",
+  enable: "",
+  enableServer: "",
   paymentTypes: "",
+  mmk: "",
+  sgd: "",
+  baht: "",
 };
 
 export const DEFAULT_REF_CENTER: RefCenterTypes = {
@@ -95,6 +110,13 @@ export const DEFAULT_REF_CENTER: RefCenterTypes = {
   duration: createRef(),
   durationNumber: createRef(),
   paymentTypes: createRef(),
+  mmk: createRef(),
+  sgd: createRef(),
+  baht: createRef(),
+};
+
+export const DEFAULT_SELECT_INPUT_CENTER: SelectInputTypes = {
+  paymentTypes: [],
 };
 
 export const TABS: TabType[] = [

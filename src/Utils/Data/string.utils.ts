@@ -7,7 +7,10 @@ export const canBeSplit = (value: string, splitter: string) => {
   return result;
 };
 
-export const stringToggle = (selectedValue: string, value: string): string => {
+export const stringToggle = (
+  selectedValue: string,
+  value: string
+): string[] => {
   let selectedValueArray = selectedValue.split(",");
   if (selectedValueArray.includes(value)) {
     selectedValueArray = selectedValueArray.filter(
@@ -16,5 +19,5 @@ export const stringToggle = (selectedValue: string, value: string): string => {
   } else {
     selectedValueArray.push(value);
   }
-  return selectedValueArray.join(",");
+  return selectedValueArray;
 };
