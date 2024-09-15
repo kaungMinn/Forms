@@ -25,10 +25,18 @@ type GeneralType = {
     dataCenterKey: string
   ) => void;
   handleOnChange: (ev: ChangeEvent<HTMLInputElement>) => void;
+  updateDataCenter: (key: string, value: string) => void;
+  updateErrorCenter: (key: string, value: string) => void;
 };
 
 const General = (props: GeneralType) => {
-  const { dataCenter, theme, handleOnChange, handleSelect } = props;
+  const {
+    dataCenter,
+    theme,
+    handleSelect,
+    updateDataCenter,
+    updateErrorCenter,
+  } = props;
 
   return (
     <div className="grid grid-cols-1 laptop:grid-cols-2 gap-x-5 ">
@@ -44,13 +52,14 @@ const General = (props: GeneralType) => {
       />
 
       <PrimaryInput
-        labelText="Customer Name"
+        label="Customer Name"
         type="text"
         name="customerName"
         value={dataCenter.customerName}
         placeHolderText="Enter customer name"
         theme={theme}
-        handleChangeOnInput={handleOnChange}
+        updateDataCenter={updateDataCenter}
+        updateErrorCenter={updateErrorCenter}
       />
 
       <CustomizedDropDown
@@ -69,12 +78,13 @@ const General = (props: GeneralType) => {
         <div>
           <PrimaryInput
             value={dataCenter.companyName}
-            handleChangeOnInput={handleOnChange}
-            labelText="Company Name"
+            label="Company Name"
             placeHolderText="Enter company name"
             name="companyName"
             type="text"
             theme={theme}
+            updateDataCenter={updateDataCenter}
+            updateErrorCenter={updateErrorCenter}
           />
         </div>
       )}

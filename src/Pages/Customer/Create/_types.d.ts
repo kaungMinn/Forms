@@ -1,5 +1,6 @@
 import { RefObject } from "react";
 import { AvaliableSelectionType } from "../../../Components/DropDownBox/SelectDropDown";
+import { PlanType } from "../../../Constants/Packages/constants";
 
 export type DataCenterTypes = {
   brandName: string;
@@ -108,4 +109,8 @@ export type RefCenterTypes = {
 
 export type SelectInputTypes = {
   paymentTypes: AvaliableSelectionType[];
+};
+
+export type ChildCenterTypes = {
+  plan: PlanType;
 };

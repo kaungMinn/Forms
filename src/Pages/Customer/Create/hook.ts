@@ -17,6 +17,11 @@ import { modifyState } from "../../../Utils/Data/States/state.utils";
 import { TabType } from "../../../Components/Menus/TabMenu/_types";
 import { AvaliableSelectionType } from "../../../Components/DropDownBox/SelectDropDown";
 import { arrayToggle } from "../../../Utils/Data/array.utils";
+import {
+  PackageType,
+  PlanType,
+  PriceType,
+} from "../../../Constants/Packages/constants";
 
 type HookType = [
   dataCenter: DataCenterTypes,
@@ -24,6 +29,7 @@ type HookType = [
   refCenter: RefCenterTypes,
   selectedTab: TabType,
   tabs: TabType[],
+  plans: PlanType[],
   /*
     Actions
   */
@@ -38,7 +44,9 @@ type HookType = [
     data: AvaliableSelectionType,
     dataKey: string,
     dataCenterKey: string
-  ) => void
+  ) => void,
+  updateDataCenter: (key: string, value: string) => void,
+  updateErrorCenter: (key: string, value: string) => void
 ];
 
 const Hook = (): HookType => {
@@ -53,7 +61,8 @@ const Hook = (): HookType => {
   const [selectInputCenter, setSelectInputCenter] = useState<SelectInputTypes>(
     DEFAULT_SELECT_INPUT_CENTER
   );
-
+  const [plans, setPlans] = useState<PlanType[]>([]);
+  const [price, setPrice] = useState<PriceType>({ number: 0, type: "" });
   const updateDataCenter = (
     key: string,
     value: DataCenterTypes[keyof DataCenterTypes]
@@ -75,6 +84,25 @@ const Hook = (): HookType => {
     return modifyState(key, value, setSelectInputCenter);
   };
 
+  const handleUpdatePlans = (data: PackageType) => {
+    const plans = data.plans;
+    setPlans(plans);
+  };
+
+  const handleUpdatePrice = (data: PlanType) => {
+    const price = data.price;
+    setPrice(price);
+
+    const { number, type } = price;
+    updateDataCenter("price", number.toString());
+    updateDataCenter("paymentCurrency", type);
+  };
+
+  const childDataStructure = {
+    serviceType: handleUpdatePlans,
+    plan: handleUpdatePrice,
+  };
+
   /*
     ACTIONS
   */
@@ -85,21 +113,23 @@ const Hook = (): HookType => {
     updateErrorCenter(name, "");
   };
 
-  const handleSelect = (
-    data: CustomizedDropDownDataTypes,
-    dataKey: string,
-    dataCenterKey: string
-  ) => {
-    let value = data[dataKey as keyof CustomizedDropDownDataTypes];
+  const handleSelect = (data: any, dataKey: string, dataCenterKey: string) => {
+    let value = data[dataKey];
 
     if (typeof value === "undefined") {
       console.log("Change valid datakey");
       return;
     }
-
     if (typeof value === "number") value = value.toString();
     updateDataCenter(dataCenterKey, value);
     updateErrorCenter(dataCenterKey, "");
+
+    const childData =
+      childDataStructure[dataCenterKey as keyof typeof childDataStructure];
+
+    if (childData) {
+      childData(data);
+    }
   };
 
   const handleCheck = (
@@ -148,6 +178,7 @@ const Hook = (): HookType => {
     refCenter,
     selectedTab,
     tabs,
+    plans,
     /*
       Actions
     */
@@ -155,6 +186,8 @@ const Hook = (): HookType => {
     handleOnChange,
     handleSelect,
     handleCheck,
+    updateDataCenter,
+    updateErrorCenter,
   ];
 };
 

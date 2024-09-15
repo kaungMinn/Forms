@@ -45,7 +45,7 @@ const SuccessBox: React.FC<SuccessBoxPropType> = ({
         <div className="flex justify-center">
           <div className="h-auto w-36">
             <PrimaryButton
-              labelText={btnLabel}
+              label={btnLabel}
               /**
                * action
                */

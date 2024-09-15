@@ -1,7 +1,7 @@
 import React from "react";
 
 interface SecondaryButtonPropType {
-  labelText?: string;
+  label?: string;
   icon?: React.ReactNode;
   /**
    * action
@@ -10,7 +10,7 @@ interface SecondaryButtonPropType {
 }
 
 const SecondaryButton: React.FC<SecondaryButtonPropType> = ({
-  labelText,
+  label,
   icon,
   /**
    * action
@@ -27,7 +27,7 @@ const SecondaryButton: React.FC<SecondaryButtonPropType> = ({
         onClick={handleClickOn}
       >
         {icon && icon}
-        {labelText && <p className="secondary-font font-medium ">{labelText}</p>}
+        {label && <p className="secondary-font font-medium ">{label}</p>}
       </button>
     </>
   );

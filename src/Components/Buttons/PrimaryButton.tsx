@@ -2,7 +2,7 @@ import React from "react";
 import { TbSettings } from "react-icons/tb";
 
 interface PrimaryButtonPropType {
-  labelText?: string;
+  label?: string;
   isLoading?: boolean;
   icon?: React.ReactNode;
   isDisabled?: boolean;
@@ -13,7 +13,7 @@ interface PrimaryButtonPropType {
 }
 
 const PrimaryButton: React.FC<PrimaryButtonPropType> = ({
-  labelText,
+  label,
   isLoading,
   icon,
   isDisabled,
@@ -42,9 +42,7 @@ const PrimaryButton: React.FC<PrimaryButtonPropType> = ({
         ) : (
           <>
             {icon && icon}
-            {labelText && (
-              <p className="secondary-font font-medium ">{labelText}</p>
-            )}
+            {label && <p className="secondary-font font-medium ">{label}</p>}
           </>
         )}
       </button>

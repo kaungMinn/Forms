@@ -14,6 +14,7 @@ const CustomerCreate = () => {
     refCenter,
     selectedTab,
     tabs,
+    plans,
     /*
       Actions
     */
@@ -21,6 +22,8 @@ const CustomerCreate = () => {
     handleOnChange,
     handleSelect,
     handleCheck,
+    updateDataCenter,
+    updateErrorCenter,
   ] = Hook();
 
   return (
@@ -36,6 +39,7 @@ const CustomerCreate = () => {
         dataCenter={dataCenter}
         errorCenter={errorCenter}
         refCenter={refCenter}
+        plans={plans}
         /*
          Actions
         */
@@ -43,6 +47,8 @@ const CustomerCreate = () => {
         handleOnChange={handleOnChange}
         handleSelect={handleSelect}
         handleCheck={handleCheck}
+        updateDataCenter={updateDataCenter}
+        updateErrorCenter={updateErrorCenter}
       />
     </div>
   );

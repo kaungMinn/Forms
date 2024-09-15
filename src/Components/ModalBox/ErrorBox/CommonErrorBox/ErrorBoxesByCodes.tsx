@@ -44,7 +44,7 @@ const UnauthenticatedBox: React.FC<ErrorResponsePropsType> = (err) => {
       <div className="flex justify-center">
         <div className="h-auto w-1/2">
           <PrimaryButton
-            labelText="Logout"
+            label="Logout"
             /**
              * action
              */
@@ -67,7 +67,7 @@ const PermissionDeniedBox: React.FC<ErrorResponsePropsType> = (err) => {
       <div className="flex justify-center">
         <div className="h-auto w-1/2">
           <PrimaryButton
-            labelText="Try again"
+            label="Try again"
             /**
              * action
              */
@@ -92,7 +92,7 @@ const NotFoundBox: React.FC<ErrorResponsePropsType> = (err) => {
       <div className="flex justify-center">
         <div className="h-auto w-1/2">
           <PrimaryButton
-            labelText="Try again"
+            label="Try again"
             /**
              * action
              */
@@ -118,7 +118,7 @@ const AlreadyExistBox: React.FC<ErrorResponsePropsType> = (err) => {
       <div className="flex justify-center">
         <div className="h-auto w-1/2">
           <PrimaryButton
-            labelText="Try again"
+            label="Try again"
             /**
              * action
              */
@@ -141,7 +141,7 @@ const GatewayTimeoutBox: React.FC<ErrorResponsePropsType> = (err) => {
       <div className="flex justify-center">
         <div className="h-auto w-1/2">
           <PrimaryButton
-            labelText="Logout"
+            label="Logout"
             /**
              * action
              */
@@ -167,7 +167,7 @@ const CommonBox: React.FC<ErrorResponsePropsType> = (err) => {
       <div className="flex justify-center">
         <div className="h-auto w-1/2">
           <PrimaryButton
-            labelText="Try again"
+            label="Try again"
             /**
              * action
              */

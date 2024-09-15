@@ -1,8 +1,8 @@
-import React, { InputHTMLAttributes, RefObject } from "react";
+import React, { ChangeEvent, InputHTMLAttributes, RefObject } from "react";
 import { DefaultThemeTypes } from "../../Pages/Theme/_types";
 
 interface PrimaryInputPropType extends InputHTMLAttributes<HTMLInputElement> {
-  labelText?: string;
+  label?: string;
   labelIcon?: React.ReactNode;
   type: string;
   name: string;
@@ -14,16 +14,22 @@ interface PrimaryInputPropType extends InputHTMLAttributes<HTMLInputElement> {
   backIcon?: React.ReactNode;
   errorMessage?: string;
   theme: DefaultThemeTypes;
+
+  /*
+    States
+  */
+  updateDataCenter: (key: string, value: string) => void;
+  updateErrorCenter: (key: string, value: string) => void;
   /**
    * action
    */
-  handleChangeOnInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChangeOnInput?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleClickOnIcon?: () => void;
   handleInputBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const PrimaryInput: React.FC<PrimaryInputPropType> = ({
-  labelText = "",
+  label = "",
   type = "text",
   name = "",
   inputRef,
@@ -34,10 +40,14 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
   backIcon,
   errorMessage = "",
   theme,
+  /*
+    States
+  */
+  updateDataCenter,
+  updateErrorCenter,
   /**
    * action
    */
-
   handleChangeOnInput,
   handleClickOnIcon,
   handleInputBlur,
@@ -50,19 +60,26 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
     inputRef.current.showPicker(); // Trigger the native picker
   };
 
+  const handleOnChange = (ev: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = ev.target;
+
+    updateDataCenter(name, value);
+    updateErrorCenter(name, "");
+  };
+
   return (
     <div className="">
-      {labelText && (
+      {label && (
         <div
           className={`caption-font font-medium block mb-2 ${primaryColor[1]}`}
         >
-          {labelText}
+          {label}
           {isRequired && <span className="caption-font text-danger"> ** </span>}
         </div>
       )}
       <div
         className={`relative col-span-3 space-y-2 ${
-          labelText && "tablet:col-span-2"
+          label && "tablet:col-span-2"
         }`}
       >
         <input
@@ -84,7 +101,11 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
           /**
            * action
            */
-          onChange={(event) => handleChangeOnInput(event)}
+          onChange={(event) =>
+            handleChangeOnInput
+              ? handleChangeOnInput(event)
+              : handleOnChange(event)
+          }
           onClick={handleClick}
         />
         {backIcon && (
@@ -101,8 +122,8 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
       </div>
       {errorMessage && (
         <>
-          {labelText && <div className="col-span-3 tablet:col-span-1" />}
-          <div className={`col-span-3 ${labelText && "tablet:col-span-2"} `}>
+          {label && <div className="col-span-3 tablet:col-span-1" />}
+          <div className={`col-span-3 ${label && "tablet:col-span-2"} `}>
             {errorMessage && (
               <p className="caption-font px-2 text-danger"> {errorMessage} </p>
             )}

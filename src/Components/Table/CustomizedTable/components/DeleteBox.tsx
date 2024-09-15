@@ -73,7 +73,7 @@ const DeleteBox = (props: DeleteBoxType) => {
   const confirmButton =
     Number(subNodes) > 0 ? (
       <PrimaryButton
-        labelText="Go To Disconnect"
+        label="Go To Disconnect"
         /**
          * action
          */
@@ -81,7 +81,7 @@ const DeleteBox = (props: DeleteBoxType) => {
       />
     ) : (
       <PrimaryButton
-        labelText="Confirm"
+        label="Confirm"
         /**
          * action
          */
@@ -104,7 +104,7 @@ const DeleteBox = (props: DeleteBoxType) => {
         <div className="grid grid-cols-2 space-x-2">
           <div className="col-span-1">
             <SecondaryButton
-              labelText="Cancel"
+              label="Cancel"
               handleClickOn={() => handleClose()}
             />
           </div>

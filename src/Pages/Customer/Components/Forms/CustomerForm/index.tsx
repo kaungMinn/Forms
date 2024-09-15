@@ -18,6 +18,7 @@ import {
   RefCenterTypes,
 } from "../../../Create/_types";
 import { AvaliableSelectionType } from "../../../../../Components/DropDownBox/SelectDropDown";
+import { PlanType } from "../../../../../Constants/Packages/constants";
 
 type CustomerFormTypes = {
   tabs: TabType[];
@@ -26,6 +27,7 @@ type CustomerFormTypes = {
   dataCenter: DataCenterTypes;
   errorCenter: ErrorCenterTypes;
   refCenter: RefCenterTypes;
+  plans: PlanType[];
   /* 
     Actions
   */
@@ -41,6 +43,8 @@ type CustomerFormTypes = {
     dataKey: string,
     dataCenterKey: string
   ) => void;
+  updateDataCenter: (key: string, value: string) => void;
+  updateErrorCenter: (key: string, value: string) => void;
 };
 
 const CustomerForm = (props: CustomerFormTypes) => {
@@ -51,6 +55,7 @@ const CustomerForm = (props: CustomerFormTypes) => {
     dataCenter,
     errorCenter,
     refCenter,
+    plans,
     /*
       Actions
     */
@@ -58,6 +63,8 @@ const CustomerForm = (props: CustomerFormTypes) => {
     handleOnChange,
     handleSelect,
     handleCheck,
+    updateDataCenter,
+    updateErrorCenter,
   } = props;
 
   return (
@@ -85,6 +92,8 @@ const CustomerForm = (props: CustomerFormTypes) => {
               */
               handleOnChange={handleOnChange}
               handleSelect={handleSelect}
+              updateDataCenter={updateDataCenter}
+              updateErrorCenter={updateErrorCenter}
             />
           )}
 
@@ -94,11 +103,14 @@ const CustomerForm = (props: CustomerFormTypes) => {
               dataCenter={dataCenter}
               errorCenter={errorCenter}
               refCenter={refCenter}
+              plans={plans}
               /*
                 Actions
               */
               handleOnChange={handleOnChange}
               handleSelect={handleSelect}
+              updateDataCenter={updateDataCenter}
+              updateErrorCenter={updateErrorCenter}
             />
           )}
           {selectedTab.id === BILLING_CONTACT_INFORMATION_ID && (

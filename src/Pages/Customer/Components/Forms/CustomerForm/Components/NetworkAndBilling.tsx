@@ -12,7 +12,10 @@ import PrimaryInput from "../../../../../../Components/Inputs/PrimaryInput";
 import { SERVICE_CODES } from "../../../../../../Constants/Customers/customer.type";
 import ExtraInputWrapper from "./ExtraInputWrapper";
 import { DEFAULT_MODES_FOR_IP } from "../../../../../../Constants/Network/network.constants";
-import { PACKAGES } from "../../../../../../Constants/Packages/constants";
+import {
+  PACKAGES,
+  PlanType,
+} from "../../../../../../Constants/Packages/constants";
 import {
   DEFAULT_BILLING_METHODS,
   PAYMENTS,
@@ -23,6 +26,7 @@ type NetworkType = {
   errorCenter: ErrorCenterTypes;
   refCenter: RefCenterTypes;
   theme: DefaultThemeTypes;
+  plans: PlanType[];
   /*
     Actions
   */
@@ -32,6 +36,8 @@ type NetworkType = {
     dataCenterKey: string
   ) => void;
   handleOnChange: (ev: ChangeEvent<HTMLInputElement>) => void;
+  updateDataCenter: (key: string, value: string) => void;
+  updateErrorCenter: (key: string, value: string) => void;
 };
 
 const NetworkAndBilling = (props: NetworkType) => {
@@ -40,8 +46,14 @@ const NetworkAndBilling = (props: NetworkType) => {
     errorCenter,
     refCenter,
     theme,
+    plans,
+
+    /*
+      Actions
+    */
     handleSelect,
-    handleOnChange,
+    updateDataCenter,
+    updateErrorCenter,
   } = props;
 
   return (
@@ -69,12 +81,13 @@ const NetworkAndBilling = (props: NetworkType) => {
             type="text"
             name="radUserName"
             value={dataCenter.radUserName}
-            handleChangeOnInput={handleOnChange}
             placeHolderText="Enter rad user name"
-            labelText="Rad User Name"
+            label="Rad User Name"
             isRequired={true}
             errorMessage={errorCenter.radUserName}
             theme={theme}
+            updateDataCenter={updateDataCenter}
+            updateErrorCenter={updateErrorCenter}
           />
         )}
 
@@ -83,12 +96,13 @@ const NetworkAndBilling = (props: NetworkType) => {
             type="text"
             name="radPassword"
             value={dataCenter.radPassword}
-            handleChangeOnInput={handleOnChange}
             placeHolderText="Enter rad password"
-            labelText="Rad Password"
+            label="Rad Password"
             isRequired={true}
             errorMessage={errorCenter.radPassword}
             theme={theme}
+            updateDataCenter={updateDataCenter}
+            updateErrorCenter={updateErrorCenter}
           />
         )}
       </ExtraInputWrapper>
@@ -112,12 +126,13 @@ const NetworkAndBilling = (props: NetworkType) => {
           type="text"
           name="serviceIDName"
           value={dataCenter.serviceIDName}
-          handleChangeOnInput={handleOnChange}
           placeHolderText="Enter service id name"
-          labelText="Service ID Name"
+          label="Service ID Name"
           isRequired={true}
           errorMessage={errorCenter.serviceIDName}
           theme={theme}
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
         />
       </ExtraInputWrapper>
 
@@ -160,12 +175,13 @@ const NetworkAndBilling = (props: NetworkType) => {
             type="text"
             name="staticIP"
             value={dataCenter.staticIP}
-            handleChangeOnInput={handleOnChange}
             placeHolderText="Enter service static ip"
-            labelText="Static IP"
+            label="Static IP"
             isRequired={true}
             errorMessage={errorCenter.staticIP}
             theme={theme}
+            updateDataCenter={updateDataCenter}
+            updateErrorCenter={updateErrorCenter}
           />
         )}
       </ExtraInputWrapper>
@@ -184,7 +200,7 @@ const NetworkAndBilling = (props: NetworkType) => {
           hasSearch={true}
         />
         <CustomizedDropDown
-          dropDownData={PACKAGES}
+          dropDownData={plans}
           label={"Plans"}
           theme={theme}
           value={dataCenter.plan || "Select service type"}
@@ -194,6 +210,7 @@ const NetworkAndBilling = (props: NetworkType) => {
           secondaryDataCenterKey="planServer"
           handleSelect={handleSelect}
           hasSearch={true}
+          isDisabled={plans.length <= 0}
         />
       </ExtraInputWrapper>
 
@@ -211,12 +228,13 @@ const NetworkAndBilling = (props: NetworkType) => {
           type="text"
           name="price"
           value={dataCenter.price}
-          handleChangeOnInput={handleOnChange}
           placeHolderText="Enter the price"
-          labelText="Price"
+          label="Price"
           isRequired={true}
           errorMessage={errorCenter.price}
           theme={theme}
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
         />
 
         <CustomizedDropDown
@@ -249,50 +267,54 @@ const NetworkAndBilling = (props: NetworkType) => {
           type="text"
           name="serviceStatus"
           value={dataCenter.serviceStatus}
-          handleChangeOnInput={handleOnChange}
           placeHolderText="Enter service status"
-          labelText="Service Status"
+          label="Service Status"
           isRequired={true}
           errorMessage={errorCenter.serviceStatus}
           theme={theme}
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
         />
 
         <PrimaryInput
           type="datetime-local"
           name="serviceStartDate"
           value={dataCenter.serviceStartDate}
-          handleChangeOnInput={handleOnChange}
           placeHolderText="Enter service start date"
-          labelText="Service Start Date"
+          label="Service Start Date"
           isRequired={true}
           errorMessage={errorCenter.serviceStartDate}
           inputRef={refCenter.serviceStartDate}
           theme={theme}
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
         />
 
         <PrimaryInput
           type="datetime-local"
           name="serviceEndDate"
           value={dataCenter.serviceEndDate}
-          handleChangeOnInput={handleOnChange}
           placeHolderText="Enter service end date"
-          labelText="Service End Date"
+          label="Service End Date"
           isRequired={true}
           errorMessage={errorCenter.serviceEndDate}
           inputRef={refCenter.serviceEndDate}
           theme={theme}
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
         />
 
         <PrimaryInput
           type="text"
           name="durationNumber"
           value={dataCenter.durationNumber}
-          handleChangeOnInput={handleOnChange}
           placeHolderText="Enter duration"
-          labelText="Duration"
+          label="Duration"
           isRequired={true}
           errorMessage={errorCenter.durationNumber}
           theme={theme}
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
         />
       </ExtraInputWrapper>
     </>

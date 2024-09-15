@@ -48,7 +48,7 @@ const AskBox: React.FC<AskBoxPropType> = ({
           <div className="flex h-auto w-full justify-center space-x-3">
             <div className="h-auto w-40">
               <SecondaryButton
-                labelText={btnCancelLabel}
+                label={btnCancelLabel}
                 /**
                  * action
                  */
@@ -57,7 +57,7 @@ const AskBox: React.FC<AskBoxPropType> = ({
             </div>
             <div className="h-auto w-40">
               <PrimaryButton
-                labelText={btnOkLabel}
+                label={btnOkLabel}
                 /**
                  * action
                  */
