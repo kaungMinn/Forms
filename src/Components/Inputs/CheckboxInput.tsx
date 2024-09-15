@@ -16,7 +16,7 @@ const CheckboxInput = (props: CheckboxInputType) => {
   const selectedBg = primaryColor[2];
   const selectedText = primaryColor[3];
   return (
-    <div className="cursor pointer" onClick={() => handleIsChecked()}>
+    <div className="cursor-pointer" onClick={() => handleIsChecked()}>
       <div className="flex  items-center gap-2  ">
         <div
           className={`w-5 h-5 rounded-md flex items-center justify-center duration-200   ${

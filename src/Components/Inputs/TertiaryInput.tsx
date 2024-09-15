@@ -34,7 +34,7 @@ const TertiaryInput = (props: TertiaryInputTypes) => {
   return (
     <div className="flex items-center gap-2 ">
       <input
-        className={`border h-8 px-2 w-full block outline-none text-sm  rounded-md  ${placeHolderColor} ${textColor} ${primaryColor[0]}`}
+        className={`border h-9 px-2 w-full block outline-none text-sm  rounded-lg  ${placeHolderColor} ${textColor} ${primaryColor[0]}`}
         value={value}
         name={name}
         type="text"

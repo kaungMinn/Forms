@@ -12,6 +12,7 @@ export type DefaultThemeTypes = {
   tableColor: string[];
   inputColor: string[];
   textColor: string[];
+  alertColor: string[];
   description: string;
   font: string;
   websiteLink: string;

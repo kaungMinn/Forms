@@ -7,7 +7,7 @@ import {
   BILLING_CONTACT_INFORMATION_ID,
   GENERAL_ID,
   NETWORK_AND_BILLING_ID,
-} from "../../../Create/constants";
+} from "../../../constants";
 import BillingContactInformation from "./Components/BillingContactInformation";
 import General from "./Components/General";
 import NetworkAndBilling from "./Components/NetworkAndBilling";
@@ -16,9 +16,10 @@ import {
   DataCenterTypes,
   ErrorCenterTypes,
   RefCenterTypes,
-} from "../../../Create/_types";
+} from "../../../_types";
 import { AvaliableSelectionType } from "../../../../../Components/DropDownBox/SelectDropDown";
 import { PlanType } from "../../../../../Constants/Packages/constants";
+import { TownshipType } from "../../../../../Constants/Location/myanmar.constants";
 
 type CustomerFormTypes = {
   tabs: TabType[];
@@ -28,6 +29,7 @@ type CustomerFormTypes = {
   errorCenter: ErrorCenterTypes;
   refCenter: RefCenterTypes;
   plans: PlanType[];
+  townships: TownshipType[];
   /* 
     Actions
   */
@@ -56,6 +58,7 @@ const CustomerForm = (props: CustomerFormTypes) => {
     errorCenter,
     refCenter,
     plans,
+    townships,
     /*
       Actions
     */
@@ -119,12 +122,15 @@ const CustomerForm = (props: CustomerFormTypes) => {
               dataCenter={dataCenter}
               errorCenter={errorCenter}
               refCenter={refCenter}
+              townships={townships}
               /*
                 Actions
               */
               handleOnChange={handleOnChange}
               handleSelect={handleSelect}
               handleCheck={handleCheck}
+              updateDataCenter={updateDataCenter}
+              updateErrorCenter={updateErrorCenter}
             />
           )}
         </div>

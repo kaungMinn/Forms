@@ -46,7 +46,14 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "shadow-sm shadow-primary",
     ],
     textColor: ["text-base_light", "text-primary"],
-
+    alertColor: [
+      "bg-slate-100",
+      "text-base_light",
+      "border-slate-500 border-dashed",
+      "bg-default",
+      "text-danger",
+      "border-danger",
+    ],
     description: "Welcome to the default theme",
     font: Mukta,
     websiteLink: "www.google.com",
@@ -64,7 +71,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "laptop:hover:bg-default_light",
       "laptop:hover:text-primary",
     ],
-    secondaryColor: ["bg-purple-600", "text-default"],
+    secondaryColor: ["bg-primary", "text-default"],
     dashboardColor: [
       "bg-primary_dark",
       "text-default_light",
@@ -93,7 +100,14 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "shadow shadow-default",
     ],
     textColor: ["text-default_light", "text-default"],
-
+    alertColor: [
+      "bg-primary_dark",
+      "text-base_light",
+      "border-slate-100 border-dashed",
+      "bg-default",
+      "text-yellow-500",
+      "border-yellow-500",
+    ],
     description: "Welcome to the default theme",
     font: Mukta,
     websiteLink: "www.google.com",

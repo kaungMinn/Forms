@@ -46,8 +46,16 @@ const DropDownTopBox = (props: DropDownTopBoxType) => {
     theme,
   } = props;
 
-  const { inputColor } = theme;
+  const { inputColor, alertColor } = theme;
   const shadowColor = inputColor[5];
+  const [
+    disableBg,
+    disableText,
+    disableBorder,
+    alertBg,
+    alertText,
+    alertBorder,
+  ] = alertColor;
   const handleOnClick = () => {
     if (isDisabled) {
       return;
@@ -60,9 +68,11 @@ const DropDownTopBox = (props: DropDownTopBoxType) => {
       <div
         className={`flex caption-font items-center px-3 relative rounded-lg cursor-pointer outline-none w-full border h-9 ${
           hasDropDown && shadowColor
-        } ${theme.primaryColor[1]} ${isDisabled && "bg-[#E5E5E5] border"}  ${
+        } ${theme.primaryColor[1]} ${
+          isDisabled && `${disableBg} ${disableText} ${disableBorder}`
+        }  ${
           errorMessage
-            ? "border-red-500 text-red-500"
+            ? `${alertBg} ${alertBorder} ${alertText}`
             : " border-gray-400 text-black"
         } duration-200 `}
         onClick={() => handleOnClick()}

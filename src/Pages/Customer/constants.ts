@@ -5,8 +5,8 @@ import {
   RefCenterTypes,
   SelectInputTypes,
 } from "./_types";
-import { TabType } from "../../../Components/Menus/TabMenu/_types";
-import { inputAcceptableDate } from "../../../Utils/Date/date.utils";
+import { TabType } from "../../Components/Menus/TabMenu/_types";
+import { inputAcceptableDate } from "../../Utils/Date/date.utils";
 
 const date = new Date();
 
@@ -46,6 +46,14 @@ export const DEFAULT_DATA_CENTER: DataCenterTypes = {
   mmk: "",
   sgd: "",
   baht: "",
+  city: "",
+  township: "",
+  address: "",
+  coordinates: "",
+  phoneNumber: "",
+  viberNumber: "",
+  email: "",
+  remark: "",
 };
 
 export const DEFAULT_ERROR_CENTER: ErrorCenterTypes = {
@@ -84,6 +92,14 @@ export const DEFAULT_ERROR_CENTER: ErrorCenterTypes = {
   mmk: "",
   sgd: "",
   baht: "",
+  city: "",
+  township: "",
+  address: "",
+  coordinates: "",
+  phoneNumber: "",
+  viberNumber: "",
+  email: "",
+  remark: "",
 };
 
 export const DEFAULT_REF_CENTER: RefCenterTypes = {
@@ -113,6 +129,14 @@ export const DEFAULT_REF_CENTER: RefCenterTypes = {
   mmk: createRef(),
   sgd: createRef(),
   baht: createRef(),
+  city: createRef(),
+  township: createRef(),
+  address: createRef(),
+  coordinates: createRef(),
+  phoneNumber: createRef(),
+  viberNumber: createRef(),
+  email: createRef(),
+  remark: createRef(),
 };
 
 export const DEFAULT_SELECT_INPUT_CENTER: SelectInputTypes = {

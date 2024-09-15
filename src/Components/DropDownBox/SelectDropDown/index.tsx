@@ -58,7 +58,7 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
   const value = valueFinder(dataCenter, dataCenterKey);
 
   return (
-    <>
+    <div>
       <DropDownContainer
         label={label}
         isDisabled={isDisabled}
@@ -94,7 +94,7 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
       ) : (
         <div className="py-2"></div>
       )}
-    </>
+    </div>
   );
 };
 

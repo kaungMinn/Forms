@@ -1,6 +1,6 @@
 import { RefObject } from "react";
-import { AvaliableSelectionType } from "../../../Components/DropDownBox/SelectDropDown";
-import { PlanType } from "../../../Constants/Packages/constants";
+import { AvaliableSelectionType } from "../../Components/DropDownBox/SelectDropDown";
+import { PlanType } from "../../Constants/Packages/constants";
 
 export type DataCenterTypes = {
   brandName: string;
@@ -38,6 +38,14 @@ export type DataCenterTypes = {
   mmk: string;
   sgd: string;
   baht: string;
+  city: string;
+  township: string;
+  address: string;
+  coordinates: string;
+  phoneNumber: string;
+  viberNumber: string;
+  email: string;
+  remark: string;
 };
 
 export type ErrorCenterTypes = {
@@ -76,6 +84,14 @@ export type ErrorCenterTypes = {
   mmk: string;
   sgd: string;
   baht: string;
+  city: string;
+  township: string;
+  address: string;
+  coordinates: string;
+  phoneNumber: string;
+  viberNumber: string;
+  email: string;
+  remark: string;
 };
 
 export type RefCenterTypes = {
@@ -105,6 +121,14 @@ export type RefCenterTypes = {
   mmk: RefObject;
   sgd: RefObject;
   baht: RefObject;
+  city: RefObject;
+  township: RefObject;
+  address: RefObject;
+  coordinates: RefObject;
+  phoneNumber: RefObject;
+  viberNumber: RefObject;
+  email: RefObject;
+  remark: RefObject;
 };
 
 export type SelectInputTypes = {

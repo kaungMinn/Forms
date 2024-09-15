@@ -15,6 +15,7 @@ const CustomerCreate = () => {
     selectedTab,
     tabs,
     plans,
+    townships,
     /*
       Actions
     */
@@ -40,6 +41,7 @@ const CustomerCreate = () => {
         errorCenter={errorCenter}
         refCenter={refCenter}
         plans={plans}
+        townships={townships}
         /*
          Actions
         */

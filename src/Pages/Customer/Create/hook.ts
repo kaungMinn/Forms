@@ -1,27 +1,37 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
   DEFAULT_DATA_CENTER,
   DEFAULT_ERROR_CENTER,
   DEFAULT_REF_CENTER,
   DEFAULT_SELECT_INPUT_CENTER,
   TABS,
-} from "./constants";
+} from "../constants";
 import {
   DataCenterTypes,
   ErrorCenterTypes,
   RefCenterTypes,
   SelectInputTypes,
-} from "./_types";
+} from "../_types";
 import { CustomizedDropDownDataTypes } from "../../../Components/DropDownBox/CustomizedDropDown/_types";
 import { modifyState } from "../../../Utils/Data/States/state.utils";
 import { TabType } from "../../../Components/Menus/TabMenu/_types";
 import { AvaliableSelectionType } from "../../../Components/DropDownBox/SelectDropDown";
 import { arrayToggle } from "../../../Utils/Data/array.utils";
+import { PackageType, PlanType } from "../../../Constants/Packages/constants";
 import {
-  PackageType,
-  PlanType,
-  PriceType,
-} from "../../../Constants/Packages/constants";
+  endDateCreator,
+  inputAcceptableDate,
+} from "../../../Utils/Date/date.utils";
+import {
+  CityType,
+  TownshipType,
+} from "../../../Constants/Location/myanmar.constants";
+import {
+  accessCodes,
+  AccessCodeTypes,
+  formShield,
+} from "../Components/validation";
+import { validationSchemaGenerator } from "./utils";
 
 type HookType = [
   dataCenter: DataCenterTypes,
@@ -30,6 +40,7 @@ type HookType = [
   selectedTab: TabType,
   tabs: TabType[],
   plans: PlanType[],
+  townships: TownshipType[],
   /*
     Actions
   */
@@ -57,18 +68,21 @@ const Hook = (): HookType => {
     useState<DataCenterTypes>(DEFAULT_DATA_CENTER);
   const [errorCenter, setErrorCenter] =
     useState<ErrorCenterTypes>(DEFAULT_ERROR_CENTER);
-  const [refCenter] = useState<RefCenterTypes>(DEFAULT_REF_CENTER);
+  const [refCenter, setRefCenter] =
+    useState<RefCenterTypes>(DEFAULT_REF_CENTER);
   const [selectInputCenter, setSelectInputCenter] = useState<SelectInputTypes>(
     DEFAULT_SELECT_INPUT_CENTER
   );
   const [plans, setPlans] = useState<PlanType[]>([]);
-  const [price, setPrice] = useState<PriceType>({ number: 0, type: "" });
+  const [townships, setTownships] = useState<TownshipType[]>([]);
   const updateDataCenter = (
     key: string,
     value: DataCenterTypes[keyof DataCenterTypes]
   ) => {
     return modifyState(key, value, setDataCenter);
   };
+  const [validationAccessCodes, setValidationAccessCodes] =
+    useState<AccessCodeTypes>(accessCodes);
 
   const updateErrorCenter = (
     key: string,
@@ -91,16 +105,37 @@ const Hook = (): HookType => {
 
   const handleUpdatePrice = (data: PlanType) => {
     const price = data.price;
-    setPrice(price);
 
     const { number, type } = price;
     updateDataCenter("price", number.toString());
     updateDataCenter("paymentCurrency", type);
+
+    //Duration
+    const durationValue = data.duration;
+    const [durationNumber, durationType] = durationValue.split(" ");
+    updateDataCenter("duration", durationType);
+    updateDataCenter("durationNumber", durationNumber);
+
+    //End Date
+    const endDate = inputAcceptableDate(
+      endDateCreator(
+        durationType,
+        durationNumber.toString(),
+        dataCenter.serviceStartDate
+      )
+    );
+    updateDataCenter("serviceEndDate", endDate);
+  };
+
+  const handleUpdateTownship = (data: CityType) => {
+    const { townships } = data;
+    setTownships(townships);
   };
 
   const childDataStructure = {
     serviceType: handleUpdatePlans,
     plan: handleUpdatePrice,
+    city: handleUpdateTownship,
   };
 
   /*
@@ -165,12 +200,44 @@ const Hook = (): HookType => {
   const [tabs] = useState<TabType[]>(TABS);
 
   const handleSelectTab = (tab: TabType) => {
+    if (selectedTab.id !== tab.id) {
+      handleNextStep();
+    }
     setSelectedTab(tab);
+  };
+
+  const handleNextStep = () => {
+    const schema = validationSchemaGenerator(dataCenter);
+    const [
+      isValidate,
+      validationAccessCodes,
+      updatedErrorCenter,
+      updatedRefCenter,
+    ] = formShield(schema, errorCenter, refCenter);
+
+    if (!isValidate) {
+      setErrorCenter(updatedErrorCenter);
+      setRefCenter(updatedRefCenter);
+      setValidationAccessCodes(validationAccessCodes);
+    }
+
+    return isValidate;
   };
 
   /*
     LIFE CIRCLES
   */
+  const { duration, durationNumber, serviceStartDate } = dataCenter;
+  useEffect(() => {
+    if (!durationNumber) {
+      updateDataCenter("serviceEndDate", "");
+      return;
+    }
+    const serviceEndDate = inputAcceptableDate(
+      endDateCreator(duration, durationNumber, serviceStartDate)
+    );
+    updateDataCenter("serviceEndDate", serviceEndDate);
+  }, [duration, durationNumber, serviceStartDate]);
 
   return [
     dataCenter,
@@ -179,6 +246,7 @@ const Hook = (): HookType => {
     selectedTab,
     tabs,
     plans,
+    townships,
     /*
       Actions
     */

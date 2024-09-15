@@ -1,5 +1,6 @@
 import React, { ChangeEvent, InputHTMLAttributes, RefObject } from "react";
 import { DefaultThemeTypes } from "../../Pages/Theme/_types";
+import PrimaryBadge from "../Badge/PrimaryBadge";
 
 interface PrimaryInputPropType extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -14,6 +15,7 @@ interface PrimaryInputPropType extends InputHTMLAttributes<HTMLInputElement> {
   backIcon?: React.ReactNode;
   errorMessage?: string;
   theme: DefaultThemeTypes;
+  badgeLabel?: string;
 
   /*
     States
@@ -40,6 +42,8 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
   backIcon,
   errorMessage = "",
   theme,
+  badgeLabel = "",
+
   /*
     States
   */
@@ -52,8 +56,9 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
   handleClickOnIcon,
   handleInputBlur,
 }: PrimaryInputPropType) => {
-  const { inputColor, primaryColor } = theme;
+  const { inputColor, primaryColor, alertColor } = theme;
   const [placeHolderColor, textColor, focusBorder, focusShadow] = inputColor;
+  const [disabledBg, disabledText, disabledBorder] = alertColor;
 
   const handleClick = () => {
     if (!inputRef || !inputRef.current) return;
@@ -74,7 +79,7 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
           className={`caption-font font-medium block mb-2 ${primaryColor[1]}`}
         >
           {label}
-          {isRequired && <span className="caption-font text-danger"> ** </span>}
+          {isRequired && <span className={`${alertColor[4]}`}> ** </span>}
         </div>
       )}
       <div
@@ -82,32 +87,47 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
           label && "tablet:col-span-2"
         }`}
       >
-        <input
-          type={type}
-          name={name}
-          ref={inputRef}
-          value={value}
-          required={isRequired}
-          disabled={isDisabled}
-          className={`placeholder:caption-font secondary-font h-9 w-full rounded-lg border border-default_dark border-opacity-60 bg-transparent pl-4 pr-6  shadow-sm placeholder:font-medium ${
-            backIcon && "pr-12"
-          } outline-none duration-300  focus:shadow-sm ${textColor} ${placeHolderColor} ${
-            errorMessage
-              ? "focus:border-danger focus:shadow-danger"
-              : `${focusBorder} ${focusShadow}`
-          } `}
-          placeholder={placeHolderText}
-          onBlur={handleInputBlur}
-          /**
-           * action
-           */
-          onChange={(event) =>
-            handleChangeOnInput
-              ? handleChangeOnInput(event)
-              : handleOnChange(event)
-          }
-          onClick={handleClick}
-        />
+        <div className="flex gap-1 items-center">
+          <input
+            type={type}
+            name={name}
+            ref={inputRef}
+            value={value}
+            required={isRequired}
+            disabled={isDisabled}
+            className={`placeholder:caption-font secondary-font border h-9 w-full rounded-lg  pl-4 pr-6  shadow-sm placeholder:font-medium ${
+              backIcon && "pr-12"
+            } outline-none duration-300  focus:shadow-sm ${textColor} ${placeHolderColor} ${
+              isDisabled
+                ? `${disabledBg} ${disabledText} ${disabledBorder}`
+                : "bg-transparent border-default_dark border-opacity-60 "
+            } ${
+              errorMessage
+                ? "focus:border-danger focus:shadow-danger"
+                : `${focusBorder} ${focusShadow}`
+            } `}
+            placeholder={placeHolderText}
+            onBlur={handleInputBlur}
+            /**
+             * action
+             */
+            onChange={(event) =>
+              handleChangeOnInput
+                ? handleChangeOnInput(event)
+                : handleOnChange(event)
+            }
+            onClick={handleClick}
+          />
+
+          {badgeLabel && (
+            <PrimaryBadge
+              theme={theme}
+              label={badgeLabel}
+              width="w-20"
+              height="h-9"
+            />
+          )}
+        </div>
         {backIcon && (
           <div
             className="absolute right-4 top-1 laptop:cursor-pointer"

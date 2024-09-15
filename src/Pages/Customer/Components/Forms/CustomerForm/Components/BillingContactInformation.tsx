@@ -5,18 +5,25 @@ import {
   DataCenterTypes,
   ErrorCenterTypes,
   RefCenterTypes,
-} from "../../../../Create/_types";
+} from "../../../../_types";
 import ExtraInputWrapper from "./ExtraInputWrapper";
 import SelectDropDown, {
   AvaliableSelectionType,
 } from "../../../../../../Components/DropDownBox/SelectDropDown";
 import { AVA_PAYMENTS } from "../../../../../../Constants/Customers/payment.constants";
+import CustomizedDropDown from "../../../../../../Components/DropDownBox/CustomizedDropDown";
+import {
+  CITIES,
+  TownshipType,
+} from "../../../../../../Constants/Location/myanmar.constants";
+import PrimaryInput from "../../../../../../Components/Inputs/PrimaryInput";
 
 type BillingType = {
   dataCenter: DataCenterTypes;
   errorCenter: ErrorCenterTypes;
   refCenter: RefCenterTypes;
   theme: DefaultThemeTypes;
+  townships: TownshipType[];
   /*
     Actions
   */
@@ -31,6 +38,8 @@ type BillingType = {
     dataKey: string,
     dataCenterKey: string
   ) => void;
+  updateDataCenter: (key: string, value: string) => void;
+  updateErrorCenter: (key: string, value: string) => void;
 };
 
 const BillingContactInformation = (props: BillingType) => {
@@ -39,13 +48,20 @@ const BillingContactInformation = (props: BillingType) => {
     dataCenter,
     errorCenter,
     refCenter,
+    townships,
+    updateDataCenter,
+    updateErrorCenter,
+
+    /*
+      Actions
+    */
     handleOnChange,
     handleSelect,
     handleCheck,
   } = props;
 
   return (
-    <>
+    <div>
       <ExtraInputWrapper theme={theme}>
         <SelectDropDown
           label="Currency"
@@ -60,8 +76,99 @@ const BillingContactInformation = (props: BillingType) => {
           handleCheck={handleCheck}
           handleOnChange={handleOnChange}
         />
+
+        <div></div>
+
+        <CustomizedDropDown
+          dropDownData={CITIES}
+          label="Cities"
+          theme={theme}
+          value={dataCenter.city || "Select a city"}
+          dataKey="label"
+          dataCenterKey="city"
+          handleSelect={handleSelect}
+          hasSearch={true}
+        />
+
+        <CustomizedDropDown
+          dropDownData={townships}
+          label="Townships"
+          theme={theme}
+          value={dataCenter.township || "Select a township"}
+          dataKey="label"
+          dataCenterKey="township"
+          handleSelect={handleSelect}
+          hasSearch={true}
+          isDisabled={townships.length <= 0}
+        />
+
+        <PrimaryInput
+          label="Address"
+          type="text"
+          name="address"
+          value={dataCenter.address}
+          placeHolderText="Enter address"
+          theme={theme}
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
+        />
+        <PrimaryInput
+          label="Coordinates"
+          type="text"
+          name="coordinates"
+          value={dataCenter.coordinates}
+          placeHolderText="Enter coordinates"
+          theme={theme}
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
+        />
+        <PrimaryInput
+          label="Phone Number"
+          type="text"
+          name="phoneNumber"
+          value={dataCenter.phoneNumber}
+          placeHolderText="Phone Number"
+          theme={theme}
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
+        />
+
+        <PrimaryInput
+          label="Viber Number"
+          type="text"
+          name="viberNumber"
+          value={dataCenter.viberNumber}
+          placeHolderText="Enter viber number"
+          theme={theme}
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
+        />
+
+        <PrimaryInput
+          label="Email"
+          type="text"
+          name="email"
+          value={dataCenter.email}
+          placeHolderText="Enter email"
+          theme={theme}
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
+        />
+
+        <div></div>
+
+        <PrimaryInput
+          label="Remark"
+          type="text"
+          name="remark"
+          value={dataCenter.remark}
+          placeHolderText="Enter remark"
+          theme={theme}
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
+        />
       </ExtraInputWrapper>
-    </>
+    </div>
   );
 };
 
