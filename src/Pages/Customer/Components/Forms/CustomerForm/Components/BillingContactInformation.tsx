@@ -70,11 +70,14 @@ const BillingContactInformation = (props: BillingType) => {
           dataKey={"label"}
           dataCenterKey="paymentTypes"
           dataCenter={dataCenter}
+          errorCenter={errorCenter}
+          refCenter={refCenter}
           /*
             Actions
           */
           handleCheck={handleCheck}
           handleOnChange={handleOnChange}
+          updateErrorCenter={updateErrorCenter}
         />
 
         <div></div>

@@ -258,6 +258,9 @@ const Hook = (): HookType => {
     successIconGenerator();
   }, [successIconGenerator]);
 
+  console.log("ErrorCenter", errorCenter);
+  console.log("Data center", dataCenter);
+
   return [
     dataCenter,
     errorCenter,

@@ -51,7 +51,11 @@ const handleErrorMessage = (
     [key]: validations[key as keyof CustomerValidationTypes],
   };
 
-  if (refCenter && refCenter[key as keyof RefCenterTypes].current) {
+  if (
+    refCenter &&
+    refCenter[key as keyof RefCenterTypes] &&
+    refCenter[key as keyof RefCenterTypes].current
+  ) {
     refCenter[key as keyof RefCenterTypes].current.focus();
   }
 

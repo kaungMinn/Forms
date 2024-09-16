@@ -1,7 +1,6 @@
-import React from "react";
+import React, { RefObject } from "react";
 import { DefaultThemeTypes } from "../../Pages/Theme/_types";
 import PrimaryBadge from "../Badge/PrimaryBadge";
-import { div } from "framer-motion/client";
 
 type TertiaryInputTypes = {
   name: string;
@@ -11,6 +10,7 @@ type TertiaryInputTypes = {
   sideLabel?: string;
   badgeWidth?: string;
   errorMessage?: string;
+  inputRef?: RefObject<HTMLInputElement>;
   /* 
         Actions
     */
@@ -25,6 +25,7 @@ const TertiaryInput = (props: TertiaryInputTypes) => {
     theme,
     badgeWidth,
     errorMessage = "",
+    inputRef,
     /*
       Actions
     */
@@ -44,6 +45,7 @@ const TertiaryInput = (props: TertiaryInputTypes) => {
           type="text"
           onChange={(ev) => onChange(ev)}
           placeholder={placeHolderText}
+          ref={inputRef}
         />
         {sideLabel && (
           <PrimaryBadge theme={theme} label={sideLabel} width={badgeWidth} />

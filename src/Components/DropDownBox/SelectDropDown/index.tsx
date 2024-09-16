@@ -1,4 +1,10 @@
-import { ChangeEvent, useState } from "react";
+import {
+  ChangeEvent,
+  RefObject,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
 import DropDownContainer from "../Components/DropDownContainer";
 import BottomMenu from "./BottomMenu";
@@ -15,12 +21,13 @@ type SelectDropDownTypes = {
   label?: string;
   isRequired?: boolean;
   theme: DefaultThemeTypes;
-  errorMessage?: string;
   isDisabled?: boolean;
   avaliableSelections: AvaliableSelectionType[];
   dataKey: string;
   dataCenterKey: string;
   dataCenter: Record<string, string | boolean | number>;
+  errorCenter?: Record<string, string | boolean | number>;
+  refCenter?: Record<string, RefObject<HTMLInputElement>>;
   /*
     Actions
   */
@@ -30,24 +37,27 @@ type SelectDropDownTypes = {
     dataCenterKey: string
   ) => void;
   handleOnChange: (ev: ChangeEvent<HTMLInputElement>) => void;
+  updateErrorCenter: (key: string, value: string) => void;
 };
 
 const SelectDropDown = (props: SelectDropDownTypes) => {
   const {
     label = "",
     isRequired = false,
-    errorMessage = "",
     isDisabled = false,
     theme,
     avaliableSelections,
     dataKey,
     dataCenterKey,
     dataCenter,
+    errorCenter = {},
+    refCenter = {},
     /*
       Actions
     */
     handleCheck,
     handleOnChange,
+    updateErrorCenter,
   } = props;
   const [hasDropDown, setHasDropDown] = useState(false);
 
@@ -56,6 +66,9 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
   };
 
   const value = valueFinder(dataCenter, dataCenterKey);
+  const error = errorCenter[dataCenterKey];
+  let primaryError = "";
+  if (typeof error === "string") primaryError = error;
 
   return (
     <div>
@@ -63,10 +76,10 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
         label={label}
         isDisabled={isDisabled}
         isRequired={isRequired}
-        errorMessage={errorMessage}
         theme={theme}
         mainText={value || "Select something"}
         hasDropDown={hasDropDown}
+        errorMessage={primaryError}
         dataShower={
           <BottomMenu
             value={value}
@@ -75,11 +88,15 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
             dataKey={dataKey}
             dataCenterKey={dataCenterKey}
             dataCenter={dataCenter}
+            errorCenter={errorCenter}
+            refCenter={refCenter}
             /*
               Actions
             */
             handleCheck={handleCheck}
             handleOnChange={handleOnChange}
+            updateErrorCenter={updateErrorCenter}
+            handleHasDropDown={handleHasDropDown}
           />
         }
         /*
@@ -89,8 +106,8 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
         onClick={() => handleHasDropDown(!hasDropDown)}
       />
 
-      {errorMessage ? (
-        <div className="text-xs ps-1 text-red-500">{errorMessage}</div>
+      {primaryError ? (
+        <div className="text-xs ps-1 text-red-500">{primaryError}</div>
       ) : (
         <div className="py-2"></div>
       )}
