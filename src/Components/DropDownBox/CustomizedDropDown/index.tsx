@@ -39,6 +39,8 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
     handleHasDropDown(!hasDropDown);
   };
 
+  const { alertColor } = theme;
+
   return (
     <div>
       <DropDownContainer
@@ -70,8 +72,12 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
         onClick={() => handleHasDropDown(!hasDropDown)}
       />
 
+      <div className="mt-1"></div>
+
       {errorMessage ? (
-        <div className="text-xs ps-1 text-red-500">{errorMessage}</div>
+        <div className={`caption-font ps-1  ${alertColor[4]}`}>
+          {errorMessage}
+        </div>
       ) : (
         <div className="py-2"></div>
       )}

@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import {
   DEFAULT_DATA_CENTER,
   DEFAULT_ERROR_CENTER,
@@ -29,8 +29,9 @@ import {
 import {
   accessCodes,
   AccessCodeTypes,
+  fancyValidator,
   formShield,
-} from "../Components/validation";
+} from "../Components/Forms/CustomerForm/validation";
 import { validationSchemaGenerator } from "./utils";
 
 type HookType = [
@@ -41,6 +42,7 @@ type HookType = [
   tabs: TabType[],
   plans: PlanType[],
   townships: TownshipType[],
+  iconAccessCodes: AccessCodeTypes,
   /*
     Actions
   */
@@ -81,7 +83,7 @@ const Hook = (): HookType => {
   ) => {
     return modifyState(key, value, setDataCenter);
   };
-  const [validationAccessCodes, setValidationAccessCodes] =
+  const [iconAccessCodes, setIconAccessCodes] =
     useState<AccessCodeTypes>(accessCodes);
 
   const updateErrorCenter = (
@@ -200,13 +202,22 @@ const Hook = (): HookType => {
   const [tabs] = useState<TabType[]>(TABS);
 
   const handleSelectTab = (tab: TabType) => {
-    if (selectedTab.id !== tab.id) {
-      handleNextStep();
-    }
+    if (selectedTab.id === tab.id) return;
+    const { validationAccessCodes } = handleNextStep();
+    const steps = {
+      1: validationAccessCodes.step1,
+      2: validationAccessCodes.step2,
+      3: validationAccessCodes.step3,
+    };
+
+    if (!steps[tab.id as keyof typeof steps]) return;
     setSelectedTab(tab);
   };
 
-  const handleNextStep = () => {
+  const handleNextStep = (): {
+    isValidate: boolean;
+    validationAccessCodes: AccessCodeTypes;
+  } => {
     const schema = validationSchemaGenerator(dataCenter);
     const [
       isValidate,
@@ -218,10 +229,9 @@ const Hook = (): HookType => {
     if (!isValidate) {
       setErrorCenter(updatedErrorCenter);
       setRefCenter(updatedRefCenter);
-      setValidationAccessCodes(validationAccessCodes);
     }
 
-    return isValidate;
+    return { isValidate, validationAccessCodes };
   };
 
   /*
@@ -239,6 +249,15 @@ const Hook = (): HookType => {
     updateDataCenter("serviceEndDate", serviceEndDate);
   }, [duration, durationNumber, serviceStartDate]);
 
+  const successIconGenerator = useCallback(() => {
+    const { accessCodes } = fancyValidator(dataCenter);
+    setIconAccessCodes(accessCodes);
+  }, [dataCenter]);
+
+  useEffect(() => {
+    successIconGenerator();
+  }, [successIconGenerator]);
+
   return [
     dataCenter,
     errorCenter,
@@ -247,6 +266,7 @@ const Hook = (): HookType => {
     tabs,
     plans,
     townships,
+    iconAccessCodes,
     /*
       Actions
     */

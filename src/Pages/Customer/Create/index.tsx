@@ -16,6 +16,7 @@ const CustomerCreate = () => {
     tabs,
     plans,
     townships,
+    iconAccessCodes,
     /*
       Actions
     */
@@ -42,6 +43,7 @@ const CustomerCreate = () => {
         refCenter={refCenter}
         plans={plans}
         townships={townships}
+        iconAccessCodes={iconAccessCodes}
         /*
          Actions
         */

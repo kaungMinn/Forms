@@ -53,7 +53,7 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
    * action
    */
   handleChangeOnInput,
-  handleClickOnIcon,
+
   handleInputBlur,
 }: PrimaryInputPropType) => {
   const { inputColor, primaryColor, alertColor } = theme;
@@ -82,11 +82,7 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
           {isRequired && <span className={`${alertColor[4]}`}> ** </span>}
         </div>
       )}
-      <div
-        className={`relative col-span-3 space-y-2 ${
-          label && "tablet:col-span-2"
-        }`}
-      >
+      <div>
         <div className="flex gap-1 items-center">
           <input
             type={type}
@@ -103,7 +99,7 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
                 : "bg-transparent border-default_dark border-opacity-60 "
             } ${
               errorMessage
-                ? "focus:border-danger focus:shadow-danger"
+                ? ` ${alertColor[5]}`
                 : `${focusBorder} ${focusShadow}`
             } `}
             placeholder={placeHolderText}
@@ -128,30 +124,17 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
             />
           )}
         </div>
-        {backIcon && (
-          <div
-            className="absolute right-4 top-1 laptop:cursor-pointer"
-            /**
-             * action
-             */
-            onClick={handleClickOnIcon}
-          >
-            {backIcon}
-          </div>
-        )}
       </div>
-      {errorMessage && (
-        <>
-          {label && <div className="col-span-3 tablet:col-span-1" />}
-          <div className={`col-span-3 ${label && "tablet:col-span-2"} `}>
-            {errorMessage && (
-              <p className="caption-font px-2 text-danger"> {errorMessage} </p>
-            )}
-          </div>
-        </>
-      )}
 
-      {!errorMessage && <div className="py-2"></div>}
+      <div className="py-0.5"></div>
+
+      {errorMessage ? (
+        <div className={`caption-font ps-1  ${alertColor[4]}`}>
+          {errorMessage}
+        </div>
+      ) : (
+        <div className="py-2"></div>
+      )}
     </div>
   );
 };

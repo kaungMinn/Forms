@@ -1,9 +1,10 @@
 import { DataCenterTypes } from "../_types";
 import {
   handleStepOne,
+  handleStepThree,
   handleStepTwo,
   SchemaTypes,
-} from "../Components/validation";
+} from "../Components/Forms/CustomerForm/validation";
 
 export const validationSchemaGenerator = (
   dataCenter: DataCenterTypes
@@ -36,13 +37,11 @@ export const validationSchemaGenerator = (
       field: "serviceID",
       step: handleStepTwo,
     },
-
     {
       condition: dataCenter.containIPServer && !dataCenter.mode,
       field: "mode",
       step: handleStepTwo,
     },
-
     {
       condition: dataCenter.containIPServer && !dataCenter.staticIP,
       field: "staticIP",
@@ -59,6 +58,21 @@ export const validationSchemaGenerator = (
       condition: !dataCenter.plan,
       field: "plan",
       step: handleStepTwo,
+    },
+    {
+      condition: dataCenter.paymentTypes === "MMK" && !dataCenter.mmk,
+      field: "mmk",
+      step: handleStepThree,
+    },
+    {
+      condition: dataCenter.paymentTypes === "SGD" && !dataCenter.sgd,
+      field: "sgb",
+      step: handleStepThree,
+    },
+    {
+      condition: dataCenter.paymentTypes === "BAHT" && !dataCenter.baht,
+      field: "baht",
+      step: handleStepThree,
     },
   ];
 };

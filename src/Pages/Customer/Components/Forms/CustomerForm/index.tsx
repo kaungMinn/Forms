@@ -20,6 +20,7 @@ import {
 import { AvaliableSelectionType } from "../../../../../Components/DropDownBox/SelectDropDown";
 import { PlanType } from "../../../../../Constants/Packages/constants";
 import { TownshipType } from "../../../../../Constants/Location/myanmar.constants";
+import { AccessCodeTypes } from "./validation";
 
 type CustomerFormTypes = {
   tabs: TabType[];
@@ -30,6 +31,7 @@ type CustomerFormTypes = {
   refCenter: RefCenterTypes;
   plans: PlanType[];
   townships: TownshipType[];
+  iconAccessCodes: AccessCodeTypes;
   /* 
     Actions
   */
@@ -59,6 +61,7 @@ const CustomerForm = (props: CustomerFormTypes) => {
     refCenter,
     plans,
     townships,
+    iconAccessCodes,
     /*
       Actions
     */
@@ -77,6 +80,7 @@ const CustomerForm = (props: CustomerFormTypes) => {
           tabs={tabs}
           selectedTab={selectedTab}
           theme={theme}
+          iconAccessCodes={iconAccessCodes}
           /*
           Actions
         */

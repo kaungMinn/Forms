@@ -67,7 +67,7 @@ const DropDownTopBox = (props: DropDownTopBoxType) => {
     <>
       <div
         className={`flex caption-font items-center px-3 relative rounded-lg cursor-pointer outline-none w-full border h-9 ${
-          hasDropDown && shadowColor
+          hasDropDown && !errorMessage && shadowColor
         } ${theme.primaryColor[1]} ${
           isDisabled && `${disableBg} ${disableText} ${disableBorder}`
         }  ${

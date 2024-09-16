@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect } from "react";
 import { CustomizedDropDownDataTypes } from "../../../../../../Components/DropDownBox/CustomizedDropDown/_types";
 import { DefaultThemeTypes } from "../../../../../Theme/_types";
 import {
@@ -47,7 +47,6 @@ const NetworkAndBilling = (props: NetworkType) => {
     refCenter,
     theme,
     plans,
-
     /*
       Actions
     */
@@ -55,6 +54,22 @@ const NetworkAndBilling = (props: NetworkType) => {
     updateDataCenter,
     updateErrorCenter,
   } = props;
+
+  useEffect(() => {
+    const keys = [
+      "radUserName",
+      "radPassword",
+      "serviceID",
+      "mode",
+      "staticIP",
+      "serviceType",
+      "plan",
+    ];
+
+    for (let i = 0; i < keys.length; i++) {
+      updateErrorCenter(keys[i], "");
+    }
+  }, []);
 
   const { primaryColor } = theme;
   const [primaryBg, primaryText] = primaryColor;
@@ -82,6 +97,7 @@ const NetworkAndBilling = (props: NetworkType) => {
             secondaryDataKey="value"
             secondaryDataCenterKey="autoGeneratePPOEAccountServer"
             handleSelect={handleSelect}
+            errorMessage={errorCenter.autoGeneratePPOEAccount}
           />
 
           {!dataCenter.autoGeneratePPOEAccountServer && (
@@ -127,6 +143,7 @@ const NetworkAndBilling = (props: NetworkType) => {
             dataCenterKey="serviceID"
             secondaryDataKey="value"
             handleSelect={handleSelect}
+            errorMessage={errorCenter.serviceID}
           />
           <PrimaryInput
             type="text"
@@ -134,7 +151,6 @@ const NetworkAndBilling = (props: NetworkType) => {
             value={dataCenter.serviceIDName}
             placeHolderText="Enter service id name"
             label="Service ID Name"
-            isRequired={true}
             errorMessage={errorCenter.serviceIDName}
             theme={theme}
             updateDataCenter={updateDataCenter}
@@ -159,6 +175,7 @@ const NetworkAndBilling = (props: NetworkType) => {
             secondaryDataKey="value"
             secondaryDataCenterKey="containIPServer"
             handleSelect={handleSelect}
+            errorMessage={errorCenter.containIP}
           />
 
           {dataCenter.containIPServer && (
@@ -172,6 +189,7 @@ const NetworkAndBilling = (props: NetworkType) => {
               secondaryDataKey="value"
               secondaryDataCenterKey="modeServer"
               handleSelect={handleSelect}
+              errorMessage={errorCenter.mode}
             />
           )}
 
@@ -252,6 +270,7 @@ const NetworkAndBilling = (props: NetworkType) => {
             secondaryDataCenterKey="serviceTypeServer"
             handleSelect={handleSelect}
             hasSearch={true}
+            errorMessage={errorCenter.serviceType}
           />
           <CustomizedDropDown
             dropDownData={plans}
@@ -265,6 +284,7 @@ const NetworkAndBilling = (props: NetworkType) => {
             handleSelect={handleSelect}
             hasSearch={true}
             isDisabled={plans.length <= 0}
+            errorMessage={errorCenter.plan}
           />
 
           <CustomizedDropDown
@@ -275,6 +295,7 @@ const NetworkAndBilling = (props: NetworkType) => {
             dataKey="label"
             dataCenterKey="paymentCurrency"
             handleSelect={handleSelect}
+            errorMessage={errorCenter.paymentCurrency}
           />
           <PrimaryInput
             type="text"

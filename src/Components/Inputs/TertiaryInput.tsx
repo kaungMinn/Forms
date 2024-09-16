@@ -1,6 +1,7 @@
 import React from "react";
 import { DefaultThemeTypes } from "../../Pages/Theme/_types";
 import PrimaryBadge from "../Badge/PrimaryBadge";
+import { div } from "framer-motion/client";
 
 type TertiaryInputTypes = {
   name: string;
@@ -9,6 +10,7 @@ type TertiaryInputTypes = {
   placeHolderText?: string;
   sideLabel?: string;
   badgeWidth?: string;
+  errorMessage?: string;
   /* 
         Actions
     */
@@ -22,6 +24,7 @@ const TertiaryInput = (props: TertiaryInputTypes) => {
     sideLabel = "",
     theme,
     badgeWidth,
+    errorMessage = "",
     /*
       Actions
     */
@@ -32,18 +35,22 @@ const TertiaryInput = (props: TertiaryInputTypes) => {
   const [placeHolderColor, textColor] = inputColor;
 
   return (
-    <div className="flex items-center gap-2 ">
-      <input
-        className={`border h-9 px-2 w-full block outline-none text-sm  rounded-lg  ${placeHolderColor} ${textColor} ${primaryColor[0]}`}
-        value={value}
-        name={name}
-        type="text"
-        onChange={(ev) => onChange(ev)}
-        placeholder={placeHolderText}
-      />
-      {sideLabel && (
-        <PrimaryBadge theme={theme} label={sideLabel} width={badgeWidth} />
-      )}
+    <div>
+      <div className="flex items-center gap-2 ">
+        <input
+          className={`border h-9 px-2 w-full block outline-none text-sm  rounded-lg  ${placeHolderColor} ${textColor} ${primaryColor[0]}`}
+          value={value}
+          name={name}
+          type="text"
+          onChange={(ev) => onChange(ev)}
+          placeholder={placeHolderText}
+        />
+        {sideLabel && (
+          <PrimaryBadge theme={theme} label={sideLabel} width={badgeWidth} />
+        )}
+      </div>
+
+      {errorMessage ? <div className={``}>{errorMessage}</div> : <div></div>}
     </div>
   );
 };

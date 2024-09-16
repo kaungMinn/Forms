@@ -33,7 +33,12 @@ type GeneralType = {
 const General = (props: GeneralType) => {
   const {
     dataCenter,
+    errorCenter,
+    refCenter,
     theme,
+    /*
+      Actions
+    */
     handleSelect,
     updateDataCenter,
     updateErrorCenter,
@@ -55,6 +60,7 @@ const General = (props: GeneralType) => {
           secondaryDataKey="value"
           secondaryDataCenterKey="customerTypeServer"
           handleSelect={handleSelect}
+          errorMessage={errorCenter.customerType}
         />
         {dataCenter.customerTypeServer === "company" && (
           <PrimaryInput
@@ -83,6 +89,7 @@ const General = (props: GeneralType) => {
           dataCenterKey="brandName"
           handleSelect={handleSelect}
           hasSearch={true}
+          errorMessage={errorCenter.brandName}
         />
 
         <PrimaryInput
@@ -94,6 +101,8 @@ const General = (props: GeneralType) => {
           theme={theme}
           updateDataCenter={updateDataCenter}
           updateErrorCenter={updateErrorCenter}
+          errorMessage={errorCenter.customerName}
+          inputRef={refCenter.customerName}
         />
       </ExtraInputWrapper>
     </>

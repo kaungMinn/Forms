@@ -15,7 +15,7 @@ export type DataCenterTypes = {
   serviceID: string;
   serviceIDName: string;
   containIP: string;
-  containIPServer: boolean | string;
+  containIPServer: boolean;
   mode: string;
   modeServer: string;
   staticIP: string;
