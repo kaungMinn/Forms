@@ -73,38 +73,6 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
   let primaryError = "";
   if (typeof error === "string") primaryError = error;
 
-  //LIFE CIRCLES
-
-  const handleDropDownDataAndError = useCallback(
-    (valueKeys: string[]) => {
-      let hasDropDown = false;
-      for (let i = 0; i < valueKeys.length; i++) {
-        if (dataCenter[valueKeys[i]]) {
-          hasDropDown = true;
-        }
-
-        if (errorCenter[valueKeys[i]]) {
-          hasDropDown = true;
-        }
-      }
-
-      return hasDropDown;
-    },
-    [dataCenter, errorCenter]
-  );
-
-  useEffect(() => {
-    if (selectedInputCenter.length <= 0) return;
-    const valueKeys = selectedInputCenter
-      .map((input) => input.value)
-      .filter((input) => typeof input === "string");
-
-    const hasDropDown = handleDropDownDataAndError(valueKeys);
-    if (hasDropDown) {
-      handleHasDropDown(true);
-    }
-  }, [selectedInputCenter, handleDropDownDataAndError]);
-
   return (
     <div>
       <DropDownContainer

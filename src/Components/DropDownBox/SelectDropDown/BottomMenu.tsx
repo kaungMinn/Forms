@@ -1,4 +1,4 @@
-import { ChangeEvent, RefObject } from "react";
+import { ChangeEvent, RefObject, useEffect } from "react";
 import { AvaliableSelectionType } from ".";
 import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
 import CheckboxInput from "../../Inputs/CheckboxInput";
@@ -29,6 +29,7 @@ const TertiaryInputList = (props: {
       Actions
     */
     handleOnChange,
+    handleHasDropDown,
   } = props;
 
   let name = "";
@@ -38,6 +39,12 @@ const TertiaryInputList = (props: {
   const value = dataCenter[name].toString();
   const error = errorCenter[name].toString();
   const ref = refCenter[name];
+
+  useEffect(() => {
+    if (error || value) {
+      handleHasDropDown(true);
+    }
+  }, []);
 
   return (
     <TertiaryInput
