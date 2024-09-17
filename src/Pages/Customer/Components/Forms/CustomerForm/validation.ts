@@ -81,6 +81,7 @@ export const formShield = (
       step(validationAccessCodes);
       errorCenter = handleErrorMessage(field, errorCenter, refCenter);
       isValidate = false;
+
       if (!noBreak) {
         break;
       }
@@ -93,33 +94,44 @@ export const formShield = (
   return [isValidate, validationAccessCodes, errorCenter, refCenter];
 };
 
+export type IconAccessTypes = {
+  1: boolean;
+  2: boolean;
+  3: boolean;
+};
+export const DEFAULT_ICON_ACCESSES: IconAccessTypes = {
+  1: false,
+  2: false,
+  3: false,
+};
+
 //FANCY ONE
 export const fancyValidator = (
   dataCenter: DataCenterTypes,
-  accesses: AccessCodeTypes
-): { accessCodes: AccessCodeTypes } => {
-  const passStep1 = (accesses: AccessCodeTypes) => {
-    accesses.step1 = true;
+  accesses: IconAccessTypes
+): { accessCodes: IconAccessTypes } => {
+  const passStep1 = (accesses: IconAccessTypes) => {
+    accesses[1] = true;
   };
 
-  const failStep1 = (accesses: AccessCodeTypes) => {
-    accesses.step1 = false;
+  const failStep1 = (accesses: IconAccessTypes) => {
+    accesses[1] = false;
   };
 
-  const passStep2 = (accesses: AccessCodeTypes) => {
-    accesses.step2 = true;
+  const passStep2 = (accesses: IconAccessTypes) => {
+    accesses[2] = true;
   };
 
-  const failStep2 = (accesses: AccessCodeTypes) => {
-    accesses.step2 = false;
+  const failStep2 = (accesses: IconAccessTypes) => {
+    accesses[2] = false;
   };
 
-  const passStep3 = (accesses: AccessCodeTypes) => {
-    accesses.step3 = true;
+  const passStep3 = (accesses: IconAccessTypes) => {
+    accesses[3] = true;
   };
 
-  const failStep3 = (accesses: AccessCodeTypes) => {
-    accesses.step3 = false;
+  const failStep3 = (accesses: IconAccessTypes) => {
+    accesses[3] = false;
   };
 
   const tmp_accesses = { ...accesses };
@@ -221,4 +233,132 @@ export const fancyValidator = (
   }
 
   return { accessCodes: tmp_accesses };
+};
+
+//ERROR ONE
+export const errorValidator = (
+  errorCenter: ErrorCenterTypes,
+  failAccesses: IconAccessTypes
+): { failAccesses: IconAccessTypes } => {
+  const failStep1 = (failCodes: IconAccessTypes) => {
+    failCodes[1] = true;
+  };
+
+  const passStep1 = (failCodes: IconAccessTypes) => {
+    failCodes[1] = false;
+  };
+
+  const failStep2 = (failCodes: IconAccessTypes) => {
+    failCodes[2] = true;
+  };
+
+  const passStep2 = (failCodes: IconAccessTypes) => {
+    failCodes[2] = false;
+  };
+
+  const failStep3 = (failCodes: IconAccessTypes) => {
+    failCodes[3] = true;
+  };
+
+  const passStep3 = (failCodes: IconAccessTypes) => {
+    failCodes[3] = false;
+  };
+
+  const tmp_accesses = { ...failAccesses };
+
+  const schema = [
+    {
+      condition: !errorCenter.brandName,
+      field: "brandName",
+      success: passStep1,
+      fail: failStep1,
+    },
+    {
+      condition: !errorCenter.customerName,
+      field: "customerName",
+      success: passStep1,
+      fail: failStep1,
+    },
+    {
+      condition: !errorCenter.radUserName,
+      field: "radUserName",
+      success: passStep2,
+      fail: failStep2,
+    },
+    {
+      condition: !errorCenter.radPassword,
+      field: "radPassword",
+      success: passStep2,
+      fail: failStep2,
+    },
+    {
+      condition: !errorCenter.serviceID,
+      field: "serviceID",
+      success: passStep2,
+      fail: failStep2,
+    },
+
+    {
+      condition: !errorCenter.mode,
+      field: "mode",
+      success: passStep2,
+      fail: failStep2,
+    },
+
+    {
+      condition: !errorCenter.staticIP,
+      field: "staticIP",
+      success: passStep2,
+      fail: failStep2,
+    },
+
+    {
+      condition: !errorCenter.serviceType,
+      field: "serviceType",
+      success: passStep2,
+      fail: failStep2,
+    },
+
+    {
+      condition: !errorCenter.plan,
+      field: "plan",
+      success: passStep2,
+      fail: failStep2,
+    },
+    {
+      condition: !errorCenter.paymentTypes,
+      field: "paymentTypes",
+      success: passStep3,
+      fail: failStep3,
+    },
+    {
+      condition: !errorCenter.mmk,
+      field: "mmk",
+      success: passStep3,
+      fail: failStep3,
+    },
+    {
+      condition: !errorCenter.sgd,
+      field: "sgd",
+      success: passStep3,
+      fail: failStep3,
+    },
+    {
+      condition: !errorCenter.baht,
+      field: "baht",
+      success: passStep3,
+      fail: failStep3,
+    },
+  ];
+
+  for (const { condition, success, fail } of schema) {
+    if (condition) {
+      success(tmp_accesses);
+    } else {
+      fail(tmp_accesses);
+      break;
+    }
+  }
+
+  return { failAccesses: tmp_accesses };
 };

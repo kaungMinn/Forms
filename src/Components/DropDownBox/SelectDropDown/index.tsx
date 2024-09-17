@@ -1,14 +1,8 @@
-import {
-  ChangeEvent,
-  RefObject,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEvent, RefObject, useState } from "react";
 import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
 import DropDownContainer from "../Components/DropDownContainer";
 import BottomMenu from "./BottomMenu";
-import { valueFinder } from "../Utils/data.utils";
+
 import { CustomizedDropDownDataTypes } from "../CustomizedDropDown/_types";
 
 export type AvaliableSelectionType = {
@@ -68,7 +62,10 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
     setHasDropDown(value);
   };
 
-  const value = valueFinder(dataCenter, dataCenterKey);
+  let value = "";
+  if (selectedInputCenter.length > 0) {
+    value = selectedInputCenter.map((input) => input.label).join(",");
+  }
   const error = errorCenter[dataCenterKey];
   let primaryError = "";
   if (typeof error === "string") primaryError = error;

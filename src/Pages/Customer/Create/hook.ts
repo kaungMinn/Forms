@@ -17,7 +17,7 @@ import { modifyState } from "../../../Utils/Data/States/state.utils";
 import { TabType } from "../../../Components/Menus/TabMenu/_types";
 import { AvaliableSelectionType } from "../../../Components/DropDownBox/SelectDropDown";
 import { arrayToggle } from "../../../Utils/Data/array.utils";
-import { PackageType, PlanType } from "../../../Constants/Packages/constants";
+import { PlanType } from "../../../Constants/Packages/constants";
 import {
   endDateCreator,
   inputAcceptableDate,
@@ -27,10 +27,12 @@ import {
   TownshipType,
 } from "../../../Constants/Location/myanmar.constants";
 import {
-  accessCodes,
   AccessCodeTypes,
+  DEFAULT_ICON_ACCESSES,
+  errorValidator,
   fancyValidator,
   formShield,
+  IconAccessTypes,
 } from "../Components/Forms/CustomerForm/validation";
 import { validationSchemaGenerator } from "./utils";
 import { stateCleaner } from "../../../Utils/Data/States/cleaner.utils";
@@ -43,8 +45,10 @@ type HookType = [
   tabs: TabType[],
   plans: PlanType[],
   townships: TownshipType[],
-  iconAccessCodes: AccessCodeTypes,
+  iconAccessCodes: IconAccessTypes,
+  iconFailCodes: IconAccessTypes,
   selectInputCenter: SelectInputTypes,
+
   /*
     Actions
   */
@@ -79,8 +83,12 @@ const Hook = (): HookType => {
   );
   const [plans, setPlans] = useState<PlanType[]>([]);
   const [townships, setTownships] = useState<TownshipType[]>([]);
-  const [iconAccessCodes, setIconAccessCodes] =
-    useState<AccessCodeTypes>(accessCodes);
+  const [iconAccessCodes, setIconAccessCodes] = useState<IconAccessTypes>(
+    DEFAULT_ICON_ACCESSES
+  );
+  const [iconFailCodes, setIconFailCodes] = useState<IconAccessTypes>(
+    DEFAULT_ICON_ACCESSES
+  );
 
   /*
     STATE ACTIONS
@@ -110,20 +118,21 @@ const Hook = (): HookType => {
     CHILD PASSING ACTIONS
   */
 
-  const handleUpdatePlans = (data: PackageType) => {
+  const handleUpdatePlans = (data: Record<string, unknown>) => {
     const plans = data.plans;
-    setPlans(plans);
+    setPlans(plans as PlanType[]);
   };
 
-  const handleUpdatePrice = (data: PlanType) => {
-    const price = data.price;
+  const handleUpdatePrice = (data: Record<string, unknown>) => {
+    const planData = data as PlanType;
+    const price = planData.price;
 
     const { number, type } = price;
     updateDataCenter("price", number.toString());
     updateDataCenter("paymentCurrency", type);
 
     //Duration
-    const durationValue = data.duration;
+    const durationValue = planData.duration;
     const [durationNumber, durationType] = durationValue.split(" ");
     updateDataCenter("duration", durationType);
     updateDataCenter("durationNumber", durationNumber);
@@ -139,8 +148,8 @@ const Hook = (): HookType => {
     updateDataCenter("serviceEndDate", endDate);
   };
 
-  const handleUpdateTownship = (data: CityType) => {
-    const { townships } = data;
+  const handleUpdateTownship = (data: Record<string, unknown>) => {
+    const { townships } = data as CityType;
     setTownships(townships);
   };
 
@@ -165,6 +174,7 @@ const Hook = (): HookType => {
       "serviceEndDate",
       "durationNumber",
     ],
+    city: ["township"],
   };
 
   /*
@@ -177,7 +187,11 @@ const Hook = (): HookType => {
     updateErrorCenter(name, "");
   };
 
-  const handleSelect = (data: any, dataKey: string, dataCenterKey: string) => {
+  const handleSelect = (
+    data: Record<string, unknown>,
+    dataKey: string,
+    dataCenterKey: string
+  ) => {
     let value = data[dataKey];
 
     if (typeof value === "undefined") {
@@ -185,7 +199,7 @@ const Hook = (): HookType => {
       return;
     }
     if (typeof value === "number") value = value.toString();
-    updateDataCenter(dataCenterKey, value);
+    updateDataCenter(dataCenterKey, value as string);
     updateErrorCenter(dataCenterKey, "");
 
     const childData =
@@ -236,6 +250,7 @@ const Hook = (): HookType => {
       key = data.value;
     }
     updateDataCenter(key, "");
+    updateErrorCenter(key, "");
   };
 
   /*
@@ -293,13 +308,26 @@ const Hook = (): HookType => {
   }, [duration, durationNumber, serviceStartDate]);
 
   const successIconGenerator = useCallback(() => {
-    const { accessCodes } = fancyValidator(dataCenter, iconAccessCodes);
-    setIconAccessCodes(accessCodes);
-  }, [dataCenter, iconAccessCodes]);
+    setIconAccessCodes((prevIconAccessCodes) => {
+      const { accessCodes } = fancyValidator(dataCenter, prevIconAccessCodes);
+      return accessCodes;
+    });
+  }, [dataCenter]);
+
+  const failIconGenerator = useCallback(() => {
+    setIconFailCodes((prevIconFailCodes) => {
+      const { failAccesses } = errorValidator(errorCenter, prevIconFailCodes);
+      return failAccesses;
+    });
+  }, [errorCenter]);
 
   useEffect(() => {
     successIconGenerator();
   }, [successIconGenerator]);
+
+  useEffect(() => {
+    failIconGenerator();
+  }, [failIconGenerator]);
 
   return [
     dataCenter,
@@ -310,6 +338,7 @@ const Hook = (): HookType => {
     plans,
     townships,
     iconAccessCodes,
+    iconFailCodes,
     selectInputCenter,
     /*
       Actions
