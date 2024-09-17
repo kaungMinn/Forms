@@ -5,6 +5,7 @@ import {
   DataCenterTypes,
   ErrorCenterTypes,
   RefCenterTypes,
+  SelectInputTypes,
 } from "../../../../_types";
 import ExtraInputWrapper from "./ExtraInputWrapper";
 import SelectDropDown, {
@@ -24,6 +25,7 @@ type BillingType = {
   refCenter: RefCenterTypes;
   theme: DefaultThemeTypes;
   townships: TownshipType[];
+  selectInputCenter: SelectInputTypes;
   /*
     Actions
   */
@@ -51,7 +53,7 @@ const BillingContactInformation = (props: BillingType) => {
     townships,
     updateDataCenter,
     updateErrorCenter,
-
+    selectInputCenter,
     /*
       Actions
     */
@@ -72,6 +74,7 @@ const BillingContactInformation = (props: BillingType) => {
           dataCenter={dataCenter}
           errorCenter={errorCenter}
           refCenter={refCenter}
+          selectedInputCenter={selectInputCenter.paymentTypes}
           /*
             Actions
           */
@@ -115,6 +118,7 @@ const BillingContactInformation = (props: BillingType) => {
           updateDataCenter={updateDataCenter}
           updateErrorCenter={updateErrorCenter}
         />
+
         <PrimaryInput
           label="Coordinates"
           type="text"

@@ -11,6 +11,7 @@ type TertiaryInputTypes = {
   badgeWidth?: string;
   errorMessage?: string;
   inputRef?: RefObject<HTMLInputElement>;
+  isDisabled?: boolean;
   /* 
         Actions
     */
@@ -26,12 +27,15 @@ const TertiaryInput = (props: TertiaryInputTypes) => {
     badgeWidth,
     errorMessage = "",
     inputRef,
+    isDisabled,
     /*
       Actions
     */
     onChange,
   } = props;
-  const { inputColor, primaryColor } = theme;
+  const { inputColor, primaryColor, alertColor } = theme;
+
+  const [disabledBg, disabledText, disabledBorder] = alertColor;
 
   const [placeHolderColor, textColor] = inputColor;
 
@@ -39,7 +43,11 @@ const TertiaryInput = (props: TertiaryInputTypes) => {
     <div>
       <div className="flex items-center gap-2 ">
         <input
-          className={`border h-9 px-2 w-full block outline-none text-sm  rounded-lg  ${placeHolderColor} ${textColor} ${primaryColor[0]}`}
+          className={`border h-9 px-3 w-full block outline-none text-sm  rounded-lg  ${placeHolderColor} ${textColor} ${
+            primaryColor[0]
+          } ${
+            isDisabled && `${disabledBg} ${disabledBorder} ${disabledText}`
+          }  ${errorMessage ? `${alertColor[5]}` : ``}`}
           value={value}
           name={name}
           type="text"
@@ -52,7 +60,13 @@ const TertiaryInput = (props: TertiaryInputTypes) => {
         )}
       </div>
 
-      {errorMessage ? <div className={``}>{errorMessage}</div> : <div></div>}
+      {errorMessage ? (
+        <div className={`px-2 py-1 caption-font ${alertColor[4]}`}>
+          {errorMessage}
+        </div>
+      ) : (
+        <div className="py-2"></div>
+      )}
     </div>
   );
 };

@@ -1,59 +1,57 @@
-import { ChangeEvent, RefObject, useCallback, useEffect } from "react";
+import { ChangeEvent, RefObject } from "react";
 import { AvaliableSelectionType } from ".";
 import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
 import CheckboxInput from "../../Inputs/CheckboxInput";
 import TertiaryInput from "../../Inputs/TertiaryInput";
 import { valueFinder } from "../Utils/data.utils";
+import { CustomizedDropDownDataTypes } from "../CustomizedDropDown/_types";
 
 const TertiaryInputList = (props: {
   dataCenter: Record<string, string | boolean | number>;
   errorCenter: Record<string, string | boolean | number>;
-  name: string;
+
   theme: DefaultThemeTypes;
   refCenter: Record<string, RefObject<HTMLInputElement>>;
+  selectedInput: CustomizedDropDownDataTypes;
   /*
     Actions
   */
-
   handleOnChange: (ev: ChangeEvent<HTMLInputElement>) => void;
   handleHasDropDown: (value: boolean) => void;
 }) => {
   const {
     dataCenter,
     errorCenter,
-    name,
     theme,
     refCenter,
+    selectedInput,
+    /*
+      Actions
+    */
     handleOnChange,
-    handleHasDropDown,
   } = props;
-  const value = valueFinder(dataCenter, name);
-  const error = errorCenter[name.toLowerCase()];
-  let errorMessage = "";
-  if (typeof error === "string") errorMessage = error;
 
-  const handleDropDown = useCallback(() => {
-    if (!errorMessage) return;
-    handleHasDropDown(true);
-  }, [errorMessage, handleHasDropDown]);
-
-  useEffect(() => {
-    handleDropDown();
-  }, [handleDropDown]);
+  let name = "";
+  if (typeof selectedInput.value === "string") {
+    name = selectedInput.value;
+  }
+  const value = dataCenter[name].toString();
+  const error = errorCenter[name].toString();
+  const ref = refCenter[name];
 
   return (
     <TertiaryInput
-      name={name.toLowerCase()}
+      name={name}
       value={value}
       theme={theme}
       placeHolderText="Enter something"
-      sideLabel={name}
+      sideLabel={name.toUpperCase()}
       badgeWidth="w-[5rem]"
-      errorMessage={errorMessage}
-      inputRef={refCenter[name.toLowerCase()]}
+      errorMessage={error}
+      inputRef={ref}
       /*
-                Actions
-              */
+        Actions
+      */
       onChange={handleOnChange}
     />
   );
@@ -118,6 +116,7 @@ type BottomMenuType = {
   dataCenter: Record<string, string | boolean | number>;
   errorCenter: Record<string, string | boolean | number>;
   refCenter: Record<string, RefObject<HTMLInputElement>>;
+  selectInputCenter: CustomizedDropDownDataTypes[];
   /*
     Actions
   */
@@ -140,6 +139,7 @@ const BottomMenu = (props: BottomMenuType) => {
     dataCenter,
     errorCenter,
     refCenter,
+    selectInputCenter,
     /*
       Actions
     */
@@ -152,10 +152,6 @@ const BottomMenu = (props: BottomMenuType) => {
   const value = valueFinder(dataCenter, dataCenterKey);
 
   const [primaryBg] = primaryColor;
-  const inputConfig = value
-    .trim()
-    .split(",")
-    .filter((config) => config !== "");
 
   return (
     <div className={` p-5  shadow rounded-lg space-y-5 ${primaryBg}`}>
@@ -185,24 +181,19 @@ const BottomMenu = (props: BottomMenuType) => {
       <hr />
 
       <div className="space-y-2 ">
-        {inputConfig.map((name, index) => {
-          return (
-            <div key={index}>
-              <TertiaryInputList
-                dataCenter={dataCenter}
-                errorCenter={errorCenter}
-                refCenter={refCenter}
-                name={name}
-                theme={theme}
-                /*
-                  Actions
-                */
-                handleOnChange={handleOnChange}
-                handleHasDropDown={handleHasDropDown}
-              />
-            </div>
-          );
-        })}
+        {selectInputCenter.map((input, index) => (
+          <div key={index}>
+            <TertiaryInputList
+              selectedInput={input}
+              theme={theme}
+              dataCenter={dataCenter}
+              errorCenter={errorCenter}
+              refCenter={refCenter}
+              handleHasDropDown={handleHasDropDown}
+              handleOnChange={handleOnChange}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

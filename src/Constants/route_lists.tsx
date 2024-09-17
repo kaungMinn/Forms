@@ -12,6 +12,7 @@ import {
   NotMatch,
   Theme,
 } from "./route_lazy";
+import Test from "../Pages/Test";
 
 export const PUBLIC_ROUTE = [{ path: NOT_MATCH_ROUTE, element: <NotMatch /> }];
 
@@ -31,5 +32,9 @@ export const PROTECTED_ROUTE_LIST = [
   {
     path: THEME_ROUTE,
     element: <Theme />,
+  },
+  {
+    path: "/test",
+    element: <Test />,
   },
 ];

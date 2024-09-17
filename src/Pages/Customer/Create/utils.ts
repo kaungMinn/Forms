@@ -71,7 +71,7 @@ export const validationSchemaGenerator = (
     },
     {
       condition: dataCenter.paymentTypes.includes("SGD") && !dataCenter.sgd,
-      field: "sgb",
+      field: "sgd",
       step: handleStepThree,
     },
     {

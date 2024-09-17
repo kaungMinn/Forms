@@ -16,6 +16,7 @@ import {
   DataCenterTypes,
   ErrorCenterTypes,
   RefCenterTypes,
+  SelectInputTypes,
 } from "../../../_types";
 import { AvaliableSelectionType } from "../../../../../Components/DropDownBox/SelectDropDown";
 import { PlanType } from "../../../../../Constants/Packages/constants";
@@ -32,6 +33,7 @@ type CustomerFormTypes = {
   plans: PlanType[];
   townships: TownshipType[];
   iconAccessCodes: AccessCodeTypes;
+  selectInputCenter: SelectInputTypes;
   /* 
     Actions
   */
@@ -62,6 +64,7 @@ const CustomerForm = (props: CustomerFormTypes) => {
     plans,
     townships,
     iconAccessCodes,
+    selectInputCenter,
     /*
       Actions
     */
@@ -127,6 +130,7 @@ const CustomerForm = (props: CustomerFormTypes) => {
               errorCenter={errorCenter}
               refCenter={refCenter}
               townships={townships}
+              selectInputCenter={selectInputCenter}
               /*
                 Actions
               */

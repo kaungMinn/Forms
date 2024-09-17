@@ -17,6 +17,7 @@ const CustomerCreate = () => {
     plans,
     townships,
     iconAccessCodes,
+    selectInputCenter,
     /*
       Actions
     */
@@ -44,6 +45,7 @@ const CustomerCreate = () => {
         plans={plans}
         townships={townships}
         iconAccessCodes={iconAccessCodes}
+        selectInputCenter={selectInputCenter}
         /*
          Actions
         */

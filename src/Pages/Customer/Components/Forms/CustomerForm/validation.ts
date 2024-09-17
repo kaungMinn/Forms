@@ -92,27 +92,38 @@ export const formShield = (
 
 //FANCY ONE
 export const fancyValidator = (
-  dataCenter: DataCenterTypes
+  dataCenter: DataCenterTypes,
+  accesses: AccessCodeTypes
 ): { accessCodes: AccessCodeTypes } => {
-  const setDefaultSteps = (accesses: AccessCodeTypes) => {
-    accesses.step1 = false;
-    accesses.step2 = false;
-    accesses.step3 = false;
-  };
+  // const setDefaultSteps = (accesses: AccessCodeTypes) => {
+  //   accesses.step1 = false;
+  //   accesses.step2 = false;
+  //   accesses.step3 = false;
+  // };
 
   const passStep1 = (accesses: AccessCodeTypes) => {
     accesses.step1 = true;
-    accesses.step2 = false;
-    accesses.step3 = false;
+  };
+
+  const failStep1 = (accesses: AccessCodeTypes) => {
+    accesses.step1 = false;
   };
 
   const passStep2 = (accesses: AccessCodeTypes) => {
-    accesses.step1 = true;
     accesses.step2 = true;
-    accesses.step3 = false;
   };
 
-  const accesses = { step1: false, step2: false, step3: false };
+  const failStep2 = (accesses: AccessCodeTypes) => {
+    accesses.step2 = false;
+  };
+
+  const passStep3 = (accesses: AccessCodeTypes) => {
+    accesses.step3 = true;
+  };
+
+  const failStep3 = (accesses: AccessCodeTypes) => {
+    accesses.step3 = false;
+  };
 
   const tmp_accesses = { ...accesses };
 
@@ -121,61 +132,85 @@ export const fancyValidator = (
       condition: !dataCenter.brandName,
       field: "brandName",
       success: passStep1,
-      fail: setDefaultSteps,
+      fail: failStep1,
     },
     {
       condition: !dataCenter.customerName,
       field: "customerName",
       success: passStep1,
-      fail: setDefaultSteps,
+      fail: failStep1,
     },
     {
       condition:
         !dataCenter.autoGeneratePPOEAccountServer && !dataCenter.radUserName,
       field: "radUserName",
       success: passStep2,
-      fail: passStep1,
+      fail: failStep2,
     },
     {
       condition:
         !dataCenter.autoGeneratePPOEAccountServer && !dataCenter.radPassword,
       field: "radPassword",
       success: passStep2,
-      fail: passStep1,
+      fail: failStep2,
     },
     {
       condition: !dataCenter.serviceID,
       field: "serviceID",
       success: passStep2,
-      fail: passStep1,
+      fail: failStep2,
     },
 
     {
       condition: dataCenter.containIPServer && !dataCenter.mode,
       field: "mode",
       success: passStep2,
-      fail: passStep1,
+      fail: failStep2,
     },
 
     {
       condition: dataCenter.containIPServer && !dataCenter.staticIP,
       field: "staticIP",
       success: passStep2,
-      fail: passStep1,
+      fail: failStep2,
     },
 
     {
       condition: !dataCenter.serviceType,
       field: "serviceType",
       success: passStep2,
-      fail: passStep1,
+      fail: failStep2,
     },
 
     {
       condition: !dataCenter.plan,
       field: "plan",
       success: passStep2,
-      fail: passStep1,
+      fail: failStep2,
+    },
+    {
+      condition: !dataCenter.paymentTypes,
+      field: "paymentTypes",
+      success: passStep3,
+      fail: failStep3,
+    },
+    {
+      condition: dataCenter.paymentTypes.includes("MMK") && !dataCenter.mmk,
+      field: "mmk",
+      success: passStep3,
+      fail: failStep3,
+    },
+    {
+      condition: dataCenter.paymentTypes.includes("SGD") && !dataCenter.sgd,
+      field: "sgd",
+      success: passStep3,
+      fail: failStep3,
+    },
+    {
+      condition: dataCenter.paymentTypes.includes("BAHT") && !dataCenter.baht,
+      field: "baht",
+      success: passStep3,
+      fail: failStep3,
     },
   ];
 

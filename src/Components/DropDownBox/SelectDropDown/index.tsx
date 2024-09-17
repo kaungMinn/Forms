@@ -9,6 +9,7 @@ import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
 import DropDownContainer from "../Components/DropDownContainer";
 import BottomMenu from "./BottomMenu";
 import { valueFinder } from "../Utils/data.utils";
+import { CustomizedDropDownDataTypes } from "../CustomizedDropDown/_types";
 
 export type AvaliableSelectionType = {
   id?: number;
@@ -28,6 +29,7 @@ type SelectDropDownTypes = {
   dataCenter: Record<string, string | boolean | number>;
   errorCenter?: Record<string, string | boolean | number>;
   refCenter?: Record<string, RefObject<HTMLInputElement>>;
+  selectedInputCenter: CustomizedDropDownDataTypes[];
   /*
     Actions
   */
@@ -52,6 +54,7 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
     dataCenter,
     errorCenter = {},
     refCenter = {},
+    selectedInputCenter,
     /*
       Actions
     */
@@ -69,6 +72,38 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
   const error = errorCenter[dataCenterKey];
   let primaryError = "";
   if (typeof error === "string") primaryError = error;
+
+  //LIFE CIRCLES
+
+  const handleDropDownDataAndError = useCallback(
+    (valueKeys: string[]) => {
+      let hasDropDown = false;
+      for (let i = 0; i < valueKeys.length; i++) {
+        if (dataCenter[valueKeys[i]]) {
+          hasDropDown = true;
+        }
+
+        if (errorCenter[valueKeys[i]]) {
+          hasDropDown = true;
+        }
+      }
+
+      return hasDropDown;
+    },
+    [dataCenter, errorCenter]
+  );
+
+  useEffect(() => {
+    if (selectedInputCenter.length <= 0) return;
+    const valueKeys = selectedInputCenter
+      .map((input) => input.value)
+      .filter((input) => typeof input === "string");
+
+    const hasDropDown = handleDropDownDataAndError(valueKeys);
+    if (hasDropDown) {
+      handleHasDropDown(true);
+    }
+  }, [selectedInputCenter, handleDropDownDataAndError]);
 
   return (
     <div>
@@ -90,6 +125,7 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
             dataCenter={dataCenter}
             errorCenter={errorCenter}
             refCenter={refCenter}
+            selectInputCenter={selectedInputCenter}
             /*
               Actions
             */

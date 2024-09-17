@@ -43,6 +43,7 @@ type HookType = [
   plans: PlanType[],
   townships: TownshipType[],
   iconAccessCodes: AccessCodeTypes,
+  selectInputCenter: SelectInputTypes,
   /*
     Actions
   */
@@ -193,6 +194,12 @@ const Hook = (): HookType => {
 
     updateSelectInputCenter(dataCenterKey, sortedData);
     updateDataCenter(dataCenterKey, paymentTypes);
+
+    let key = "";
+    if (typeof data.value === "string") {
+      key = data.value;
+    }
+    updateDataCenter(key, "");
   };
 
   /*
@@ -234,6 +241,8 @@ const Hook = (): HookType => {
     return { isValidate, validationAccessCodes };
   };
 
+  console.log("Error center", errorCenter);
+
   /*
     LIFE CIRCLES
   */
@@ -250,16 +259,13 @@ const Hook = (): HookType => {
   }, [duration, durationNumber, serviceStartDate]);
 
   const successIconGenerator = useCallback(() => {
-    const { accessCodes } = fancyValidator(dataCenter);
+    const { accessCodes } = fancyValidator(dataCenter, iconAccessCodes);
     setIconAccessCodes(accessCodes);
-  }, [dataCenter]);
+  }, [dataCenter, iconAccessCodes]);
 
   useEffect(() => {
     successIconGenerator();
   }, [successIconGenerator]);
-
-  console.log("ErrorCenter", errorCenter);
-  console.log("Data center", dataCenter);
 
   return [
     dataCenter,
@@ -270,6 +276,7 @@ const Hook = (): HookType => {
     plans,
     townships,
     iconAccessCodes,
+    selectInputCenter,
     /*
       Actions
     */
