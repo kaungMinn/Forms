@@ -1,20 +1,4 @@
-import { useState } from "react";
-
-type DefaultTestDataTypes = {
-  toggledData: string;
-  one: string;
-  two: string;
-};
-const DEFAULT_TEST_DATA: DefaultTestDataTypes = {
-  toggledData: "",
-  one: "",
-  two: "",
-};
-
 const Test = () => {
-  const [testData, setTestData] =
-    useState<DefaultTestDataTypes>(DEFAULT_TEST_DATA);
-
   const buttons = ["one", "two"];
   return (
     <div>
