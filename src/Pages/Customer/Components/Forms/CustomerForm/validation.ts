@@ -15,6 +15,7 @@ export type SchemaTypes = {
   condition: boolean;
   field: string;
   step: (accessCodes: AccessCodeTypes) => void;
+  noBreak?: true;
 };
 
 export const accessCodes: AccessCodeTypes = {
@@ -75,12 +76,14 @@ export const formShield = (
   let isValidate = true;
   const validationAccessCodes = { ...accessCodes };
 
-  for (const { condition, field, step } of schema) {
+  for (const { condition, field, step, noBreak } of schema) {
     if (condition) {
       step(validationAccessCodes);
       errorCenter = handleErrorMessage(field, errorCenter, refCenter);
       isValidate = false;
-      break;
+      if (!noBreak) {
+        break;
+      }
     } else {
       handleStepThree(validationAccessCodes);
       isValidate = true;
@@ -95,12 +98,6 @@ export const fancyValidator = (
   dataCenter: DataCenterTypes,
   accesses: AccessCodeTypes
 ): { accessCodes: AccessCodeTypes } => {
-  // const setDefaultSteps = (accesses: AccessCodeTypes) => {
-  //   accesses.step1 = false;
-  //   accesses.step2 = false;
-  //   accesses.step3 = false;
-  // };
-
   const passStep1 = (accesses: AccessCodeTypes) => {
     accesses.step1 = true;
   };

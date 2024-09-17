@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect } from "react";
 import { CustomizedDropDownDataTypes } from "../../../../../../Components/DropDownBox/CustomizedDropDown/_types";
 import { DefaultThemeTypes } from "../../../../../Theme/_types";
 import {
@@ -18,6 +18,7 @@ import {
   TownshipType,
 } from "../../../../../../Constants/Location/myanmar.constants";
 import PrimaryInput from "../../../../../../Components/Inputs/PrimaryInput";
+import { stateCleaner } from "../../../../../../Utils/Data/States/cleaner.utils";
 
 type BillingType = {
   dataCenter: DataCenterTypes;
@@ -61,6 +62,22 @@ const BillingContactInformation = (props: BillingType) => {
     handleSelect,
     handleCheck,
   } = props;
+
+  useEffect(() => {
+    const keys = [
+      "paymentTypes",
+      "city",
+      "township",
+      "address",
+      "coordinates",
+      "phoneNumber",
+      "viberNumber",
+      "email",
+      "remark",
+    ];
+
+    stateCleaner(keys, updateErrorCenter);
+  }, []);
 
   return (
     <div>

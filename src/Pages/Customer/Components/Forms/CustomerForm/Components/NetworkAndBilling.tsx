@@ -20,6 +20,7 @@ import {
   DEFAULT_BILLING_METHODS,
   PAYMENTS,
 } from "../../../../../../Constants/Customers/payment.constants";
+import { stateCleaner } from "../../../../../../Utils/Data/States/cleaner.utils";
 
 type NetworkType = {
   dataCenter: DataCenterTypes;
@@ -66,9 +67,7 @@ const NetworkAndBilling = (props: NetworkType) => {
       "plan",
     ];
 
-    for (let i = 0; i < keys.length; i++) {
-      updateErrorCenter(keys[i], "");
-    }
+    stateCleaner(keys, updateErrorCenter);
   }, []);
 
   const { primaryColor } = theme;

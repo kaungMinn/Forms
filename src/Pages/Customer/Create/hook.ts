@@ -33,6 +33,7 @@ import {
   formShield,
 } from "../Components/Forms/CustomerForm/validation";
 import { validationSchemaGenerator } from "./utils";
+import { stateCleaner } from "../../../Utils/Data/States/cleaner.utils";
 
 type HookType = [
   dataCenter: DataCenterTypes,
@@ -65,7 +66,7 @@ type HookType = [
 
 const Hook = (): HookType => {
   /*
-    DATAS
+    STATES
   */
   const [dataCenter, setDataCenter] =
     useState<DataCenterTypes>(DEFAULT_DATA_CENTER);
@@ -78,14 +79,18 @@ const Hook = (): HookType => {
   );
   const [plans, setPlans] = useState<PlanType[]>([]);
   const [townships, setTownships] = useState<TownshipType[]>([]);
+  const [iconAccessCodes, setIconAccessCodes] =
+    useState<AccessCodeTypes>(accessCodes);
+
+  /*
+    STATE ACTIONS
+  */
   const updateDataCenter = (
     key: string,
     value: DataCenterTypes[keyof DataCenterTypes]
   ) => {
     return modifyState(key, value, setDataCenter);
   };
-  const [iconAccessCodes, setIconAccessCodes] =
-    useState<AccessCodeTypes>(accessCodes);
 
   const updateErrorCenter = (
     key: string,
@@ -100,6 +105,10 @@ const Hook = (): HookType => {
   ) => {
     return modifyState(key, value, setSelectInputCenter);
   };
+
+  /*
+    CHILD PASSING ACTIONS
+  */
 
   const handleUpdatePlans = (data: PackageType) => {
     const plans = data.plans;
@@ -142,6 +151,23 @@ const Hook = (): HookType => {
   };
 
   /*
+    CHILD CLEANING ACTIONS
+  */
+
+  const childCleaningStructure = {
+    autoGeneratePPOEAccount: ["radUserName", "radUserName"],
+    containIP: ["mode", "modeServer", "staticIP"],
+    serviceType: [
+      "plan",
+      "planServer",
+      "paymentCurrency",
+      "price",
+      "serviceEndDate",
+      "durationNumber",
+    ],
+  };
+
+  /*
     ACTIONS
   */
   const handleOnChange = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -165,8 +191,18 @@ const Hook = (): HookType => {
     const childData =
       childDataStructure[dataCenterKey as keyof typeof childDataStructure];
 
+    const childCleaningKeys =
+      childCleaningStructure[
+        dataCenterKey as keyof typeof childCleaningStructure
+      ];
+
     if (childData) {
       childData(data);
+    }
+
+    if (childCleaningKeys) {
+      stateCleaner(childCleaningKeys, updateDataCenter);
+      stateCleaner(childCleaningKeys, updateErrorCenter);
     }
   };
 
@@ -240,8 +276,6 @@ const Hook = (): HookType => {
 
     return { isValidate, validationAccessCodes };
   };
-
-  console.log("Error center", errorCenter);
 
   /*
     LIFE CIRCLES

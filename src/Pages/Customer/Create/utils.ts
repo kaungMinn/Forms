@@ -68,16 +68,19 @@ export const validationSchemaGenerator = (
       condition: dataCenter.paymentTypes.includes("MMK") && !dataCenter.mmk,
       field: "mmk",
       step: handleStepThree,
+      noBreak: true,
     },
     {
       condition: dataCenter.paymentTypes.includes("SGD") && !dataCenter.sgd,
       field: "sgd",
       step: handleStepThree,
+      noBreak: true,
     },
     {
       condition: dataCenter.paymentTypes.includes("BAHT") && !dataCenter.baht,
       field: "baht",
       step: handleStepThree,
+      noBreak: true,
     },
   ];
 };

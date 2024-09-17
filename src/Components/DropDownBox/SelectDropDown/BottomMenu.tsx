@@ -40,10 +40,14 @@ const TertiaryInputList = (props: {
   const error = errorCenter[name].toString();
   const ref = refCenter[name];
 
-  useEffect(() => {
+  const handleDataDropDown = () => {
     if (error || value) {
       handleHasDropDown(true);
     }
+  };
+
+  useEffect(() => {
+    handleDataDropDown();
   }, []);
 
   return (

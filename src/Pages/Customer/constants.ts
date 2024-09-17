@@ -32,7 +32,7 @@ export const DEFAULT_DATA_CENTER: DataCenterTypes = {
   plan: "",
   planServer: "",
   paymentCurrency: "",
-  price: "0",
+  price: "",
   billingMethod: "Prepaid",
   billingMethodServer: "pre",
   serviceStatus: "New",

@@ -33,16 +33,26 @@ const TabMenu = (props: TabMenuTypes) => {
     3: iconAccessCodes.step3,
   };
 
+  const successText = { color: "#eab308" };
+  const successBg = { backgroundColor: "#eab308" };
+  const failText = { color: "#ef4444" };
+  const failBg = { backgroundColor: "#ef4444" };
+
   return (
     <div
       className={`relative flex flex-nowrap items-center space-x-3  border-b border-gray-300 pb-3`}
     >
       {tabs.map((tab, index) => {
+        const hasAccess = iconAccesses[tab.id as keyof typeof iconAccesses];
         return (
           <div
             key={index}
             className={`h-auto  w-60 laptop:cursor-pointer  ${
-              tab.id === selectedTab.id && `${selectedTextColor}`
+              hasAccess
+                ? `text-yellow-500`
+                : tab.id === selectedTab.id
+                ? `${selectedTextColor}`
+                : ``
             }`}
             onClick={() => {
               handleSelectTab(tab);
@@ -51,22 +61,27 @@ const TabMenu = (props: TabMenuTypes) => {
             <div className="caption-font relative laptop:secondary-font  text-center font-semibold ">
               {tab.name}
 
-              {iconAccesses[tab.id as keyof typeof iconAccesses] && (
+              {hasAccess && (
                 <div className="w-[4rem] absolute top-3 z-50 right-[50%] -translate-x-[-50%]  ">
                   <SuccessTick isLoop={false} />
                 </div>
               )}
             </div>
+            <div
+              className={`hidden  rounded-full absolute bottom-0 left-0 h-[2px] w-20 tablet:w-60  duration-200 ${
+                tabs.length > 3 ? "hidden" : "laptop:block"
+              } ${
+                tab.id === selectedTab.id
+                  ? hasAccess
+                    ? "bg-yellow-500"
+                    : `${selectedBg}`
+                  : ""
+              }`}
+              style={{ translate: `${moveGenerator(selectedTab.id)}` }}
+            />
           </div>
         );
       })}
-
-      <div
-        className={`hidden  rounded-full absolute bottom-0 left-0 h-[2px] w-20 tablet:w-60  duration-200 ${
-          tabs.length > 3 ? "hidden" : "laptop:block"
-        } ${selectedBg}`}
-        style={{ translate: `${moveGenerator(selectedTab.id)}` }}
-      />
     </div>
   );
 };

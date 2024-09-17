@@ -56,7 +56,12 @@ const TertiaryInput = (props: TertiaryInputTypes) => {
           ref={inputRef}
         />
         {sideLabel && (
-          <PrimaryBadge theme={theme} label={sideLabel} width={badgeWidth} />
+          <PrimaryBadge
+            theme={theme}
+            label={sideLabel}
+            width={badgeWidth}
+            bgColor={errorMessage ? alertColor[3] : ""}
+          />
         )}
       </div>
 
