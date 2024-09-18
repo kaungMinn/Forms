@@ -1,3 +1,4 @@
+import { isMeaningfullMoneyValue } from "../../../Utils/regex.utils";
 import { DataCenterTypes } from "../_types";
 import {
   handleStepOne,
@@ -76,6 +77,7 @@ export const validationSchemaGenerator = (
       step: handleStepThree,
       noBreak: true,
     },
+
     {
       condition: dataCenter.paymentTypes.includes("BAHT") && !dataCenter.baht,
       field: "baht",

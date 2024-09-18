@@ -58,7 +58,7 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
 }: PrimaryInputPropType) => {
   const { inputColor, primaryColor, alertColor } = theme;
   const [placeHolderColor, textColor, focusBorder, focusShadow] = inputColor;
-  const [disabledBg, disabledText, disabledBorder] = alertColor;
+  const [disabledBg, disabledText, disabledBorder, alertBg] = alertColor;
 
   const handleClick = () => {
     if (!inputRef || !inputRef.current) return;
@@ -121,6 +121,7 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
               label={badgeLabel}
               width="w-20"
               height="h-9"
+              bgColor={`${errorMessage ? alertBg : ""}`}
             />
           )}
         </div>

@@ -68,6 +68,7 @@ const NetworkAndBilling = (props: NetworkType) => {
     ];
 
     stateCleaner(keys, updateErrorCenter);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { primaryColor } = theme;

@@ -36,6 +36,14 @@ import {
 } from "../Components/Forms/CustomerForm/validation";
 import { validationSchemaGenerator } from "./utils";
 import { stateCleaner } from "../../../Utils/Data/States/cleaner.utils";
+import {
+  isMeaningfulCoordinate,
+  isMeaningfulEmail,
+  isMeaningfullDuration,
+  isMeaningfullMoneyValue,
+  isMeaningfulPhoneNumber,
+} from "../../../Utils/regex.utils";
+import { camelCaseToLowerSpace } from "../../../Utils/Data/string.utils";
 
 type HookType = [
   dataCenter: DataCenterTypes,
@@ -293,19 +301,8 @@ const Hook = (): HookType => {
   };
 
   /*
-    LIFE CIRCLES
+    LIFE-CIRCLE CALLBACK
   */
-  const { duration, durationNumber, serviceStartDate } = dataCenter;
-  useEffect(() => {
-    if (!durationNumber) {
-      updateDataCenter("serviceEndDate", "");
-      return;
-    }
-    const serviceEndDate = inputAcceptableDate(
-      endDateCreator(duration, durationNumber, serviceStartDate)
-    );
-    updateDataCenter("serviceEndDate", serviceEndDate);
-  }, [duration, durationNumber, serviceStartDate]);
 
   const successIconGenerator = useCallback(() => {
     setIconAccessCodes((prevIconAccessCodes) => {
@@ -321,13 +318,102 @@ const Hook = (): HookType => {
     });
   }, [errorCenter]);
 
+  /*
+    LIFE CIRCLES
+  */
+  const {
+    duration,
+    durationNumber,
+    serviceStartDate,
+    price,
+    coordinates,
+    phoneNumber,
+    viberNumber,
+    email,
+    mmk,
+    sgd,
+    baht,
+  } = dataCenter;
   useEffect(() => {
+    //Generate end date
+    if (!durationNumber || !isMeaningfullDuration(durationNumber)) {
+      updateDataCenter("serviceEndDate", "");
+      return;
+    }
+    const serviceEndDate = inputAcceptableDate(
+      endDateCreator(duration, durationNumber, serviceStartDate)
+    );
+    updateDataCenter("serviceEndDate", serviceEndDate);
+  }, [duration, durationNumber, serviceStartDate]);
+
+  useEffect(() => {
+    //Generate success icon
     successIconGenerator();
   }, [successIconGenerator]);
 
   useEffect(() => {
+    //Generate fail icon
     failIconGenerator();
   }, [failIconGenerator]);
+
+  //Regex validations
+  const regexTesting = (key: string, regexFun: (value: string) => boolean) => {
+    const data = dataCenter[key as keyof DataCenterTypes];
+    if (data) {
+      const hasMeaning = regexFun(data as string);
+      updateErrorCenter(
+        key,
+        hasMeaning ? "" : `Enter valid ${camelCaseToLowerSpace(key)}`
+      );
+    } else {
+      updateErrorCenter(key, "");
+    }
+  };
+
+  useEffect(() => {
+    regexTesting("durationNumber", isMeaningfullDuration);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [durationNumber]);
+
+  useEffect(() => {
+    regexTesting("price", isMeaningfullMoneyValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [price]);
+
+  useEffect(() => {
+    regexTesting("coordinates", isMeaningfulCoordinate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [coordinates]);
+
+  useEffect(() => {
+    regexTesting("phoneNumber", isMeaningfulPhoneNumber);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phoneNumber]);
+
+  useEffect(() => {
+    regexTesting("viberNumber", isMeaningfulPhoneNumber);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viberNumber]);
+
+  useEffect(() => {
+    regexTesting("email", isMeaningfulEmail);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email]);
+
+  useEffect(() => {
+    regexTesting("mmk", isMeaningfullMoneyValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mmk]);
+
+  useEffect(() => {
+    regexTesting("sgd", isMeaningfullMoneyValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sgd]);
+
+  useEffect(() => {
+    regexTesting("baht", isMeaningfulCoordinate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [baht]);
 
   return [
     dataCenter,

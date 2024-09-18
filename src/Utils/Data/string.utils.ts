@@ -21,3 +21,11 @@ export const stringToggle = (
   }
   return selectedValueArray;
 };
+
+export function camelCaseToLowerSpace(value: string) {
+  return value
+    .replace(/([a-z])([A-Z])/g, "$1 $2") // Insert space before uppercase letters
+    .replace(/([A-Z]+)/g, " $1") // Handle cases like "XMLHttpRequest"
+    .trim() // Remove any leading or trailing spaces
+    .toLowerCase(); // Convert to lowercase
+}

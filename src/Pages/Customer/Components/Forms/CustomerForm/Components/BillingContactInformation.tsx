@@ -142,16 +142,19 @@ const BillingContactInformation = (props: BillingType) => {
           type="text"
           name="coordinates"
           value={dataCenter.coordinates}
+          errorMessage={errorCenter.coordinates}
           placeHolderText="Enter coordinates"
           theme={theme}
           updateDataCenter={updateDataCenter}
           updateErrorCenter={updateErrorCenter}
         />
+
         <PrimaryInput
           label="Phone Number"
           type="text"
           name="phoneNumber"
           value={dataCenter.phoneNumber}
+          errorMessage={errorCenter.phoneNumber}
           placeHolderText="Phone Number"
           theme={theme}
           updateDataCenter={updateDataCenter}
@@ -163,6 +166,7 @@ const BillingContactInformation = (props: BillingType) => {
           type="text"
           name="viberNumber"
           value={dataCenter.viberNumber}
+          errorMessage={errorCenter.viberNumber}
           placeHolderText="Enter viber number"
           theme={theme}
           updateDataCenter={updateDataCenter}
@@ -174,6 +178,7 @@ const BillingContactInformation = (props: BillingType) => {
           type="text"
           name="email"
           value={dataCenter.email}
+          errorMessage={errorCenter.email}
           placeHolderText="Enter email"
           theme={theme}
           updateDataCenter={updateDataCenter}
