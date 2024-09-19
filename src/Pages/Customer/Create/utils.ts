@@ -53,6 +53,11 @@ export const validationSchemaGenerator = (
     },
 
     {
+      condition: !dataCenter.serviceStatus,
+      field: "serviceStatus",
+      step: handleStepTwo,
+    },
+    {
       condition: !dataCenter.serviceType,
       field: "serviceType",
       step: handleStepTwo,

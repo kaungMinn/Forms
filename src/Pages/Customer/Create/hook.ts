@@ -39,6 +39,7 @@ import { stateCleaner } from "../../../Utils/Data/States/cleaner.utils";
 import {
   isMeaningfulCoordinate,
   isMeaningfulEmail,
+  isMeaningfulIP,
   isMeaningfullDuration,
   isMeaningfullMoneyValue,
   isMeaningfulPhoneNumber,
@@ -174,6 +175,7 @@ const Hook = (): HookType => {
   const childCleaningStructure = {
     autoGeneratePPOEAccount: ["radUserName", "radUserName"],
     containIP: ["mode", "modeServer", "staticIP"],
+    mode: ["staticIP"],
     serviceType: [
       "plan",
       "planServer",
@@ -182,6 +184,7 @@ const Hook = (): HookType => {
       "serviceEndDate",
       "durationNumber",
     ],
+
     city: ["township"],
   };
 
@@ -335,6 +338,7 @@ const Hook = (): HookType => {
     mmk,
     sgd,
     baht,
+    staticIP,
   } = dataCenter;
   useEffect(() => {
     //Generate end date
@@ -371,6 +375,11 @@ const Hook = (): HookType => {
       updateErrorCenter(key, "");
     }
   };
+
+  useEffect(() => {
+    regexTesting("staticIP", isMeaningfulIP);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [staticIP]);
 
   useEffect(() => {
     regexTesting("durationNumber", isMeaningfullDuration);

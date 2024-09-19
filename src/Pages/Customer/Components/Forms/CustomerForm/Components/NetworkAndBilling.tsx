@@ -75,7 +75,7 @@ const NetworkAndBilling = (props: NetworkType) => {
   const [primaryBg, primaryText] = primaryColor;
   return (
     <>
-      <div className="pt-6 px-2 border-gray-400 rounded-lg border  relative">
+      <div className="pt-6 px-2 pb-2 border-gray-400 rounded-lg border  relative">
         <div
           className={`absolute -top-[0.6rem] px-2 left-4 body-font ${primaryBg} ${primaryText}`}
         >
@@ -130,9 +130,7 @@ const NetworkAndBilling = (props: NetworkType) => {
             />
           )}
         </ExtraInputWrapper>
-        {!dataCenter.autoGeneratePPOEAccountServer && (
-          <div className="laptop:col-span-2 py-2"></div>
-        )}
+
         <ExtraInputWrapper theme={theme}>
           <CustomizedDropDown
             dropDownData={SERVICE_CODES}
@@ -157,6 +155,7 @@ const NetworkAndBilling = (props: NetworkType) => {
             updateErrorCenter={updateErrorCenter}
           />
         </ExtraInputWrapper>
+
         <ExtraInputWrapper
           theme={theme}
           colorCondition={
@@ -221,16 +220,18 @@ const NetworkAndBilling = (props: NetworkType) => {
             theme={theme}
             updateDataCenter={updateDataCenter}
             updateErrorCenter={updateErrorCenter}
+            inputRef={refCenter.serviceStatus}
           />
         </ExtraInputWrapper>
       </div>
 
-      <div className="border border-gray-400  rounded-lg pt-6 px-2 mt-6 relative">
+      <div className="border border-gray-400  rounded-lg pt-6 px-2 pb-2 mt-6 relative">
         <div
           className={`absolute -top-[0.6rem]  px-2 left-4 body-font ${primaryBg} ${primaryText}`}
         >
           Billing
         </div>
+
         <ExtraInputWrapper theme={theme}>
           <CustomizedDropDown
             dropDownData={DEFAULT_BILLING_METHODS}
@@ -244,9 +245,9 @@ const NetworkAndBilling = (props: NetworkType) => {
             errorMessage={errorCenter.billingMethod}
             handleSelect={handleSelect}
           />
+        </ExtraInputWrapper>
 
-          <div></div>
-
+        <ExtraInputWrapper theme={theme}>
           {/* <CustomizedDropDown
             dropDownData={DEFAULT_ON_OFF}
             label={"Enable"}
@@ -300,6 +301,7 @@ const NetworkAndBilling = (props: NetworkType) => {
             errorMessage={errorCenter.paymentCurrency}
             isRequired={true}
           />
+
           <PrimaryInput
             type="text"
             name="price"

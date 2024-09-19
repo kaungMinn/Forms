@@ -1,4 +1,7 @@
-import { isMeaningfullMoneyValue } from "../../../../../Utils/regex.utils";
+import {
+  isMeaningfulIP,
+  isMeaningfullMoneyValue,
+} from "../../../../../Utils/regex.utils";
 import {
   DataCenterTypes,
   ErrorCenterTypes,
@@ -47,17 +50,11 @@ export const handleStepThree = (validationCodes: AccessCodeTypes) => {
 const handleErrorMessage = (
   key: string,
   errorCenter: ErrorCenterTypes,
-  tmp_error_center: unknown,
   refCenter: RefCenterTypes,
   validationKey: string | undefined
 ) => {
-  const error_center =
-    Object.keys(tmp_error_center as ErrorCenterTypes).length > 0
-      ? (tmp_error_center as ErrorCenterTypes)
-      : errorCenter;
-
   const resultErrorCenter = {
-    ...error_center,
+    ...errorCenter,
     [validationKey || key]: validations[key as keyof CustomerValidationTypes],
   };
 
@@ -85,21 +82,19 @@ export const formShield = (
   let isValidate = true;
   const validationAccessCodes = { ...accessCodes };
 
-  let tmp_error_center: unknown = {};
-
   for (const { condition, field, step, noBreak, validationKey } of schema) {
     if (condition) {
       step(validationAccessCodes);
       const error_center = handleErrorMessage(
         field,
         errorCenter,
-        tmp_error_center,
+
         refCenter,
         validationKey
       );
 
       errorCenter = error_center;
-      tmp_error_center = error_center;
+
       isValidate = false;
 
       if (!noBreak) {
@@ -199,6 +194,16 @@ export const fancyValidator = (
 
     {
       condition: dataCenter.containIPServer && !dataCenter.staticIP,
+      field: "staticIP",
+      success: passStep2,
+      fail: failStep2,
+    },
+
+    {
+      condition:
+        dataCenter.containIPServer &&
+        dataCenter.staticIP !== "" &&
+        !isMeaningfulIP(dataCenter.staticIP),
       field: "staticIP",
       success: passStep2,
       fail: failStep2,
