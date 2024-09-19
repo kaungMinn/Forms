@@ -45,6 +45,7 @@ import {
   isMeaningfulPhoneNumber,
 } from "../../../Utils/regex.utils";
 import { camelCaseToLowerSpace } from "../../../Utils/Data/string.utils";
+import { db } from "../../../DB/db";
 
 type HookType = [
   dataCenter: DataCenterTypes,
@@ -74,7 +75,8 @@ type HookType = [
     dataCenterKey: string
   ) => void,
   updateDataCenter: (key: string, value: string) => void,
-  updateErrorCenter: (key: string, value: string) => void
+  updateErrorCenter: (key: string, value: string) => void,
+  handleCreateCustomers: () => void
 ];
 
 const Hook = (): HookType => {
@@ -264,6 +266,32 @@ const Hook = (): HookType => {
     updateErrorCenter(key, "");
   };
 
+  const handleCreateCustomers = async () => {
+    try {
+      const customers = await db.customers.toArray();
+      const id = customers[customers.length - 1].id + 1;
+
+      console.log(customers);
+
+      const { isValidate } = handleNextStep();
+      if (!isValidate) return;
+
+      const sameServiceID = await db.customers.get({
+        serviceID: dataCenter.serviceID,
+      });
+
+      if (sameServiceID) {
+        console.error("Customer with this service ID already exists");
+        return; // Handle the case where the customer exists (e.g., show a message)
+      }
+
+      await db.customers.add({ ...dataCenter, id });
+      console.log("Customer added successfully!");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   /*
     TABS
   */
@@ -320,8 +348,6 @@ const Hook = (): HookType => {
       return failAccesses;
     });
   }, [errorCenter]);
-
-  console.log("Errorcenter", errorCenter);
 
   /*
     LIFE CIRCLES
@@ -446,6 +472,7 @@ const Hook = (): HookType => {
     handleCheck,
     updateDataCenter,
     updateErrorCenter,
+    handleCreateCustomers,
   ];
 };
 

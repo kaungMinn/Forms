@@ -1,3 +1,4 @@
+import PrimaryButton from "../../../Components/Buttons/PrimaryButton";
 import Heading from "../../../Components/Labels/Heading";
 import { useAppSelector } from "../../../Hooks/ReduxProvider";
 import CustomerForm from "../Components/Forms/CustomerForm";
@@ -28,6 +29,7 @@ const CustomerCreate = () => {
     handleCheck,
     updateDataCenter,
     updateErrorCenter,
+    handleCreateCustomers,
   ] = Hook();
 
   return (
@@ -58,6 +60,8 @@ const CustomerCreate = () => {
         updateDataCenter={updateDataCenter}
         updateErrorCenter={updateErrorCenter}
       />
+
+      <PrimaryButton label="Confirm" handleClickOn={handleCreateCustomers} />
     </div>
   );
 };
