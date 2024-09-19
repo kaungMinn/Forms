@@ -1,3 +1,4 @@
+import { isMeaningfullMoneyValue } from "../../../../../Utils/regex.utils";
 import {
   DataCenterTypes,
   ErrorCenterTypes,
@@ -15,7 +16,8 @@ export type SchemaTypes = {
   condition: boolean;
   field: string;
   step: (accessCodes: AccessCodeTypes) => void;
-  noBreak?: true;
+  noBreak?: boolean;
+  validationKey?: string;
 };
 
 export const accessCodes: AccessCodeTypes = {
@@ -45,11 +47,18 @@ export const handleStepThree = (validationCodes: AccessCodeTypes) => {
 const handleErrorMessage = (
   key: string,
   errorCenter: ErrorCenterTypes,
-  refCenter: RefCenterTypes
+  tmp_error_center: unknown,
+  refCenter: RefCenterTypes,
+  validationKey: string | undefined
 ) => {
+  const error_center =
+    Object.keys(tmp_error_center as ErrorCenterTypes).length > 0
+      ? (tmp_error_center as ErrorCenterTypes)
+      : errorCenter;
+
   const resultErrorCenter = {
-    ...errorCenter,
-    [key]: validations[key as keyof CustomerValidationTypes],
+    ...error_center,
+    [validationKey || key]: validations[key as keyof CustomerValidationTypes],
   };
 
   if (
@@ -76,10 +85,21 @@ export const formShield = (
   let isValidate = true;
   const validationAccessCodes = { ...accessCodes };
 
-  for (const { condition, field, step, noBreak } of schema) {
+  let tmp_error_center: unknown = {};
+
+  for (const { condition, field, step, noBreak, validationKey } of schema) {
     if (condition) {
       step(validationAccessCodes);
-      errorCenter = handleErrorMessage(field, errorCenter, refCenter);
+      const error_center = handleErrorMessage(
+        field,
+        errorCenter,
+        tmp_error_center,
+        refCenter,
+        validationKey
+      );
+
+      errorCenter = error_center;
+      tmp_error_center = error_center;
       isValidate = false;
 
       if (!noBreak) {
@@ -210,7 +230,24 @@ export const fancyValidator = (
       fail: failStep3,
     },
     {
+      condition:
+        dataCenter.paymentTypes.includes("MMK") &&
+        !isMeaningfullMoneyValue(dataCenter.mmk),
+      field: "mmk",
+      success: passStep3,
+      fail: failStep3,
+    },
+    {
       condition: dataCenter.paymentTypes.includes("SGD") && !dataCenter.sgd,
+      field: "sgd",
+      success: passStep3,
+      fail: failStep3,
+    },
+    {
+      condition:
+        dataCenter.paymentTypes.includes("SGD") &&
+        dataCenter.sgd !== "" &&
+        !isMeaningfullMoneyValue(dataCenter.sgd),
       field: "sgd",
       success: passStep3,
       fail: failStep3,
@@ -218,6 +255,28 @@ export const fancyValidator = (
     {
       condition: dataCenter.paymentTypes.includes("BAHT") && !dataCenter.baht,
       field: "baht",
+      success: passStep3,
+      fail: failStep3,
+    },
+    {
+      condition:
+        dataCenter.paymentTypes.includes("BAHT") &&
+        dataCenter.baht !== "" &&
+        !isMeaningfullMoneyValue(dataCenter.baht),
+      field: "baht",
+      success: passStep3,
+      fail: failStep3,
+    },
+    {
+      condition: !dataCenter.city,
+      field: "city",
+      success: passStep3,
+      fail: failStep3,
+    },
+
+    {
+      condition: !dataCenter.township,
+      field: "township",
       success: passStep3,
       fail: failStep3,
     },
@@ -337,6 +396,7 @@ export const errorValidator = (
       success: passStep3,
       fail: failStep3,
     },
+
     {
       condition: !errorCenter.sgd,
       field: "sgd",
@@ -346,6 +406,19 @@ export const errorValidator = (
     {
       condition: !errorCenter.baht,
       field: "baht",
+      success: passStep3,
+      fail: failStep3,
+    },
+    {
+      condition: !errorCenter.city,
+      field: "city",
+      success: passStep3,
+      fail: failStep3,
+    },
+
+    {
+      condition: !errorCenter.township,
+      field: "township",
       success: passStep3,
       fail: failStep3,
     },

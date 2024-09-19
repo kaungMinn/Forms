@@ -1,4 +1,7 @@
-import { isMeaningfullMoneyValue } from "../../../Utils/regex.utils";
+import {
+  isMeaningfullDuration,
+  isMeaningfullMoneyValue,
+} from "../../../Utils/regex.utils";
 import { DataCenterTypes } from "../_types";
 import {
   handleStepOne,
@@ -61,6 +64,55 @@ export const validationSchemaGenerator = (
       step: handleStepTwo,
     },
     {
+      condition: !dataCenter.paymentCurrency,
+      field: "paymentCurrency ",
+      step: handleStepTwo,
+    },
+    {
+      condition: !dataCenter.price,
+      field: "price",
+      step: handleStepTwo,
+    },
+
+    {
+      condition: !dataCenter.durationNumber,
+      field: "durationNumber",
+      step: handleStepTwo,
+    },
+
+    {
+      condition: !dataCenter.serviceStartDate,
+      field: "serviceStartDate",
+      step: handleStepTwo,
+    },
+
+    {
+      condition: !dataCenter.serviceEndDate,
+      field: "serviceEndDate",
+      step: handleStepTwo,
+    },
+
+    {
+      condition:
+        dataCenter.price !== "" && !isMeaningfullMoneyValue(dataCenter.price),
+      field: "price",
+      step: handleStepTwo,
+      validationKey: "validMoney",
+    },
+    {
+      condition: !dataCenter.durationNumber,
+      field: "durationNumber",
+      step: handleStepTwo,
+    },
+    {
+      condition:
+        dataCenter.durationNumber !== "" &&
+        !isMeaningfullDuration(dataCenter.durationNumber),
+      field: "durationNumber",
+      step: handleStepTwo,
+      validationKey: "validDuration",
+    },
+    {
       condition: !dataCenter.paymentTypes,
       field: "paymentTypes",
       step: handleStepThree,
@@ -69,20 +121,51 @@ export const validationSchemaGenerator = (
       condition: dataCenter.paymentTypes.includes("MMK") && !dataCenter.mmk,
       field: "mmk",
       step: handleStepThree,
-      noBreak: true,
+    },
+    {
+      condition:
+        dataCenter.paymentTypes.includes("MMK") &&
+        dataCenter.mmk !== "" &&
+        !isMeaningfullMoneyValue(dataCenter.mmk),
+      field: "mmk",
+      step: handleStepThree,
     },
     {
       condition: dataCenter.paymentTypes.includes("SGD") && !dataCenter.sgd,
       field: "sgd",
       step: handleStepThree,
-      noBreak: true,
     },
-
+    {
+      condition:
+        dataCenter.paymentTypes.includes("SGD") &&
+        dataCenter.sgd !== "" &&
+        !isMeaningfullMoneyValue(dataCenter.sgd),
+      field: "sgd",
+      step: handleStepThree,
+    },
     {
       condition: dataCenter.paymentTypes.includes("BAHT") && !dataCenter.baht,
       field: "baht",
       step: handleStepThree,
-      noBreak: true,
+    },
+    {
+      condition:
+        dataCenter.paymentTypes.includes("BAHT") &&
+        dataCenter.baht !== "" &&
+        !isMeaningfullMoneyValue(dataCenter.baht),
+      field: "baht",
+      step: handleStepThree,
+    },
+    {
+      condition: !dataCenter.city,
+      field: "city",
+      step: handleStepThree,
+    },
+
+    {
+      condition: !dataCenter.township,
+      field: "township",
+      step: handleStepThree,
     },
   ];
 };

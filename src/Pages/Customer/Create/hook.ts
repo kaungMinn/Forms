@@ -318,6 +318,8 @@ const Hook = (): HookType => {
     });
   }, [errorCenter]);
 
+  console.log("Errorcenter", errorCenter);
+
   /*
     LIFE CIRCLES
   */
@@ -411,7 +413,7 @@ const Hook = (): HookType => {
   }, [sgd]);
 
   useEffect(() => {
-    regexTesting("baht", isMeaningfulCoordinate);
+    regexTesting("baht", isMeaningfullMoneyValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [baht]);
 

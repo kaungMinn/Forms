@@ -271,6 +271,7 @@ const NetworkAndBilling = (props: NetworkType) => {
             handleSelect={handleSelect}
             hasSearch={true}
             errorMessage={errorCenter.serviceType}
+            isRequired={true}
           />
           <CustomizedDropDown
             dropDownData={plans}
@@ -285,6 +286,7 @@ const NetworkAndBilling = (props: NetworkType) => {
             hasSearch={true}
             isDisabled={plans.length <= 0}
             errorMessage={errorCenter.plan}
+            isRequired={true}
           />
 
           <CustomizedDropDown
@@ -296,11 +298,13 @@ const NetworkAndBilling = (props: NetworkType) => {
             dataCenterKey="paymentCurrency"
             handleSelect={handleSelect}
             errorMessage={errorCenter.paymentCurrency}
+            isRequired={true}
           />
           <PrimaryInput
             type="text"
             name="price"
             value={dataCenter.price}
+            inputRef={refCenter.price}
             placeHolderText="Enter the price"
             label="Price"
             isRequired={true}
@@ -314,6 +318,7 @@ const NetworkAndBilling = (props: NetworkType) => {
             type="text"
             name="durationNumber"
             value={dataCenter.durationNumber}
+            inputRef={refCenter.durationNumber}
             placeHolderText="Enter duration"
             label="Duration"
             isRequired={true}

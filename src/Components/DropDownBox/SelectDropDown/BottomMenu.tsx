@@ -41,7 +41,7 @@ const TertiaryInputList = (props: {
   const ref = refCenter[name];
 
   const handleDataDropDown = () => {
-    if (error || value) {
+    if (error) {
       handleHasDropDown(true);
     }
   };

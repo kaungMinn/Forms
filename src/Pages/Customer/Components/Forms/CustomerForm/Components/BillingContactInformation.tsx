@@ -66,8 +66,6 @@ const BillingContactInformation = (props: BillingType) => {
   useEffect(() => {
     const keys = [
       "paymentTypes",
-      "city",
-      "township",
       "address",
       "coordinates",
       "phoneNumber",
@@ -112,6 +110,8 @@ const BillingContactInformation = (props: BillingType) => {
           dataCenterKey="city"
           handleSelect={handleSelect}
           hasSearch={true}
+          isRequired={true}
+          errorMessage={errorCenter.city}
         />
 
         <CustomizedDropDown
@@ -124,6 +124,8 @@ const BillingContactInformation = (props: BillingType) => {
           handleSelect={handleSelect}
           hasSearch={true}
           isDisabled={townships.length <= 0}
+          isRequired={true}
+          errorMessage={errorCenter.township}
         />
 
         <PrimaryInput

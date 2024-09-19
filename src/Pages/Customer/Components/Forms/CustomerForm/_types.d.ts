@@ -32,4 +32,6 @@ export type CustomerValidationTypes = {
   email: string;
   viberNumber: string;
   remark: string;
+  validMoney: string;
+  validDuration: string;
 };
