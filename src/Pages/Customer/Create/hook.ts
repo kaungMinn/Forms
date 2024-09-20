@@ -350,20 +350,7 @@ const Hook = (): HookType => {
   /*
     LIFE CIRCLES
   */
-  const {
-    duration,
-    durationNumber,
-    serviceStartDate,
-    price,
-    coordinates,
-    phoneNumber,
-    viberNumber,
-    email,
-    mmk,
-    sgd,
-    baht,
-    staticIP,
-  } = dataCenter;
+  const { duration, durationNumber, serviceStartDate } = dataCenter;
   useEffect(() => {
     //Generate end date
     if (!durationNumber || !isMeaningfullDuration(durationNumber)) {
