@@ -78,25 +78,6 @@ export const validationSchemaGenerator = (
       field: "price",
       step: handleStepTwo,
     },
-
-    {
-      condition: !dataCenter.durationNumber,
-      field: "durationNumber",
-      step: handleStepTwo,
-    },
-
-    {
-      condition: !dataCenter.serviceStartDate,
-      field: "serviceStartDate",
-      step: handleStepTwo,
-    },
-
-    {
-      condition: !dataCenter.serviceEndDate,
-      field: "serviceEndDate",
-      step: handleStepTwo,
-    },
-
     {
       condition:
         dataCenter.price !== "" && !isMeaningfullMoneyValue(dataCenter.price),
@@ -117,6 +98,18 @@ export const validationSchemaGenerator = (
       step: handleStepTwo,
       validationKey: "validDuration",
     },
+    {
+      condition: !dataCenter.serviceStartDate,
+      field: "serviceStartDate",
+      step: handleStepTwo,
+    },
+
+    {
+      condition: !dataCenter.serviceEndDate,
+      field: "serviceEndDate",
+      step: handleStepTwo,
+    },
+
     {
       condition: !dataCenter.paymentTypes,
       field: "paymentTypes",

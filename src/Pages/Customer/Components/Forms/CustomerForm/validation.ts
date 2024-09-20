@@ -1,5 +1,6 @@
 import {
   isMeaningfulIP,
+  isMeaningfullDuration,
   isMeaningfullMoneyValue,
 } from "../../../../../Utils/regex.utils";
 import {
@@ -223,11 +224,57 @@ export const fancyValidator = (
       fail: failStep2,
     },
     {
+      condition: !dataCenter.paymentCurrency,
+      field: "paymentCurrency",
+      success: passStep2,
+      fail: failStep2,
+    },
+    {
+      condition: !dataCenter.price,
+      field: "price",
+      success: passStep2,
+      fail: failStep2,
+    },
+    {
+      condition:
+        dataCenter.price !== "" && !isMeaningfullMoneyValue(dataCenter.price),
+      success: passStep2,
+      fail: failStep2,
+    },
+    {
+      condition: !dataCenter.durationNumber,
+      field: "durationNumber",
+      success: passStep2,
+      fail: failStep2,
+    },
+    {
+      condition:
+        dataCenter.durationNumber !== "" &&
+        !isMeaningfullDuration(dataCenter.durationNumber),
+      field: "durationNumber",
+      success: passStep2,
+      fail: failStep2,
+    },
+    {
+      condition: !dataCenter.serviceStartDate,
+      field: "serviceStartDate",
+      success: passStep2,
+      fail: failStep2,
+    },
+
+    {
+      condition: !dataCenter.serviceEndDate,
+      field: "serviceEndDate",
+      success: passStep2,
+      fail: failStep2,
+    },
+    {
       condition: !dataCenter.paymentTypes,
       field: "paymentTypes",
       success: passStep3,
       fail: failStep3,
     },
+
     {
       condition: dataCenter.paymentTypes.includes("MMK") && !dataCenter.mmk,
       field: "mmk",
@@ -389,6 +436,40 @@ export const errorValidator = (
       success: passStep2,
       fail: failStep2,
     },
+    {
+      condition: !errorCenter.paymentCurrency,
+      field: "paymentCurrency",
+      success: passStep2,
+      fail: failStep2,
+    },
+    {
+      condition: !errorCenter.price,
+      field: "price",
+      success: passStep2,
+      fail: failStep2,
+    },
+
+    {
+      condition: !errorCenter.durationNumber,
+      field: "durationNumber",
+      success: passStep2,
+      fail: failStep2,
+    },
+
+    {
+      condition: !errorCenter.serviceStartDate,
+      field: "serviceStartDate",
+      success: passStep2,
+      fail: failStep2,
+    },
+
+    {
+      condition: !errorCenter.serviceEndDate,
+      field: "serviceEndDate",
+      success: passStep2,
+      fail: failStep2,
+    },
+
     {
       condition: !errorCenter.paymentTypes,
       field: "paymentTypes",
