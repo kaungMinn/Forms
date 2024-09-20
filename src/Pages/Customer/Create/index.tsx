@@ -33,7 +33,7 @@ const CustomerCreate = () => {
   ] = Hook();
 
   return (
-    <div className={` ${dashboardBg} ${dashboardText}`}>
+    <div className={`relative ${dashboardBg} ${dashboardText}`}>
       <Heading heading="Create Customers" subHeading="Create your customers" />
 
       <div className="mb-7" />
@@ -61,7 +61,9 @@ const CustomerCreate = () => {
         updateErrorCenter={updateErrorCenter}
       />
 
-      <PrimaryButton label="Confirm" handleClickOn={handleCreateCustomers} />
+      <div className="w-32 mt-5 absolute right-0  pb-5">
+        <PrimaryButton label="Confirm" handleClickOn={handleCreateCustomers} />
+      </div>
     </div>
   );
 };

@@ -271,8 +271,6 @@ const Hook = (): HookType => {
       const customers = await db.customers.toArray();
       const id = customers[customers.length - 1].id + 1;
 
-      console.log(customers);
-
       const { isValidate } = handleNextStep();
       if (!isValidate) return;
 
@@ -391,6 +389,7 @@ const Hook = (): HookType => {
   //Regex validations
   const regexTesting = (key: string, regexFun: (value: string) => boolean) => {
     const data = dataCenter[key as keyof DataCenterTypes];
+
     if (data) {
       const hasMeaning = regexFun(data as string);
       updateErrorCenter(
@@ -402,55 +401,38 @@ const Hook = (): HookType => {
     }
   };
 
+  const regexKeys = [
+    "staticIP",
+    "durationNumber",
+    "price",
+    "coordinates",
+    "phoneNumber",
+    "viberNumber",
+    "email",
+    "mmk",
+    "sgd",
+    "baht",
+  ];
+
+  const regexStructure = {
+    staticIP: isMeaningfulIP,
+    durationNumber: isMeaningfullDuration,
+    price: isMeaningfullMoneyValue,
+    coordinates: isMeaningfulCoordinate,
+    phoneNumber: isMeaningfulPhoneNumber,
+    viberNumber: isMeaningfulPhoneNumber,
+    email: isMeaningfulEmail,
+    mmk: isMeaningfullMoneyValue,
+    sgd: isMeaningfullMoneyValue,
+    baht: isMeaningfullMoneyValue,
+  };
+
   useEffect(() => {
-    regexTesting("staticIP", isMeaningfulIP);
+    regexKeys.map((key) => {
+      regexTesting(key, regexStructure[key as keyof typeof regexStructure]);
+    });
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [staticIP]);
-
-  useEffect(() => {
-    regexTesting("durationNumber", isMeaningfullDuration);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [durationNumber]);
-
-  useEffect(() => {
-    regexTesting("price", isMeaningfullMoneyValue);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [price]);
-
-  useEffect(() => {
-    regexTesting("coordinates", isMeaningfulCoordinate);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [coordinates]);
-
-  useEffect(() => {
-    regexTesting("phoneNumber", isMeaningfulPhoneNumber);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [phoneNumber]);
-
-  useEffect(() => {
-    regexTesting("viberNumber", isMeaningfulPhoneNumber);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [viberNumber]);
-
-  useEffect(() => {
-    regexTesting("email", isMeaningfulEmail);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email]);
-
-  useEffect(() => {
-    regexTesting("mmk", isMeaningfullMoneyValue);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mmk]);
-
-  useEffect(() => {
-    regexTesting("sgd", isMeaningfullMoneyValue);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sgd]);
-
-  useEffect(() => {
-    regexTesting("baht", isMeaningfullMoneyValue);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [baht]);
+  }, [dataCenter]);
 
   return [
     dataCenter,
