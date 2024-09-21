@@ -19,7 +19,7 @@ export type AccessCodeTypes = {
 export type SchemaTypes = {
   condition: boolean;
   field: string;
-  step: string;
+  step: (accessCodes: AccessCodeTypes) => void;
   noBreak?: boolean;
   validationKey?: string;
 };
@@ -46,12 +46,6 @@ export const handleStepThree = (validationCodes: AccessCodeTypes) => {
   validationCodes.step1 = true;
   validationCodes.step2 = true;
   validationCodes.step3 = true;
-};
-
-const stepSchema = {
-  step1: handleStepOne,
-  step2: handleStepTwo,
-  step3: handleStepThree,
 };
 
 const handleErrorMessage = (
@@ -91,7 +85,7 @@ export const formShield = (
 
   for (const { condition, field, step, noBreak, validationKey } of schema) {
     if (condition) {
-      stepSchema[step as keyof typeof stepSchema](validationAccessCodes);
+      step(validationAccessCodes);
       const error_center = handleErrorMessage(
         field,
         errorCenter,

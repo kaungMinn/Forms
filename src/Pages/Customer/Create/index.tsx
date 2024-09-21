@@ -20,6 +20,8 @@ const CustomerCreate = () => {
     iconAccessCodes,
     iconFailCodes,
     selectInputCenter,
+    isSuccess,
+
     /*
       Actions
     */
@@ -30,6 +32,7 @@ const CustomerCreate = () => {
     updateDataCenter,
     updateErrorCenter,
     handleCreateCustomers,
+    handleIsSuccess,
   ] = Hook();
 
   return (
@@ -50,6 +53,7 @@ const CustomerCreate = () => {
         iconAccessCodes={iconAccessCodes}
         iconFailCodes={iconFailCodes}
         selectInputCenter={selectInputCenter}
+        isSucess={isSuccess}
         /*
          Actions
         */
@@ -59,6 +63,7 @@ const CustomerCreate = () => {
         handleCheck={handleCheck}
         updateDataCenter={updateDataCenter}
         updateErrorCenter={updateErrorCenter}
+        handleIsSuccess={handleIsSuccess}
       />
 
       <div className="w-32 mt-5 absolute right-0  pb-5">

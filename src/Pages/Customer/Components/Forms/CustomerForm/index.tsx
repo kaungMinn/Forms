@@ -22,6 +22,7 @@ import { PlanType } from "../../../../../Constants/Packages/constants";
 import { TownshipType } from "../../../../../Constants/Location/myanmar.constants";
 import { IconAccessTypes } from "./validation";
 import NetworkAndBilling from "./Components/NetworkAndBilling";
+import SuccessBox from "../../../../../Components/ModalBox/SuccessBox";
 
 type CustomerFormTypes = {
   tabs: TabType[];
@@ -35,6 +36,8 @@ type CustomerFormTypes = {
   iconAccessCodes: IconAccessTypes;
   iconFailCodes: IconAccessTypes;
   selectInputCenter: SelectInputTypes;
+  isSucess?: boolean;
+
   /* 
     Actions
   */
@@ -58,6 +61,7 @@ type CustomerFormTypes = {
     key: string,
     value: ErrorCenterTypes[keyof ErrorCenterTypes]
   ) => void;
+  handleIsSuccess: (value: boolean) => void;
 };
 
 const CustomerForm = (props: CustomerFormTypes) => {
@@ -73,6 +77,7 @@ const CustomerForm = (props: CustomerFormTypes) => {
     iconAccessCodes,
     iconFailCodes,
     selectInputCenter,
+    isSucess = false,
     /*
       Actions
     */
@@ -82,6 +87,7 @@ const CustomerForm = (props: CustomerFormTypes) => {
     handleCheck,
     updateDataCenter,
     updateErrorCenter,
+    handleIsSuccess,
   } = props;
 
   return (
@@ -152,6 +158,16 @@ const CustomerForm = (props: CustomerFormTypes) => {
           )}
         </div>
       </div>
+
+      <SuccessBox
+        isOpen={isSucess}
+        titleLabel="Success"
+        bodyText="Successfully create a customer"
+        btnLabel="Close"
+        clickOn={() => {
+          handleIsSuccess(!isSucess);
+        }}
+      />
     </PrimaryWrapper>
   );
 };

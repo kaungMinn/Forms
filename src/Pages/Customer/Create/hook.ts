@@ -45,6 +45,8 @@ import {
 } from "../../../Utils/regex.utils";
 import { camelCaseToLowerSpace } from "../../../Utils/Data/string.utils";
 import { db } from "../../../DB/db";
+import { useAppDispatch } from "../../../Hooks/ReduxProvider";
+import { setError } from "../../../Store/slices/error.slice";
 
 type HookType = [
   dataCenter: DataCenterTypes,
@@ -57,6 +59,7 @@ type HookType = [
   iconAccessCodes: IconAccessTypes,
   iconFailCodes: IconAccessTypes,
   selectInputCenter: SelectInputTypes,
+  isSuccess: boolean,
 
   /*
     Actions
@@ -81,7 +84,8 @@ type HookType = [
     key: string,
     value: ErrorCenterTypes[keyof ErrorCenterTypes]
   ) => void,
-  handleCreateCustomers: () => void
+  handleCreateCustomers: () => void,
+  handleIsSuccess: (value: boolean) => void
 ];
 
 const Hook = (): HookType => {
@@ -105,6 +109,8 @@ const Hook = (): HookType => {
   const [iconFailCodes, setIconFailCodes] = useState<IconAccessTypes>(
     DEFAULT_ICON_ACCESSES
   );
+  const [isSuccess, setIsSuccess] = useState(false);
+  const dispatch = useAppDispatch();
 
   /*
     STATE ACTIONS
@@ -128,6 +134,10 @@ const Hook = (): HookType => {
     value: SelectInputTypes[keyof SelectInputTypes]
   ) => {
     return modifyState(key, value, setSelectInputCenter);
+  };
+
+  const handleIsSuccess = (value: boolean) => {
+    setIsSuccess(value);
   };
 
   /*
@@ -274,7 +284,8 @@ const Hook = (): HookType => {
   const handleCreateCustomers = async () => {
     try {
       const customers = await db.customers.toArray();
-      const id = customers[customers.length - 1].id + 1;
+      const id =
+        customers.length > 0 ? customers[customers.length - 1].id + 1 : 1;
 
       const { isValidate } = handleNextStep();
       if (!isValidate) return;
@@ -284,14 +295,26 @@ const Hook = (): HookType => {
       });
 
       if (sameServiceID) {
-        console.error("Customer with this service ID already exists");
-        return; // Handle the case where the customer exists (e.g., show a message)
+        dispatch(
+          setError({
+            isError: true,
+            statusCode: 409,
+            errorMessage: "Service ID Already exits!",
+          })
+        );
+
+        setSelectedTab(TABS[1]);
+        updateErrorCenter("serviceID", "Hee hee");
+        setIconAccessCodes((prev) => ({ ...prev, 2: false }));
+
+        return;
       }
 
       await db.customers.add({ ...dataCenter, id });
-      console.log("Customer added successfully!");
+      setIsSuccess(true);
     } catch (error) {
       console.error(error);
+      setIsSuccess(false);
     }
   };
 
@@ -437,6 +460,8 @@ const Hook = (): HookType => {
     iconAccessCodes,
     iconFailCodes,
     selectInputCenter,
+    isSuccess,
+
     /*
       Actions
     */
@@ -447,6 +472,7 @@ const Hook = (): HookType => {
     updateDataCenter,
     updateErrorCenter,
     handleCreateCustomers,
+    handleIsSuccess,
   ];
 };
 

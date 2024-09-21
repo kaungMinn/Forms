@@ -14,7 +14,9 @@ const ExtraInputWrapper = (props: {
         colorCondition && `${secondaryColor[0]} border pt-5 pb-2`
       }`}
     >
-      <div className=" grid grid-cols-2 gap-x-5 gap-y-2">{children}</div>
+      <div className=" grid grid-cols-1 laptop:grid-cols-2 gap-x-5 gap-y-2">
+        {children}
+      </div>
     </div>
   );
 };
