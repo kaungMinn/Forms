@@ -3,122 +3,123 @@ import {
   isMeaningfullMoneyValue,
 } from "../../../Utils/regex.utils";
 import { DataCenterTypes } from "../_types";
-import {
-  handleStepOne,
-  handleStepThree,
-  handleStepTwo,
-  SchemaTypes,
-} from "../Components/Forms/CustomerForm/validation";
+import { SchemaTypes } from "../Components/Forms/CustomerForm/validation";
 
 export const validationSchemaGenerator = (
   dataCenter: DataCenterTypes
 ): SchemaTypes[] => {
   return [
     {
+      condition:
+        dataCenter.customerType === "Company" && !dataCenter.companyName,
+      field: "companyName",
+      step: "step1",
+    },
+    {
       condition: !dataCenter.brandName,
       field: "brandName",
-      step: handleStepOne,
+      step: "step1",
     },
     {
       condition: !dataCenter.customerName,
       field: "customerName",
-      step: handleStepOne,
+      step: "step1",
     },
     {
       condition:
         !dataCenter.autoGeneratePPOEAccountServer && !dataCenter.radUserName,
       field: "radUserName",
-      step: handleStepTwo,
+      step: "step2",
     },
     {
       condition:
         !dataCenter.autoGeneratePPOEAccountServer && !dataCenter.radPassword,
       field: "radPassword",
-      step: handleStepTwo,
+      step: "step2",
     },
     {
       condition: !dataCenter.serviceID,
       field: "serviceID",
-      step: handleStepTwo,
+      step: "step2",
     },
     {
       condition: dataCenter.containIPServer && !dataCenter.mode,
       field: "mode",
-      step: handleStepTwo,
+      step: "step2",
     },
     {
       condition: dataCenter.containIPServer && !dataCenter.staticIP,
       field: "staticIP",
-      step: handleStepTwo,
+      step: "step2",
     },
 
     {
       condition: !dataCenter.serviceStatus,
       field: "serviceStatus",
-      step: handleStepTwo,
+      step: "step2",
     },
     {
       condition: !dataCenter.serviceType,
       field: "serviceType",
-      step: handleStepTwo,
+      step: "step2",
     },
 
     {
       condition: !dataCenter.plan,
       field: "plan",
-      step: handleStepTwo,
+      step: "step2",
     },
     {
       condition: !dataCenter.paymentCurrency,
       field: "paymentCurrency ",
-      step: handleStepTwo,
+      step: "step2",
     },
     {
       condition: !dataCenter.price,
       field: "price",
-      step: handleStepTwo,
+      step: "step2",
     },
     {
       condition:
         dataCenter.price !== "" && !isMeaningfullMoneyValue(dataCenter.price),
       field: "price",
-      step: handleStepTwo,
+      step: "step2",
       validationKey: "validMoney",
     },
     {
       condition: !dataCenter.durationNumber,
       field: "durationNumber",
-      step: handleStepTwo,
+      step: "step2",
     },
     {
       condition:
         dataCenter.durationNumber !== "" &&
         !isMeaningfullDuration(dataCenter.durationNumber),
       field: "durationNumber",
-      step: handleStepTwo,
+      step: "step2",
       validationKey: "validDuration",
     },
     {
       condition: !dataCenter.serviceStartDate,
       field: "serviceStartDate",
-      step: handleStepTwo,
+      step: "step2",
     },
 
     {
       condition: !dataCenter.serviceEndDate,
       field: "serviceEndDate",
-      step: handleStepTwo,
+      step: "step2",
     },
 
     {
       condition: !dataCenter.paymentTypes,
       field: "paymentTypes",
-      step: handleStepThree,
+      step: "step3",
     },
     {
       condition: dataCenter.paymentTypes.includes("MMK") && !dataCenter.mmk,
       field: "mmk",
-      step: handleStepThree,
+      step: "step3",
     },
     {
       condition:
@@ -126,12 +127,12 @@ export const validationSchemaGenerator = (
         dataCenter.mmk !== "" &&
         !isMeaningfullMoneyValue(dataCenter.mmk),
       field: "mmk",
-      step: handleStepThree,
+      step: "step3",
     },
     {
       condition: dataCenter.paymentTypes.includes("SGD") && !dataCenter.sgd,
       field: "sgd",
-      step: handleStepThree,
+      step: "step3",
     },
     {
       condition:
@@ -139,12 +140,12 @@ export const validationSchemaGenerator = (
         dataCenter.sgd !== "" &&
         !isMeaningfullMoneyValue(dataCenter.sgd),
       field: "sgd",
-      step: handleStepThree,
+      step: "step3",
     },
     {
       condition: dataCenter.paymentTypes.includes("BAHT") && !dataCenter.baht,
       field: "baht",
-      step: handleStepThree,
+      step: "step3",
     },
     {
       condition:
@@ -152,18 +153,18 @@ export const validationSchemaGenerator = (
         dataCenter.baht !== "" &&
         !isMeaningfullMoneyValue(dataCenter.baht),
       field: "baht",
-      step: handleStepThree,
+      step: "step3",
     },
     {
       condition: !dataCenter.city,
       field: "city",
-      step: handleStepThree,
+      step: "step3",
     },
 
     {
       condition: !dataCenter.township,
       field: "township",
-      step: handleStepThree,
+      step: "step3",
     },
   ];
 };

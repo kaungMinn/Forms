@@ -19,7 +19,7 @@ export type AccessCodeTypes = {
 export type SchemaTypes = {
   condition: boolean;
   field: string;
-  step: (accessCodes: AccessCodeTypes) => void;
+  step: string;
   noBreak?: boolean;
   validationKey?: string;
 };
@@ -46,6 +46,12 @@ export const handleStepThree = (validationCodes: AccessCodeTypes) => {
   validationCodes.step1 = true;
   validationCodes.step2 = true;
   validationCodes.step3 = true;
+};
+
+const stepSchema = {
+  step1: handleStepOne,
+  step2: handleStepTwo,
+  step3: handleStepThree,
 };
 
 const handleErrorMessage = (
@@ -85,7 +91,7 @@ export const formShield = (
 
   for (const { condition, field, step, noBreak, validationKey } of schema) {
     if (condition) {
-      step(validationAccessCodes);
+      stepSchema[step as keyof typeof stepSchema](validationAccessCodes);
       const error_center = handleErrorMessage(
         field,
         errorCenter,
@@ -153,6 +159,13 @@ export const fancyValidator = (
   const tmp_accesses = { ...accesses };
 
   const schema = [
+    {
+      condition:
+        dataCenter.customerType === "Company" && !dataCenter.companyName,
+      field: "companyName",
+      success: passStep1,
+      fail: failStep1,
+    },
     {
       condition: !dataCenter.brandName,
       field: "brandName",
@@ -378,6 +391,12 @@ export const errorValidator = (
   const tmp_accesses = { ...failAccesses };
 
   const schema = [
+    {
+      condition: !errorCenter.companyName,
+      field: "companyName",
+      success: passStep1,
+      fail: failStep1,
+    },
     {
       condition: !errorCenter.brandName,
       field: "brandName",

@@ -10,8 +10,7 @@ import {
 } from "../../../constants";
 import BillingContactInformation from "./Components/BillingContactInformation";
 import General from "./Components/General";
-import NetworkAndBilling from "./Components/NetworkAndBilling";
-import { CustomizedDropDownDataTypes } from "../../../../../Components/DropDownBox/CustomizedDropDown/_types";
+
 import {
   DataCenterTypes,
   ErrorCenterTypes,
@@ -22,6 +21,7 @@ import { AvaliableSelectionType } from "../../../../../Components/DropDownBox/Se
 import { PlanType } from "../../../../../Constants/Packages/constants";
 import { TownshipType } from "../../../../../Constants/Location/myanmar.constants";
 import { IconAccessTypes } from "./validation";
+import NetworkAndBilling from "./Components/NetworkAndBilling";
 
 type CustomerFormTypes = {
   tabs: TabType[];
@@ -40,7 +40,7 @@ type CustomerFormTypes = {
   */
   handleSelectTab: (tab: TabType) => void;
   handleSelect: (
-    data: CustomizedDropDownDataTypes,
+    data: Record<string, unknown>,
     dataKey: string,
     dataCenterKey: string
   ) => void;
@@ -50,8 +50,14 @@ type CustomerFormTypes = {
     dataKey: string,
     dataCenterKey: string
   ) => void;
-  updateDataCenter: (key: string, value: string) => void;
-  updateErrorCenter: (key: string, value: string) => void;
+  updateDataCenter: (
+    key: string,
+    value: DataCenterTypes[keyof DataCenterTypes]
+  ) => void;
+  updateErrorCenter: (
+    key: string,
+    value: ErrorCenterTypes[keyof ErrorCenterTypes]
+  ) => void;
 };
 
 const CustomerForm = (props: CustomerFormTypes) => {

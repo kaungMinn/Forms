@@ -12,7 +12,6 @@ import {
   RefCenterTypes,
   SelectInputTypes,
 } from "../_types";
-import { CustomizedDropDownDataTypes } from "../../../Components/DropDownBox/CustomizedDropDown/_types";
 import { modifyState } from "../../../Utils/Data/States/state.utils";
 import { TabType } from "../../../Components/Menus/TabMenu/_types";
 import { AvaliableSelectionType } from "../../../Components/DropDownBox/SelectDropDown";
@@ -65,7 +64,7 @@ type HookType = [
   handleSelectTab: (tab: TabType) => void,
   handleOnChange: (ev: ChangeEvent<HTMLInputElement>) => void,
   handleSelect: (
-    data: CustomizedDropDownDataTypes,
+    data: Record<string, unknown>,
     dataKey: string,
     dataCenterKey: string
   ) => void,
@@ -74,8 +73,14 @@ type HookType = [
     dataKey: string,
     dataCenterKey: string
   ) => void,
-  updateDataCenter: (key: string, value: string) => void,
-  updateErrorCenter: (key: string, value: string) => void,
+  updateDataCenter: (
+    key: string,
+    value: DataCenterTypes[keyof DataCenterTypes]
+  ) => void,
+  updateErrorCenter: (
+    key: string,
+    value: ErrorCenterTypes[keyof ErrorCenterTypes]
+  ) => void,
   handleCreateCustomers: () => void
 ];
 

@@ -1,6 +1,7 @@
 import { CustomerValidationTypes } from "./_types";
 
 export const DEFAULT_CUSTOMER_VALIDATIONS: CustomerValidationTypes = {
+  companyName: "Enter company name",
   brandName: "Select brand name",
   customerName: "Enter customer name",
   customerType: "Select customer type",

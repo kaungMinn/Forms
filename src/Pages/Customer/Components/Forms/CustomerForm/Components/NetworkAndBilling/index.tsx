@@ -1,26 +1,26 @@
 import { ChangeEvent, useEffect } from "react";
-import { CustomizedDropDownDataTypes } from "../../../../../../Components/DropDownBox/CustomizedDropDown/_types";
-import { DefaultThemeTypes } from "../../../../../Theme/_types";
+import { CustomizedDropDownDataTypes } from "../../../../../../../Components/DropDownBox/CustomizedDropDown/_types";
+import { DefaultThemeTypes } from "../../../../../../Theme/_types";
 import {
   DataCenterTypes,
   ErrorCenterTypes,
   RefCenterTypes,
-} from "../../../../_types";
-import CustomizedDropDown from "../../../../../../Components/DropDownBox/CustomizedDropDown";
-import { DEFAULT_ON_OFF } from "../../../../../../Constants/General/general.constants";
-import PrimaryInput from "../../../../../../Components/Inputs/PrimaryInput";
-import { SERVICE_CODES } from "../../../../../../Constants/Customers/customer.type";
-import ExtraInputWrapper from "./ExtraInputWrapper";
-import { DEFAULT_MODES_FOR_IP } from "../../../../../../Constants/Network/network.constants";
+} from "../../../../../_types";
+import CustomizedDropDown from "../../../../../../../Components/DropDownBox/CustomizedDropDown";
+import { DEFAULT_ON_OFF } from "../../../../../../../Constants/General/general.constants";
+import PrimaryInput from "../../../../../../../Components/Inputs/PrimaryInput";
+import { SERVICE_CODES } from "../../../../../../../Constants/Customers/customer.type";
+import ExtraInputWrapper from "../ExtraInputWrapper";
+import { DEFAULT_MODES_FOR_IP } from "../../../../../../../Constants/Network/network.constants";
 import {
   PACKAGES,
   PlanType,
-} from "../../../../../../Constants/Packages/constants";
+} from "../../../../../../../Constants/Packages/constants";
 import {
   DEFAULT_BILLING_METHODS,
   PAYMENTS,
-} from "../../../../../../Constants/Customers/payment.constants";
-import { stateCleaner } from "../../../../../../Utils/Data/States/cleaner.utils";
+} from "../../../../../../../Constants/Customers/payment.constants";
+import { stateCleaner } from "../../../../../../../Utils/Data/States/cleaner.utils";
 
 type NetworkType = {
   dataCenter: DataCenterTypes;
@@ -57,15 +57,7 @@ const NetworkAndBilling = (props: NetworkType) => {
   } = props;
 
   useEffect(() => {
-    const keys = [
-      "radUserName",
-      "radPassword",
-      "serviceID",
-      "mode",
-      "staticIP",
-      "serviceType",
-      "plan",
-    ];
+    const keys = ["serviceID", "mode", "staticIP", "serviceType", "plan"];
 
     stateCleaner(keys, updateErrorCenter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,7 +67,7 @@ const NetworkAndBilling = (props: NetworkType) => {
   const [primaryBg, primaryText] = primaryColor;
   return (
     <>
-      <div className="pt-6 px-2 pb-2 border-gray-400 rounded-lg border  relative">
+      <div className="pt-6 px-2 pb-2 border-gray-400 rounded-lg border  relative space-y-3">
         <div
           className={`absolute -top-[0.6rem] px-2 left-4 body-font ${primaryBg} ${primaryText}`}
         >
@@ -88,28 +80,35 @@ const NetworkAndBilling = (props: NetworkType) => {
           theme={theme}
         >
           <CustomizedDropDown
-            dropDownData={DEFAULT_ON_OFF}
             label={"Auto Generate PPPOE Account"}
-            theme={theme}
+            dropDownData={DEFAULT_ON_OFF}
             value={dataCenter.autoGeneratePPOEAccount}
+            errorMessage={errorCenter.autoGeneratePPOEAccount}
             dataKey="label"
             dataCenterKey="autoGeneratePPOEAccount"
             secondaryDataKey="value"
             secondaryDataCenterKey="autoGeneratePPOEAccountServer"
+            theme={theme}
+            /*
+             Actions
+            */
             handleSelect={handleSelect}
-            errorMessage={errorCenter.autoGeneratePPOEAccount}
           />
 
           {!dataCenter.autoGeneratePPOEAccountServer && (
             <PrimaryInput
-              type="text"
-              name="radUserName"
-              value={dataCenter.radUserName}
-              placeHolderText="Enter rad user name"
               label="Rad User Name"
-              isRequired={true}
+              value={dataCenter.radUserName}
               errorMessage={errorCenter.radUserName}
+              inputRef={refCenter.radUserName}
+              placeHolderText="Enter rad user name"
+              name="radUserName"
+              type="text"
+              isRequired={true}
               theme={theme}
+              /*
+                Actions
+              */
               updateDataCenter={updateDataCenter}
               updateErrorCenter={updateErrorCenter}
             />
@@ -117,14 +116,18 @@ const NetworkAndBilling = (props: NetworkType) => {
 
           {!dataCenter.autoGeneratePPOEAccountServer && (
             <PrimaryInput
-              type="text"
-              name="radPassword"
-              value={dataCenter.radPassword}
-              placeHolderText="Enter rad password"
               label="Rad Password"
-              isRequired={true}
+              value={dataCenter.radPassword}
               errorMessage={errorCenter.radPassword}
+              inputRef={refCenter.radPassword}
+              placeHolderText="Enter rad password"
+              name="radPassword"
+              type="text"
+              isRequired={true}
               theme={theme}
+              /*
+                Actions
+              */
               updateDataCenter={updateDataCenter}
               updateErrorCenter={updateErrorCenter}
             />
@@ -133,15 +136,18 @@ const NetworkAndBilling = (props: NetworkType) => {
 
         <ExtraInputWrapper theme={theme}>
           <CustomizedDropDown
-            dropDownData={SERVICE_CODES}
             label={"Service ID"}
+            dropDownData={SERVICE_CODES}
             theme={theme}
             value={dataCenter.serviceID || "Select a service ID"}
+            errorMessage={errorCenter.serviceID}
             dataKey="label"
             dataCenterKey="serviceID"
-            secondaryDataKey="value"
+            isRequired={true}
+            /*
+              Actions
+            */
             handleSelect={handleSelect}
-            errorMessage={errorCenter.serviceID}
           />
           <PrimaryInput
             type="text"
@@ -150,6 +156,7 @@ const NetworkAndBilling = (props: NetworkType) => {
             placeHolderText="Enter service id name"
             label="Service ID Name"
             errorMessage={errorCenter.serviceIDName}
+            inputRef={refCenter.serviceIDName}
             theme={theme}
             updateDataCenter={updateDataCenter}
             updateErrorCenter={updateErrorCenter}
@@ -165,43 +172,54 @@ const NetworkAndBilling = (props: NetworkType) => {
           }
         >
           <CustomizedDropDown
-            dropDownData={DEFAULT_ON_OFF}
             label={"Contain IP"}
-            theme={theme}
+            dropDownData={DEFAULT_ON_OFF}
             value={dataCenter.containIP || "Select contain ip"}
+            errorMessage={errorCenter.containIP}
             dataKey="label"
             dataCenterKey="containIP"
             secondaryDataKey="value"
             secondaryDataCenterKey="containIPServer"
+            theme={theme}
+            /*
+              Actions
+            */
             handleSelect={handleSelect}
-            errorMessage={errorCenter.containIP}
           />
 
           {dataCenter.containIPServer && (
             <CustomizedDropDown
-              dropDownData={DEFAULT_MODES_FOR_IP}
               label={"Mode"}
-              theme={theme}
+              dropDownData={DEFAULT_MODES_FOR_IP}
               value={dataCenter.mode || "Select contain ip"}
+              errorMessage={errorCenter.mode}
               dataKey="label"
               dataCenterKey="mode"
               secondaryDataKey="value"
               secondaryDataCenterKey="modeServer"
+              theme={theme}
+              isRequired={true}
+              /*
+                Actions
+              */
               handleSelect={handleSelect}
-              errorMessage={errorCenter.mode}
             />
           )}
 
           {dataCenter.modeServer === "staticip" && (
             <PrimaryInput
-              type="text"
-              name="staticIP"
-              value={dataCenter.staticIP}
-              placeHolderText="Enter service static ip"
               label="Static IP"
-              isRequired={true}
+              value={dataCenter.staticIP}
               errorMessage={errorCenter.staticIP}
+              inputRef={refCenter.staticIP}
+              placeHolderText="Enter service static ip"
+              name="staticIP"
+              type="text"
               theme={theme}
+              isRequired={true}
+              /*
+              Actions
+             */
               updateDataCenter={updateDataCenter}
               updateErrorCenter={updateErrorCenter}
             />
@@ -210,22 +228,25 @@ const NetworkAndBilling = (props: NetworkType) => {
 
         <ExtraInputWrapper theme={theme}>
           <PrimaryInput
-            type="text"
-            name="serviceStatus"
-            value={dataCenter.serviceStatus}
-            placeHolderText="Enter service status"
             label="Service Status"
-            isRequired={true}
+            value={dataCenter.serviceStatus}
             errorMessage={errorCenter.serviceStatus}
+            inputRef={refCenter.serviceStatus}
+            placeHolderText="Enter service status"
+            name="serviceStatus"
+            type="text"
             theme={theme}
+            isRequired={true}
+            /*
+              Actions
+            */
             updateDataCenter={updateDataCenter}
             updateErrorCenter={updateErrorCenter}
-            inputRef={refCenter.serviceStatus}
           />
         </ExtraInputWrapper>
       </div>
 
-      <div className="border border-gray-400  rounded-lg pt-6 px-2 pb-2 mt-6 relative">
+      <div className="border border-gray-400  rounded-lg pt-6 px-2 pb-2 mt-6 relative space-y-3">
         <div
           className={`absolute -top-[0.6rem]  px-2 left-4 body-font ${primaryBg} ${primaryText}`}
         >
@@ -234,132 +255,146 @@ const NetworkAndBilling = (props: NetworkType) => {
 
         <ExtraInputWrapper theme={theme}>
           <CustomizedDropDown
-            dropDownData={DEFAULT_BILLING_METHODS}
             label={"Billing Method"}
-            theme={theme}
+            dropDownData={DEFAULT_BILLING_METHODS}
             value={dataCenter.billingMethod || "Select a method"}
+            errorMessage={errorCenter.billingMethod}
             dataKey="label"
             dataCenterKey="billingMethod"
             secondaryDataKey="value"
             secondaryDataCenterKey="billingMethodServer"
-            errorMessage={errorCenter.billingMethod}
+            theme={theme}
+            /*
+              Actions
+            */
             handleSelect={handleSelect}
           />
         </ExtraInputWrapper>
 
         <ExtraInputWrapper theme={theme}>
-          {/* <CustomizedDropDown
-            dropDownData={DEFAULT_ON_OFF}
-            label={"Enable"}
-            theme={theme}
-            value={dataCenter.enable || "Select a value"}
-            dataKey="label"
-            dataCenterKey="enable"
-            secondaryDataKey="value"
-            secondaryDataCenterKey="enableServer"
-            errorMessage={errorCenter.enable}
-            handleSelect={handleSelect}
-          /> */}
           <CustomizedDropDown
-            dropDownData={PACKAGES}
             label={"packages"}
-            theme={theme}
+            dropDownData={PACKAGES}
             value={dataCenter.serviceType || "Select service type"}
+            errorMessage={errorCenter.serviceType}
             dataKey="label"
             dataCenterKey="serviceType"
             secondaryDataKey="value"
             secondaryDataCenterKey="serviceTypeServer"
-            handleSelect={handleSelect}
-            hasSearch={true}
-            errorMessage={errorCenter.serviceType}
+            theme={theme}
             isRequired={true}
+            hasSearch={true}
+            /*
+              Actions
+            */
+            handleSelect={handleSelect}
           />
           <CustomizedDropDown
-            dropDownData={plans}
             label={"Plans"}
-            theme={theme}
+            dropDownData={plans}
             value={dataCenter.plan || "Select service type"}
+            errorMessage={errorCenter.plan}
             dataKey="label"
             dataCenterKey="plan"
             secondaryDataKey="id"
             secondaryDataCenterKey="planServer"
-            handleSelect={handleSelect}
+            theme={theme}
             hasSearch={true}
             isDisabled={plans.length <= 0}
-            errorMessage={errorCenter.plan}
             isRequired={true}
+            /*
+              Actions
+            */
+            handleSelect={handleSelect}
           />
 
           <CustomizedDropDown
-            dropDownData={PAYMENTS}
             label={"Payment Currency"}
-            theme={theme}
+            dropDownData={PAYMENTS}
             value={dataCenter.paymentCurrency || "Select service type"}
+            errorMessage={errorCenter.paymentCurrency}
             dataKey="label"
             dataCenterKey="paymentCurrency"
-            handleSelect={handleSelect}
-            errorMessage={errorCenter.paymentCurrency}
+            theme={theme}
             isRequired={true}
+            /*
+              Actions
+            */
+            handleSelect={handleSelect}
           />
 
           <PrimaryInput
-            type="text"
-            name="price"
+            label="Price"
             value={dataCenter.price}
+            errorMessage={errorCenter.price}
             inputRef={refCenter.price}
             placeHolderText="Enter the price"
-            label="Price"
-            isRequired={true}
-            errorMessage={errorCenter.price}
+            name="price"
+            type="text"
             theme={theme}
+            isRequired={true}
+            /*
+            Actions
+           */
+
             updateDataCenter={updateDataCenter}
             updateErrorCenter={updateErrorCenter}
           />
 
           <PrimaryInput
-            type="text"
-            name="durationNumber"
+            label="Duration"
             value={dataCenter.durationNumber}
+            errorMessage={errorCenter.durationNumber}
             inputRef={refCenter.durationNumber}
             placeHolderText="Enter duration"
-            label="Duration"
-            isRequired={true}
-            errorMessage={errorCenter.durationNumber}
+            name="durationNumber"
+            type="text"
             theme={theme}
+            badgeLabel="Months"
+            isRequired={true}
+            /*
+              Actions
+            */
             updateDataCenter={updateDataCenter}
             updateErrorCenter={updateErrorCenter}
-            badgeLabel="Months"
           />
 
           <div></div>
 
           <PrimaryInput
-            type="datetime-local"
-            name="serviceStartDate"
-            value={dataCenter.serviceStartDate}
-            placeHolderText="Enter service start date"
             label="Service Start Date"
-            isRequired={true}
+            value={dataCenter.serviceStartDate}
             errorMessage={errorCenter.serviceStartDate}
             inputRef={refCenter.serviceStartDate}
+            placeHolderText="Enter service start date"
+            name="serviceStartDate"
+            type="datetime-local"
             theme={theme}
+            isRequired={true}
+            /* 
+              Actions
+            */
+
             updateDataCenter={updateDataCenter}
             updateErrorCenter={updateErrorCenter}
           />
 
           <PrimaryInput
-            type="datetime-local"
-            name="serviceEndDate"
-            value={dataCenter.serviceEndDate}
-            placeHolderText="Enter service end date"
             label="Service End Date"
-            isRequired={true}
+            value={dataCenter.serviceEndDate}
             errorMessage={errorCenter.serviceEndDate}
             inputRef={refCenter.serviceEndDate}
+            placeHolderText="Enter service end date"
+            name="serviceEndDate"
+            type="datetime-local"
             theme={theme}
+            isRequired={true}
+            isDisabled={true}
+            /*
+              Actions
+            */
             updateDataCenter={updateDataCenter}
             updateErrorCenter={updateErrorCenter}
-            isDisabled={true}
           />
         </ExtraInputWrapper>
       </div>

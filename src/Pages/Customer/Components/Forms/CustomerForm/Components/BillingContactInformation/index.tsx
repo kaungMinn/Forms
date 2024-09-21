@@ -1,24 +1,24 @@
 import { ChangeEvent, useEffect } from "react";
-import { CustomizedDropDownDataTypes } from "../../../../../../Components/DropDownBox/CustomizedDropDown/_types";
-import { DefaultThemeTypes } from "../../../../../Theme/_types";
+import { CustomizedDropDownDataTypes } from "../../../../../../../Components/DropDownBox/CustomizedDropDown/_types";
+import { DefaultThemeTypes } from "../../../../../../Theme/_types";
 import {
   DataCenterTypes,
   ErrorCenterTypes,
   RefCenterTypes,
   SelectInputTypes,
-} from "../../../../_types";
-import ExtraInputWrapper from "./ExtraInputWrapper";
+} from "../../../../../_types";
+import ExtraInputWrapper from "../ExtraInputWrapper";
 import SelectDropDown, {
   AvaliableSelectionType,
-} from "../../../../../../Components/DropDownBox/SelectDropDown";
-import { AVA_PAYMENTS } from "../../../../../../Constants/Customers/payment.constants";
-import CustomizedDropDown from "../../../../../../Components/DropDownBox/CustomizedDropDown";
+} from "../../../../../../../Components/DropDownBox/SelectDropDown";
+import { AVA_PAYMENTS } from "../../../../../../../Constants/Customers/payment.constants";
+import CustomizedDropDown from "../../../../../../../Components/DropDownBox/CustomizedDropDown";
 import {
   CITIES,
   TownshipType,
-} from "../../../../../../Constants/Location/myanmar.constants";
-import PrimaryInput from "../../../../../../Components/Inputs/PrimaryInput";
-import { stateCleaner } from "../../../../../../Utils/Data/States/cleaner.utils";
+} from "../../../../../../../Constants/Location/myanmar.constants";
+import PrimaryInput from "../../../../../../../Components/Inputs/PrimaryInput";
+import { stateCleaner } from "../../../../../../../Utils/Data/States/cleaner.utils";
 
 type BillingType = {
   dataCenter: DataCenterTypes;
@@ -91,6 +91,7 @@ const BillingContactInformation = (props: BillingType) => {
           errorCenter={errorCenter}
           refCenter={refCenter}
           selectedInputCenter={selectInputCenter.paymentTypes}
+          isRequired={true}
           /*
             Actions
           */

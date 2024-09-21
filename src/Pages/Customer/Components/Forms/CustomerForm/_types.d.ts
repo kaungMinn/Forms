@@ -1,4 +1,5 @@
 export type CustomerValidationTypes = {
+  companyName: string;
   brandName: string;
   customerName: string;
   customerType: string;
