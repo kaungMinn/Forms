@@ -1,10 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import CustomizedTable from "../../../Components/Table/CustomizedTable";
-import { body, headers } from "./constants";
+import { headers } from "./constants";
 import { useAppSelector } from "../../../Hooks/ReduxProvider";
 import Heading from "../../../Components/Labels/Heading";
+import { db } from "../../../DB/db";
+import { Customer } from "../../../DB/_types";
 
 const CustomerList = () => {
+  const [body, setBody] = useState<Customer[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(10);
   const [currentData, setCurrentData] = useState<typeof body>([]);
@@ -24,7 +27,7 @@ const CustomerList = () => {
     const indexOfFirstItem = indexOfLastItem - dataPerPage;
     const currentData = body.slice(indexOfFirstItem, indexOfLastItem);
     setCurrentData(currentData);
-  }, [currentPage, dataPerPage]);
+  }, [currentPage, dataPerPage, body]);
 
   useEffect(() => {
     dataHandlerForPagination();
@@ -34,6 +37,19 @@ const CustomerList = () => {
     const { value } = pageSize;
     setDataPerPage(value);
   };
+
+  const handleGetBodyData = async () => {
+    try {
+      const response = await db.customers.toArray();
+      setBody(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    handleGetBodyData();
+  }, []);
 
   return (
     <div className={`${dashboardBg} ${dashboardText}`}>

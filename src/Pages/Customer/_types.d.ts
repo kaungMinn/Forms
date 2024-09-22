@@ -138,3 +138,7 @@ export type SelectInputTypes = {
 export type ChildCenterTypes = {
   plan: PlanType;
 };
+
+export type DefaultServerErrorType = {
+  duplicate: boolean;
+};

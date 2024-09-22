@@ -47,6 +47,7 @@ export const validationSchemaGenerator = (
       field: "serviceID",
       step: handleStepTwo,
     },
+
     {
       condition: dataCenter.containIPServer && !dataCenter.mode,
       field: "mode",
@@ -165,7 +166,6 @@ export const validationSchemaGenerator = (
       field: "city",
       step: handleStepThree,
     },
-
     {
       condition: !dataCenter.township,
       field: "township",

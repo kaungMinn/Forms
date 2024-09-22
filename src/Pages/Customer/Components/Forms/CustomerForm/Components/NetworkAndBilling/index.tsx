@@ -3,6 +3,7 @@ import { CustomizedDropDownDataTypes } from "../../../../../../../Components/Dro
 import { DefaultThemeTypes } from "../../../../../../Theme/_types";
 import {
   DataCenterTypes,
+  DefaultServerErrorType,
   ErrorCenterTypes,
   RefCenterTypes,
 } from "../../../../../_types";
@@ -28,6 +29,7 @@ type NetworkType = {
   refCenter: RefCenterTypes;
   theme: DefaultThemeTypes;
   plans: PlanType[];
+  serverErrors?: DefaultServerErrorType;
   /*
     Actions
   */
@@ -48,6 +50,7 @@ const NetworkAndBilling = (props: NetworkType) => {
     refCenter,
     theme,
     plans,
+    serverErrors,
     /*
       Actions
     */
@@ -57,7 +60,8 @@ const NetworkAndBilling = (props: NetworkType) => {
   } = props;
 
   useEffect(() => {
-    const keys = ["serviceID", "mode", "staticIP", "serviceType", "plan"];
+    if (serverErrors && serverErrors.duplicate) return;
+    const keys = ["serviceID"];
 
     stateCleaner(keys, updateErrorCenter);
     // eslint-disable-next-line react-hooks/exhaustive-deps

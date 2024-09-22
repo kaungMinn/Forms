@@ -1,6 +1,7 @@
 import { createRef } from "react";
 import {
   DataCenterTypes,
+  DefaultServerErrorType,
   ErrorCenterTypes,
   RefCenterTypes,
   SelectInputTypes,
@@ -145,6 +146,7 @@ export const DEFAULT_SELECT_INPUT_CENTER: SelectInputTypes = {
   paymentTypes: [],
 };
 
+//TABS
 export const TABS: TabType[] = [
   { id: 1, name: "General" },
   { id: 2, name: "Network" },
@@ -154,3 +156,8 @@ export const TABS: TabType[] = [
 export const GENERAL_ID = 1;
 export const NETWORK_AND_BILLING_ID = 2;
 export const BILLING_CONTACT_INFORMATION_ID = 3;
+
+//SERVER
+export const DEFAULT_SERVER_ERRORS: DefaultServerErrorType = {
+  duplicate: false,
+};

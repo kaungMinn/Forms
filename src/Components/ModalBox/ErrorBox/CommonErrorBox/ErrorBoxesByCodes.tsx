@@ -14,6 +14,7 @@ import { handleLogout } from "../../../../Utils/logout_helper";
 import { useAppDispatch } from "../../../../Hooks/ReduxProvider";
 import { ErrorBoxLayoutPropsType, ErrorResponsePropsType } from "./_types";
 import { resetError } from "../../../../Store/slices/error.slice";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const ErrorBoxLayout: React.FC<ErrorBoxLayoutPropsType> = (props) => {
   return (
@@ -106,27 +107,59 @@ const NotFoundBox: React.FC<ErrorResponsePropsType> = (err) => {
 
 const AlreadyExistBox: React.FC<ErrorResponsePropsType> = (err) => {
   const dispatch = useAppDispatch();
+  const errVariants = {
+    initial: {
+      opacity: 0,
+      transform: "rotateX(90deg)",
+      transformOrigin: "top",
+    },
+    animate: {
+      opacity: 1,
+      transform: " rotateX(0deg)",
+      transformOrigin: "top",
+      transition: {
+        ease: "easeIn",
+      },
+    },
+    exit: {
+      opacity: 0,
+      transform: " rotateX(90deg)",
+      transformOrigin: "top",
+    },
+  };
   return (
-    <Box open={err.isError}>
-      <ErrorBoxLayout
-        icon={
-          <BsFillExclamationTriangleFill className="h-10 w-10 text-warning" />
-        }
-        title="Already Existed!"
-        bodyText={err.errorMessage}
-      />
-      <div className="flex justify-center">
-        <div className="h-auto w-1/2">
-          <PrimaryButton
-            label="Try again"
-            /**
-             * action
-             */
-            handleClickOn={() => dispatch(resetError())}
-          />
+    <AnimatePresence>
+      {err.isError && (
+        <div className="fixed top-0 left-0 w-full bg-[#3333339e] h-[100vh] z-50 ">
+          <motion.div
+            variants={errVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className=" rounded-md py-2  min-h-[150px] bg-white mx-auto  shadow-md mt-1  w-[14rem] tablet:w-[24rem]"
+          >
+            <ErrorBoxLayout
+              icon={
+                <BsFillExclamationTriangleFill className="h-10 w-10 text-warning" />
+              }
+              title="Already Existed!"
+              bodyText={err.errorMessage}
+            />
+            <div className="flex justify-center">
+              <div className="h-auto w-1/2 mt-3">
+                <PrimaryButton
+                  label="Try again"
+                  /**
+                   * action
+                   */
+                  handleClickOn={() => dispatch(resetError())}
+                />
+              </div>
+            </div>{" "}
+          </motion.div>
         </div>
-      </div>
-    </Box>
+      )}
+    </AnimatePresence>
   );
 };
 
@@ -155,27 +188,60 @@ const GatewayTimeoutBox: React.FC<ErrorResponsePropsType> = (err) => {
 
 const CommonBox: React.FC<ErrorResponsePropsType> = (err) => {
   const dispatch = useAppDispatch();
+
+  const errVariants = {
+    initial: {
+      opacity: 0,
+      transform: "rotateX(90deg)",
+      transformOrigin: "top",
+    },
+    animate: {
+      opacity: 1,
+      transform: " rotateX(0deg)",
+      transformOrigin: "top",
+      transition: {
+        ease: "easeIn",
+      },
+    },
+    exit: {
+      opacity: 0,
+      transform: " rotateX(90deg)",
+      transformOrigin: "top",
+    },
+  };
   return (
-    <Box open={err.isError}>
-      <ErrorBoxLayout
-        icon={
-          <BsFillExclamationTriangleFill className="h-10 w-10 text-warning" />
-        }
-        title="Error"
-        bodyText="Something went wrong"
-      />
-      <div className="flex justify-center">
-        <div className="h-auto w-1/2">
-          <PrimaryButton
-            label="Try again"
-            /**
-             * action
-             */
-            handleClickOn={() => dispatch(resetError())}
-          />
+    <AnimatePresence>
+      {err.isError && (
+        <div className="fixed top-0 left-0 w-full bg-[#3333339e] h-[100vh] z-50 ">
+          <motion.div
+            variants={errVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className=" rounded-md py-2  min-h-[150px] bg-white mx-auto  shadow-md mt-1  w-[14rem] tablet:w-[24rem]"
+          >
+            <ErrorBoxLayout
+              icon={
+                <BsFillExclamationTriangleFill className="h-10 w-10 text-warning" />
+              }
+              title="Error!"
+              bodyText={err.errorMessage}
+            />
+            <div className="flex justify-center">
+              <div className="h-auto w-1/2 mt-3">
+                <PrimaryButton
+                  label="Try again"
+                  /**
+                   * action
+                   */
+                  handleClickOn={() => dispatch(resetError())}
+                />
+              </div>
+            </div>{" "}
+          </motion.div>
         </div>
-      </div>
-    </Box>
+      )}
+    </AnimatePresence>
   );
 };
 

@@ -1,4 +1,167 @@
-import { CustomerValidationTypes } from "./_types";
+import { createRef } from "react";
+import {
+  CustomerValidationTypes,
+  DataCenterTypes,
+  DefaultServerErrorType,
+  ErrorCenterTypes,
+  RefCenterTypes,
+  SelectInputTypes,
+} from "./_types";
+import { inputAcceptableDate } from "../../../../../Utils/Date/date.utils";
+import { TabType } from "../../../../../Components/Menus/TabMenu/_types";
+
+const date = new Date();
+
+export const DEFAULT_DATA_CENTER: DataCenterTypes = {
+  brandName: "",
+  customerName: "",
+  customerType: "Individual",
+  customerTypeServer: "individual",
+  companyName: "",
+  autoGeneratePPOEAccount: "On",
+  autoGeneratePPOEAccountServer: true,
+  radUserName: "",
+  radPassword: "",
+  serviceID: "",
+  serviceIDName: "",
+  containIP: "OFF",
+  containIPServer: false,
+  mode: "",
+  modeServer: "",
+  staticIP: "",
+  serviceType: "",
+  serviceTypeServer: "",
+  plan: "",
+  planServer: "",
+  paymentCurrency: "",
+  price: "",
+  serviceStatus: "New",
+  billingMethod: "Prepaid",
+  billingMethodServer: "pre",
+  serviceStartDate: inputAcceptableDate(date),
+  serviceEndDate: "",
+  duration: "hours",
+  durationNumber: "",
+  enable: "Off",
+  enableServer: false,
+  paymentTypes: "",
+  mmk: "",
+  sgd: "",
+  baht: "",
+  city: "",
+  township: "",
+  address: "",
+  coordinates: "",
+  phoneNumber: "",
+  viberNumber: "",
+  email: "",
+  remark: "",
+};
+
+export const DEFAULT_ERROR_CENTER: ErrorCenterTypes = {
+  brandName: "",
+  customerName: "",
+  customerType: "",
+  customerTypeServer: "",
+  companyName: "",
+  autoGeneratePPOEAccount: "",
+  autoGeneratePPOEAccountServer: "",
+  radUserName: "",
+  radPassword: "",
+  serviceID: "",
+  serviceIDName: "",
+  containIP: "",
+  containIPServer: "",
+  mode: "",
+  modeServer: "",
+  staticIP: "",
+  serviceType: "",
+  serviceTypeServer: "",
+  plan: "",
+  planServer: "",
+  paymentCurrency: "",
+  price: "",
+  serviceStatus: "",
+  billingMethod: "",
+  billingMethodServer: "",
+
+  serviceStartDate: "",
+  serviceEndDate: "",
+  duration: "",
+  durationNumber: "",
+  enable: "",
+  enableServer: "",
+  paymentTypes: "",
+  mmk: "",
+  sgd: "",
+  baht: "",
+  city: "",
+  township: "",
+  address: "",
+  coordinates: "",
+  phoneNumber: "",
+  viberNumber: "",
+  email: "",
+  remark: "",
+};
+
+export const DEFAULT_REF_CENTER: RefCenterTypes = {
+  brandName: createRef<HTMLInputElement>(),
+  customerName: createRef<HTMLInputElement>(),
+  customerType: createRef<HTMLInputElement>(),
+  companyName: createRef<HTMLInputElement>(),
+  autoGeneratePPOEAccount: createRef<HTMLInputElement>(),
+  radUserName: createRef<HTMLInputElement>(),
+  radPassword: createRef<HTMLInputElement>(),
+  serviceID: createRef<HTMLInputElement>(),
+  serviceIDName: createRef<HTMLInputElement>(),
+  containIP: createRef<HTMLInputElement>(),
+  mode: createRef<HTMLInputElement>(),
+  staticIP: createRef<HTMLInputElement>(),
+  serviceType: createRef<HTMLInputElement>(),
+  plan: createRef<HTMLInputElement>(),
+  paymentCurrency: createRef<HTMLInputElement>(),
+  price: createRef<HTMLInputElement>(),
+  serviceStatus: createRef<HTMLInputElement>(),
+  billingMethod: createRef<HTMLInputElement>(),
+
+  serviceStartDate: createRef<HTMLInputElement>(),
+  serviceEndDate: createRef<HTMLInputElement>(),
+  duration: createRef<HTMLInputElement>(),
+  durationNumber: createRef<HTMLInputElement>(),
+  paymentTypes: createRef<HTMLInputElement>(),
+  mmk: createRef<HTMLInputElement>(),
+  sgd: createRef<HTMLInputElement>(),
+  baht: createRef<HTMLInputElement>(),
+  city: createRef<HTMLInputElement>(),
+  township: createRef<HTMLInputElement>(),
+  address: createRef<HTMLInputElement>(),
+  coordinates: createRef<HTMLInputElement>(),
+  phoneNumber: createRef<HTMLInputElement>(),
+  viberNumber: createRef<HTMLInputElement>(),
+  email: createRef<HTMLInputElement>(),
+  remark: createRef<HTMLInputElement>(),
+};
+
+export const DEFAULT_SELECT_INPUT_CENTER: SelectInputTypes = {
+  paymentTypes: [],
+};
+
+//TABS
+export const TABS: TabType[] = [
+  { id: 1, name: "General" },
+  { id: 2, name: "Network" },
+  { id: 3, name: "Billing" },
+];
+
+export const GENERAL_ID = 1;
+export const NETWORK_AND_BILLING_ID = 2;
+export const BILLING_CONTACT_INFORMATION_ID = 3;
+
+//SERVER
+export const DEFAULT_SERVER_ERRORS: DefaultServerErrorType = {
+  duplicate: false,
+};
 
 export const DEFAULT_CUSTOMER_VALIDATIONS: CustomerValidationTypes = {
   companyName: "Enter company name",

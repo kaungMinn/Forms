@@ -1,30 +1,17 @@
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import {
-  DEFAULT_DATA_CENTER,
-  DEFAULT_ERROR_CENTER,
-  DEFAULT_REF_CENTER,
-  DEFAULT_SELECT_INPUT_CENTER,
-  TABS,
-} from "../constants";
-import {
-  DataCenterTypes,
-  ErrorCenterTypes,
-  RefCenterTypes,
-  SelectInputTypes,
-} from "../_types";
-import { modifyState } from "../../../Utils/Data/States/state.utils";
-import { TabType } from "../../../Components/Menus/TabMenu/_types";
-import { AvaliableSelectionType } from "../../../Components/DropDownBox/SelectDropDown";
-import { arrayToggle } from "../../../Utils/Data/array.utils";
-import { PlanType } from "../../../Constants/Packages/constants";
-import {
-  endDateCreator,
-  inputAcceptableDate,
-} from "../../../Utils/Date/date.utils";
+import { TabType } from "../../../../../Components/Menus/TabMenu/_types";
 import {
   CityType,
   TownshipType,
-} from "../../../Constants/Location/myanmar.constants";
+} from "../../../../../Constants/Location/myanmar.constants";
+import { PlanType } from "../../../../../Constants/Packages/constants";
+import {
+  DataCenterTypes,
+  DefaultServerErrorType,
+  ErrorCenterTypes,
+  RefCenterTypes,
+  SelectInputTypes,
+} from "./_types";
 import {
   AccessCodeTypes,
   DEFAULT_ICON_ACCESSES,
@@ -32,9 +19,31 @@ import {
   fancyValidator,
   formShield,
   IconAccessTypes,
-} from "../Components/Forms/CustomerForm/validation";
-import { validationSchemaGenerator } from "./utils";
-import { stateCleaner } from "../../../Utils/Data/States/cleaner.utils";
+} from "./validation";
+import { AvaliableSelectionType } from "../../../../../Components/DropDownBox/SelectDropDown";
+import {
+  DEFAULT_DATA_CENTER,
+  DEFAULT_ERROR_CENTER,
+  DEFAULT_REF_CENTER,
+  DEFAULT_SELECT_INPUT_CENTER,
+  DEFAULT_SERVER_ERRORS,
+  TABS,
+} from "./constants";
+import { useAppDispatch } from "../../../../../Hooks/ReduxProvider";
+import { modifyState } from "../../../../../Utils/Data/States/state.utils";
+import {
+  endDateCreator,
+  inputAcceptableDate,
+} from "../../../../../Utils/Date/date.utils";
+import { stateCleaner } from "../../../../../Utils/Data/States/cleaner.utils";
+import { arrayToggle } from "../../../../../Utils/Data/array.utils";
+import { setError } from "../../../../../Store/slices/error.slice";
+import {
+  camelCaseToLowerSpace,
+  generateRandomName,
+  generateRandomSixDigit,
+} from "../../../../../Utils/Data/string.utils";
+import { validationSchemaGenerator } from "../../../Create/utils";
 import {
   isMeaningfulCoordinate,
   isMeaningfulEmail,
@@ -42,11 +51,8 @@ import {
   isMeaningfullDuration,
   isMeaningfullMoneyValue,
   isMeaningfulPhoneNumber,
-} from "../../../Utils/regex.utils";
-import { camelCaseToLowerSpace } from "../../../Utils/Data/string.utils";
-import { db } from "../../../DB/db";
-import { useAppDispatch } from "../../../Hooks/ReduxProvider";
-import { setError } from "../../../Store/slices/error.slice";
+} from "../../../../../Utils/regex.utils";
+import { db } from "../../../../../DB/db";
 
 type HookType = [
   dataCenter: DataCenterTypes,
@@ -60,6 +66,8 @@ type HookType = [
   iconFailCodes: IconAccessTypes,
   selectInputCenter: SelectInputTypes,
   isSuccess: boolean,
+  serverErrors: DefaultServerErrorType,
+  loading: boolean,
 
   /*
     Actions
@@ -85,7 +93,8 @@ type HookType = [
     value: ErrorCenterTypes[keyof ErrorCenterTypes]
   ) => void,
   handleCreateCustomers: () => void,
-  handleIsSuccess: (value: boolean) => void
+  handleIsSuccess: (value: boolean) => void,
+  resetDataCenter: () => void
 ];
 
 const Hook = (): HookType => {
@@ -111,6 +120,10 @@ const Hook = (): HookType => {
   );
   const [isSuccess, setIsSuccess] = useState(false);
   const dispatch = useAppDispatch();
+  const [serverErrors, setServerErrors] = useState<DefaultServerErrorType>(
+    DEFAULT_SERVER_ERRORS
+  );
+  const [loading, setLoading] = useState(false);
 
   /*
     STATE ACTIONS
@@ -138,6 +151,13 @@ const Hook = (): HookType => {
 
   const handleIsSuccess = (value: boolean) => {
     setIsSuccess(value);
+  };
+
+  const resetDataCenter = () => {
+    setDataCenter(DEFAULT_DATA_CENTER);
+    setIconAccessCodes(DEFAULT_ICON_ACCESSES);
+    setIconFailCodes(DEFAULT_ICON_ACCESSES);
+    setSelectedTab(TABS[0]);
   };
 
   /*
@@ -288,7 +308,19 @@ const Hook = (): HookType => {
         customers.length > 0 ? customers[customers.length - 1].id + 1 : 1;
 
       const { isValidate } = handleNextStep();
-      if (!isValidate) return;
+
+      if (!isValidate) {
+        dispatch(
+          setError({
+            isError: true,
+            statusCode: 499,
+            errorMessage: "Please fill out all the required fields!",
+          })
+        );
+        return;
+      }
+
+      setLoading(true);
 
       const sameServiceID = await db.customers.get({
         serviceID: dataCenter.serviceID,
@@ -303,18 +335,33 @@ const Hook = (): HookType => {
           })
         );
 
-        setSelectedTab(TABS[1]);
-        updateErrorCenter("serviceID", "Hee hee");
-        setIconAccessCodes((prev) => ({ ...prev, 2: false }));
+        setServerErrors((prev) => ({ ...prev, duplicate: true }));
 
+        setSelectedTab(TABS[1]);
+        updateErrorCenter("serviceID", "Service ID Already Exists");
+        setIconAccessCodes((prev) => ({ ...prev, 2: false }));
         return;
+      } else {
+        setServerErrors(DEFAULT_SERVER_ERRORS);
       }
 
-      await db.customers.add({ ...dataCenter, id });
+      let tmp_data_center = { ...dataCenter };
+      if (tmp_data_center.autoGeneratePPOEAccountServer) {
+        tmp_data_center = {
+          ...tmp_data_center,
+          radUserName: generateRandomName(),
+          radPassword: generateRandomSixDigit(),
+          duration: `${tmp_data_center.durationNumber} ${tmp_data_center.duration}`,
+        };
+      }
+
+      await db.customers.add({ ...tmp_data_center, id });
       setIsSuccess(true);
     } catch (error) {
       console.error(error);
       setIsSuccess(false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -461,6 +508,8 @@ const Hook = (): HookType => {
     iconFailCodes,
     selectInputCenter,
     isSuccess,
+    serverErrors,
+    loading,
 
     /*
       Actions
@@ -473,6 +522,7 @@ const Hook = (): HookType => {
     updateErrorCenter,
     handleCreateCustomers,
     handleIsSuccess,
+    resetDataCenter,
   ];
 };
 

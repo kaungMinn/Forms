@@ -3,6 +3,7 @@ import { CustomizedDropDownDataTypes } from "../../../../../../../Components/Dro
 import { DefaultThemeTypes } from "../../../../../../Theme/_types";
 import {
   DataCenterTypes,
+  DefaultServerErrorType,
   ErrorCenterTypes,
   RefCenterTypes,
   SelectInputTypes,
@@ -27,6 +28,7 @@ type BillingType = {
   theme: DefaultThemeTypes;
   townships: TownshipType[];
   selectInputCenter: SelectInputTypes;
+  serverErrors?: DefaultServerErrorType;
   /*
     Actions
   */
@@ -55,6 +57,7 @@ const BillingContactInformation = (props: BillingType) => {
     updateDataCenter,
     updateErrorCenter,
     selectInputCenter,
+    serverErrors,
     /*
       Actions
     */
@@ -64,15 +67,8 @@ const BillingContactInformation = (props: BillingType) => {
   } = props;
 
   useEffect(() => {
-    const keys = [
-      "paymentTypes",
-      "address",
-      "coordinates",
-      "phoneNumber",
-      "viberNumber",
-      "email",
-      "remark",
-    ];
+    if (serverErrors && serverErrors.duplicate) return;
+    const keys = ["paymentTypes"];
 
     stateCleaner(keys, updateErrorCenter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
