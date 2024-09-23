@@ -8,12 +8,12 @@ class MyDatabase extends Dexie {
   constructor() {
     super("database");
     this.version(1).stores({
-      customers: `db
-                ++id, 
-                customers,
-                fields,
-                selectedInputs
-            `,
+      customers: `
+        ++id,             // auto-incremented primary key
+        customers,        // customer data
+        fields,           // additional fields
+        selectedInputs    // inputs that are selected
+      `,
     });
   }
 }
