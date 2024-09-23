@@ -1,4 +1,4 @@
-import { ChangeEvent, RefObject, useEffect } from "react";
+import { ChangeEvent, RefObject } from "react";
 import { AvaliableSelectionType } from ".";
 import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
 import CheckboxInput from "../../Inputs/CheckboxInput";
