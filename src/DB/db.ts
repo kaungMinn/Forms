@@ -8,7 +8,7 @@ class MyDatabase extends Dexie {
   constructor() {
     super("database");
     this.version(1).stores({
-      customers: `
+      customers: `db
                 ++id, 
                 customers,
                 fields,
