@@ -17,13 +17,16 @@ type GeneralType = {
   refCenter: RefCenterTypes;
   theme: DefaultThemeTypes;
   /*
+    Structures
+  */
+  childCleaningStructure: { [key: string]: string[] };
+  childPassingStructure: {
+    [key: string]: (data: Record<string, unknown>) => void;
+  };
+  /*
     Actions
   */
-  handleSelect: (
-    data: Record<string, unknown>,
-    dataKey: string,
-    dataCenterKey: string
-  ) => void;
+
   handleOnChange: (ev: ChangeEvent<HTMLInputElement>) => void;
   updateDataCenter: (
     key: string,
@@ -42,9 +45,14 @@ const General = (props: GeneralType) => {
     refCenter,
     theme,
     /*
+      Structures
+    */
+    childCleaningStructure,
+    childPassingStructure,
+    /*
       Actions
     */
-    handleSelect,
+
     updateDataCenter,
     updateErrorCenter,
   } = props;
@@ -57,9 +65,14 @@ const General = (props: GeneralType) => {
         refCenter={refCenter}
         theme={theme}
         /*
+            Structures
+          */
+        childCleaningStructure={childCleaningStructure}
+        childPassingStructure={childPassingStructure}
+        /*
           Actions
         */
-        handleSelect={handleSelect}
+
         updateDataCenter={updateDataCenter}
         updateErrorCenter={updateErrorCenter}
       />
@@ -76,9 +89,16 @@ const General = (props: GeneralType) => {
           hasSearch={true}
           isRequired={true}
           /*
+            Structures
+          */
+          childCleaningStructure={childCleaningStructure}
+          childPassingStructure={childPassingStructure}
+          /*
             Actions
           */
-          handleSelect={handleSelect}
+
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
         />
 
         <PrimaryInput

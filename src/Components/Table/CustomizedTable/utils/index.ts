@@ -53,7 +53,7 @@ export function updateColumnBody(
   const tmpRowList: TABLE_BODY_ROW[] = dataRow.map((row) => {
     const tmpColList: TABLE_BODY_COL[] = headingCol.map((col) => {
       tmpCol = {
-        key: col.name,
+        key: col.key,
         value: row[col.key],
         isLink: linkList?.some((l) => l.key === col.name) || false,
         linkAction: linkList?.map((l) => {

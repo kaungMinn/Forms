@@ -30,6 +30,7 @@ const IconGenerator = (props: PropTypes) => {
     return () => {
       anim.destroy();
     };
+    //eslint-disable-next-line
   }, []);
   return <div ref={animationContainer} />;
 };

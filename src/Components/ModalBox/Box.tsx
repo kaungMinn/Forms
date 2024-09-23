@@ -19,7 +19,9 @@ const Box: React.FC<PrimaryModalBoxType> = ({
   onCloseModal,
 }) => {
   return (
-    <div className={`fixed inset-0 z-30  ${open ? "" : "pointer-events-none"}`}>
+    <div
+      className={`fixed inset-0 z-[55]  ${open ? "" : "pointer-events-none"}`}
+    >
       {/* BackDrop */}
       <div
         className={`fixed inset-0 ${

@@ -70,6 +70,14 @@ type HookType = [
   loading: boolean,
 
   /*
+    Structures
+  */
+  childCleaningStructure: { [key: string]: string[] },
+  childPassingStructure: {
+    [key: string]: (data: Record<string, unknown>) => void;
+  },
+
+  /*
     Actions
   */
   handleSelectTab: (tab: TabType) => void,
@@ -155,8 +163,11 @@ const Hook = (): HookType => {
 
   const resetDataCenter = () => {
     setDataCenter(DEFAULT_DATA_CENTER);
+    setSelectInputCenter(DEFAULT_SELECT_INPUT_CENTER);
     setIconAccessCodes(DEFAULT_ICON_ACCESSES);
     setIconFailCodes(DEFAULT_ICON_ACCESSES);
+    setTownships([]);
+    setPlans([]);
     setSelectedTab(TABS[0]);
   };
 
@@ -199,7 +210,7 @@ const Hook = (): HookType => {
     setTownships(townships);
   };
 
-  const childDataStructure = {
+  const childPassingStructure = {
     serviceType: handleUpdatePlans,
     plan: handleUpdatePrice,
     city: handleUpdateTownship,
@@ -251,7 +262,9 @@ const Hook = (): HookType => {
     updateErrorCenter(dataCenterKey, "");
 
     const childData =
-      childDataStructure[dataCenterKey as keyof typeof childDataStructure];
+      childPassingStructure[
+        dataCenterKey as keyof typeof childPassingStructure
+      ];
 
     const childCleaningKeys =
       childCleaningStructure[
@@ -510,6 +523,12 @@ const Hook = (): HookType => {
     isSuccess,
     serverErrors,
     loading,
+
+    /*
+      Structures
+    */
+    childCleaningStructure,
+    childPassingStructure,
 
     /*
       Actions

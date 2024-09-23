@@ -30,6 +30,13 @@ type BillingType = {
   selectInputCenter: SelectInputTypes;
   serverErrors?: DefaultServerErrorType;
   /*
+    Structures
+  */
+  childCleaningStructure: { [key: string]: string[] };
+  childPassingStructure: {
+    [key: string]: (data: Record<string, unknown>) => void;
+  };
+  /*
     Actions
   */
   handleSelect: (
@@ -59,10 +66,14 @@ const BillingContactInformation = (props: BillingType) => {
     selectInputCenter,
     serverErrors,
     /*
+      Structures
+    */
+    childCleaningStructure,
+    childPassingStructure,
+    /*
       Actions
     */
     handleOnChange,
-    handleSelect,
     handleCheck,
   } = props;
 
@@ -105,10 +116,20 @@ const BillingContactInformation = (props: BillingType) => {
           value={dataCenter.city || "Select a city"}
           dataKey="label"
           dataCenterKey="city"
-          handleSelect={handleSelect}
           hasSearch={true}
           isRequired={true}
           errorMessage={errorCenter.city}
+          /*
+            Structures
+          */
+          childCleaningStructure={childCleaningStructure}
+          childPassingStructure={childPassingStructure}
+          /*
+            Actions
+          */
+
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
         />
 
         <CustomizedDropDown
@@ -118,11 +139,21 @@ const BillingContactInformation = (props: BillingType) => {
           value={dataCenter.township || "Select a township"}
           dataKey="label"
           dataCenterKey="township"
-          handleSelect={handleSelect}
           hasSearch={true}
           isDisabled={townships.length <= 0}
           isRequired={true}
           errorMessage={errorCenter.township}
+          /*
+            Structures
+          */
+          childCleaningStructure={childCleaningStructure}
+          childPassingStructure={childPassingStructure}
+          /*
+            Actions
+          */
+
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
         />
 
         <PrimaryInput

@@ -14,7 +14,7 @@ import { useAppSelector } from "../../../../../Hooks/ReduxProvider";
 import PrimaryWrapper from "../../../../../Components/Wrappers/PrimaryWrapper";
 import TabMenu from "../../../../../Components/Menus/TabMenu";
 import PrimaryButton from "../../../../../Components/Buttons/PrimaryButton";
-import DashboardLoading from "../../../../../Components/Loadings/DashboardLoading";
+import DataLoading from "../../../../../Components/Loadings/DataLoading";
 
 const CustomerForm = () => {
   const [
@@ -31,7 +31,11 @@ const CustomerForm = () => {
     isSuccess,
     serverErrors,
     loading,
-
+    /*
+      Structures
+    */
+    childCleaningStructure,
+    childPassingStructure,
     /*
       Actions
     */
@@ -55,7 +59,7 @@ const CustomerForm = () => {
   return (
     <>
       <PrimaryWrapper theme={theme}>
-        {loading && <DashboardLoading />}
+        {loading && <DataLoading />}
         <div className="space-y-5">
           <TabMenu
             tabs={tabs}
@@ -77,10 +81,14 @@ const CustomerForm = () => {
                 errorCenter={errorCenter}
                 refCenter={refCenter}
                 /*
+                  Structures
+                */
+                childCleaningStructure={childCleaningStructure}
+                childPassingStructure={childPassingStructure}
+                /*
                 Actions
               */
                 handleOnChange={handleOnChange}
-                handleSelect={handleSelect}
                 updateDataCenter={updateDataCenter}
                 updateErrorCenter={updateErrorCenter}
               />
@@ -95,8 +103,13 @@ const CustomerForm = () => {
                 plans={plans}
                 serverErrors={serverErrors}
                 /*
+                Structures
+                */
+                childCleaningStructure={childCleaningStructure}
+                childPassingStructure={childPassingStructure}
+                /*
                 Actions
-              */
+               */
                 handleOnChange={handleOnChange}
                 handleSelect={handleSelect}
                 updateDataCenter={updateDataCenter}
@@ -112,6 +125,11 @@ const CustomerForm = () => {
                 townships={townships}
                 selectInputCenter={selectInputCenter}
                 serverErrors={serverErrors}
+                /*
+                Structures
+                */
+                childCleaningStructure={childCleaningStructure}
+                childPassingStructure={childPassingStructure}
                 /*
                 Actions
               */
@@ -135,6 +153,7 @@ const CustomerForm = () => {
         titleLabel="Success"
         bodyText="Successfully create a customer"
         btnLabel="Close"
+        isCreate={true}
         clickOn={() => {
           handleIsSuccess(!isSuccess);
           resetDataCenter();

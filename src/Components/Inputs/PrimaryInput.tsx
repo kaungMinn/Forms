@@ -20,8 +20,8 @@ interface PrimaryInputPropType extends InputHTMLAttributes<HTMLInputElement> {
   /*
     States
   */
-  updateDataCenter: (key: string, value: string) => void;
-  updateErrorCenter: (key: string, value: string) => void;
+  updateDataCenter?: (key: string, value: string) => void;
+  updateErrorCenter?: (key: string, value: string) => void;
   /**
    * action
    */
@@ -68,8 +68,8 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
   const handleOnChange = (ev: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = ev.target;
 
-    updateDataCenter(name, value);
-    updateErrorCenter(name, "");
+    updateDataCenter && updateDataCenter(name, value);
+    updateErrorCenter && updateErrorCenter(name, "");
   };
 
   return (

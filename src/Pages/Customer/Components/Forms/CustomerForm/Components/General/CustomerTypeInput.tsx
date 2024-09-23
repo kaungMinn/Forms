@@ -14,13 +14,16 @@ type CustomerTypeInputType = {
   errorCenter: ErrorCenterTypes;
   refCenter: RefCenterTypes;
   /*
+    Structures
+  */
+  childCleaningStructure: { [key: string]: string[] };
+  childPassingStructure: {
+    [key: string]: (data: Record<string, unknown>) => void;
+  };
+  /*
     Actions
   */
-  handleSelect: (
-    data: Record<string, unknown>,
-    dataKey: string,
-    dataCenterKey: string
-  ) => void;
+
   updateDataCenter: (
     key: string,
     value: DataCenterTypes[keyof DataCenterTypes]
@@ -38,9 +41,14 @@ const CustomerTypeInput = (props: CustomerTypeInputType) => {
     errorCenter,
     refCenter,
     /*
+      Structures
+    */
+    childCleaningStructure,
+    childPassingStructure,
+    /*
       Actions
     */
-    handleSelect,
+
     updateDataCenter,
     updateErrorCenter,
   } = props;
@@ -60,9 +68,16 @@ const CustomerTypeInput = (props: CustomerTypeInputType) => {
         secondaryDataCenterKey="customerTypeServer"
         theme={theme}
         /*
+            Structures
+          */
+        childCleaningStructure={childCleaningStructure}
+        childPassingStructure={childPassingStructure}
+        /*
       Actions
     */
-        handleSelect={handleSelect}
+
+        updateDataCenter={updateDataCenter}
+        updateErrorCenter={updateErrorCenter}
       />
       {dataCenter.customerTypeServer === "company" && (
         <PrimaryInput

@@ -130,7 +130,7 @@ const AlreadyExistBox: React.FC<ErrorResponsePropsType> = (err) => {
   return (
     <AnimatePresence>
       {err.isError && (
-        <div className="fixed top-0 left-0 w-full bg-[#3333339e] h-[100vh] z-50 ">
+        <div className="fixed top-0 left-0 w-full bg-black/20 backdrop-blur-sm h-[100vh] z-[55] ">
           <motion.div
             variants={errVariants}
             initial="initial"
@@ -212,7 +212,7 @@ const CommonBox: React.FC<ErrorResponsePropsType> = (err) => {
   return (
     <AnimatePresence>
       {err.isError && (
-        <div className="fixed top-0 left-0 w-full bg-[#3333339e] h-[100vh] z-50 ">
+        <div className="fixed top-0 left-0 w-full bg-black/20 backdrop-blur-sm h-[100vh] z-[55] ">
           <motion.div
             variants={errVariants}
             initial="initial"
