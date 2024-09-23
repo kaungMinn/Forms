@@ -1,5 +1,19 @@
+import {
+  CityType,
+  TownshipType,
+} from "../Constants/Location/myanmar.constants";
+import { PackageType, PlanType } from "../Constants/Packages/constants";
+import { SelectInputTypes } from "../Pages/Customer/_types";
+
 // src/types.ts
 export interface Customer {
+  id: number;
+  customers: CustomerData;
+  fields: CustomerFields;
+  selectedInputs: SelectInputTypes;
+}
+
+export interface CustomerData {
   id: number;
   brandName: string;
   customerName: string;
@@ -44,4 +58,10 @@ export interface Customer {
   viberNumber: string;
   email: string;
   remark: string;
+}
+export interface CustomerFields {
+  serviceType: PackageType[];
+  plan: PlanType[];
+  city: CityType[];
+  township: TownshipType[];
 }

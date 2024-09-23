@@ -16,15 +16,19 @@ import TabMenu from "../../../../../Components/Menus/TabMenu";
 import PrimaryButton from "../../../../../Components/Buttons/PrimaryButton";
 import DataLoading from "../../../../../Components/Loadings/DataLoading";
 
-const CustomerForm = () => {
+export type CustomerFormType = {
+  action: string;
+};
+
+const CustomerForm = (props: CustomerFormType) => {
+  const { action } = props;
   const [
     dataCenter,
     errorCenter,
     refCenter,
+    fields,
     selectedTab,
     tabs,
-    plans,
-    townships,
     iconAccessCodes,
     iconFailCodes,
     selectInputCenter,
@@ -48,7 +52,7 @@ const CustomerForm = () => {
     handleCreateCustomers,
     handleIsSuccess,
     resetDataCenter,
-  ] = Hook();
+  ] = Hook(props);
 
   const theme = useAppSelector((state) => state.theme);
 
@@ -100,7 +104,7 @@ const CustomerForm = () => {
                 dataCenter={dataCenter}
                 errorCenter={errorCenter}
                 refCenter={refCenter}
-                plans={plans}
+                fields={fields}
                 serverErrors={serverErrors}
                 /*
                 Structures
@@ -122,7 +126,7 @@ const CustomerForm = () => {
                 dataCenter={dataCenter}
                 errorCenter={errorCenter}
                 refCenter={refCenter}
-                townships={townships}
+                fields={fields}
                 selectInputCenter={selectInputCenter}
                 serverErrors={serverErrors}
                 /*
@@ -151,11 +155,16 @@ const CustomerForm = () => {
       <SuccessBox
         isOpen={isSuccess}
         titleLabel="Success"
-        bodyText="Successfully create a customer"
+        bodyText={
+          action === "update"
+            ? "Successfully update a customer"
+            : "Successfully create a customer"
+        }
         btnLabel="Close"
         isCreate={true}
         clickOn={() => {
           handleIsSuccess(!isSuccess);
+          if (action === "update") return;
           resetDataCenter();
         }}
         navigation={toCustomers}

@@ -4,11 +4,14 @@ import {
   DataCenterTypes,
   DefaultServerErrorType,
   ErrorCenterTypes,
+  FieldTypes,
   RefCenterTypes,
   SelectInputTypes,
 } from "./_types";
 import { inputAcceptableDate } from "../../../../../Utils/Date/date.utils";
 import { TabType } from "../../../../../Components/Menus/TabMenu/_types";
+import { PACKAGES } from "../../../../../Constants/Packages/constants";
+import { CITIES } from "../../../../../Constants/Location/myanmar.constants";
 
 const date = new Date();
 
@@ -200,4 +203,11 @@ export const DEFAULT_CUSTOMER_VALIDATIONS: CustomerValidationTypes = {
   remark: "Enter remark",
   validMoney: "Enter valid money",
   validDuration: "Enter valid duration number",
+};
+
+export const FIELDS: FieldTypes = {
+  serviceType: PACKAGES,
+  plan: [],
+  city: CITIES,
+  township: [],
 };

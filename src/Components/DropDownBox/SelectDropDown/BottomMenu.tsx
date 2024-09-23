@@ -46,10 +46,12 @@ const TertiaryInputList = (props: {
     }
   };
 
-  useEffect(() => {
-    handleDataDropDown();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  handleDataDropDown();
+
+  // useEffect(() => {
+  //   handleDataDropDown();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [errorCenter]);
 
   return (
     <TertiaryInput

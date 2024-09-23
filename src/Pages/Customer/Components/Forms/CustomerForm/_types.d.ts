@@ -1,6 +1,11 @@
 import { RefObject } from "react";
 import { AvaliableSelectionType } from "../../Components/DropDownBox/SelectDropDown";
 import { PlanType } from "../../Constants/Packages/constants";
+import {
+  CityType,
+  TownshipType,
+} from "../../../../../Constants/Location/myanmar.constants";
+import { PackageType } from "../../../../../Constants/Packages/constants";
 
 export type DataCenterTypes = {
   brandName: string;
@@ -180,4 +185,11 @@ export type CustomerValidationTypes = {
   remark: string;
   validMoney: string;
   validDuration: string;
+};
+
+export type FieldTypes = {
+  serviceType: PackageType[];
+  plan: PlanType[];
+  city: CityType[];
+  township: TownshipType[];
 };

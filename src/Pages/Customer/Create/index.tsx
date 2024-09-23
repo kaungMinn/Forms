@@ -13,7 +13,7 @@ const CustomerCreate = () => {
 
       <div className="mb-7" />
 
-      <CustomerForm />
+      <CustomerForm action="create" />
     </div>
   );
 };

@@ -9,6 +9,7 @@ import {
   DataCenterTypes,
   DefaultServerErrorType,
   ErrorCenterTypes,
+  FieldTypes,
   RefCenterTypes,
   SelectInputTypes,
 } from "./_types";
@@ -27,6 +28,7 @@ import {
   DEFAULT_REF_CENTER,
   DEFAULT_SELECT_INPUT_CENTER,
   DEFAULT_SERVER_ERRORS,
+  FIELDS,
   TABS,
 } from "./constants";
 import { useAppDispatch } from "../../../../../Hooks/ReduxProvider";
@@ -53,15 +55,16 @@ import {
   isMeaningfulPhoneNumber,
 } from "../../../../../Utils/regex.utils";
 import { db } from "../../../../../DB/db";
+import { CustomerFormType } from ".";
+import { useParams } from "react-router-dom";
 
 type HookType = [
   dataCenter: DataCenterTypes,
   errorCenter: ErrorCenterTypes,
   refCenter: RefCenterTypes,
+  fields: FieldTypes,
   selectedTab: TabType,
   tabs: TabType[],
-  plans: PlanType[],
-  townships: TownshipType[],
   iconAccessCodes: IconAccessTypes,
   iconFailCodes: IconAccessTypes,
   selectInputCenter: SelectInputTypes,
@@ -105,7 +108,7 @@ type HookType = [
   resetDataCenter: () => void
 ];
 
-const Hook = (): HookType => {
+const Hook = ({ action }: CustomerFormType): HookType => {
   /*
     STATES
   */
@@ -118,8 +121,8 @@ const Hook = (): HookType => {
   const [selectInputCenter, setSelectInputCenter] = useState<SelectInputTypes>(
     DEFAULT_SELECT_INPUT_CENTER
   );
-  const [plans, setPlans] = useState<PlanType[]>([]);
-  const [townships, setTownships] = useState<TownshipType[]>([]);
+
+  const [fields, setFields] = useState<FieldTypes>(FIELDS);
   const [iconAccessCodes, setIconAccessCodes] = useState<IconAccessTypes>(
     DEFAULT_ICON_ACCESSES
   );
@@ -132,6 +135,7 @@ const Hook = (): HookType => {
     DEFAULT_SERVER_ERRORS
   );
   const [loading, setLoading] = useState(false);
+  const { id } = useParams();
 
   /*
     STATE ACTIONS
@@ -161,13 +165,17 @@ const Hook = (): HookType => {
     setIsSuccess(value);
   };
 
+  const updateFields = (key: string, value: FieldTypes[keyof FieldTypes]) => {
+    return modifyState(key, value, setFields);
+  };
+
   const resetDataCenter = () => {
     setDataCenter(DEFAULT_DATA_CENTER);
     setSelectInputCenter(DEFAULT_SELECT_INPUT_CENTER);
     setIconAccessCodes(DEFAULT_ICON_ACCESSES);
     setIconFailCodes(DEFAULT_ICON_ACCESSES);
-    setTownships([]);
-    setPlans([]);
+
+    setFields(FIELDS);
     setSelectedTab(TABS[0]);
   };
 
@@ -175,12 +183,12 @@ const Hook = (): HookType => {
     CHILD PASSING ACTIONS
   */
 
-  const handleUpdatePlans = (data: Record<string, unknown>) => {
+  const handleChildOfServiceType = (data: Record<string, unknown>) => {
     const plans = data.plans;
-    setPlans(plans as PlanType[]);
+    updateFields("plan", plans as PlanType[]);
   };
 
-  const handleUpdatePrice = (data: Record<string, unknown>) => {
+  const handleChildOfPlan = (data: Record<string, unknown>) => {
     const planData = data as PlanType;
     const price = planData.price;
 
@@ -205,15 +213,15 @@ const Hook = (): HookType => {
     updateDataCenter("serviceEndDate", endDate);
   };
 
-  const handleUpdateTownship = (data: Record<string, unknown>) => {
+  const handleChildOfCity = (data: Record<string, unknown>) => {
     const { townships } = data as CityType;
-    setTownships(townships);
+    updateFields("township", townships as TownshipType[]);
   };
 
   const childPassingStructure = {
-    serviceType: handleUpdatePlans,
-    plan: handleUpdatePrice,
-    city: handleUpdateTownship,
+    serviceType: handleChildOfServiceType,
+    plan: handleChildOfPlan,
+    city: handleChildOfCity,
   };
 
   /*
@@ -317,7 +325,7 @@ const Hook = (): HookType => {
   const handleCreateCustomers = async () => {
     try {
       const customers = await db.customers.toArray();
-      const id =
+      const customerId =
         customers.length > 0 ? customers[customers.length - 1].id + 1 : 1;
 
       const { isValidate } = handleNextStep();
@@ -368,7 +376,24 @@ const Hook = (): HookType => {
         };
       }
 
-      await db.customers.add({ ...tmp_data_center, id });
+      if (action === "update") {
+        await db.customers.put({
+          id: Number(id),
+          customers: { ...tmp_data_center, id: Number(id) },
+          fields: fields,
+          selectedInputs: selectInputCenter,
+        });
+        setIsSuccess(true);
+        return;
+      }
+
+      await db.customers.add({
+        id: customerId,
+        customers: { ...tmp_data_center, id: customerId },
+        fields: fields,
+        selectedInputs: selectInputCenter,
+      });
+
       setIsSuccess(true);
     } catch (error) {
       console.error(error);
@@ -509,14 +534,32 @@ const Hook = (): HookType => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataCenter]);
 
+  //Update circles
+
+  useEffect(() => {
+    if (action !== "update") return;
+
+    db.customers.get(Number(id)).then((response) => {
+      if (response) {
+        const { fields, customers, selectedInputs } = response;
+
+        setDataCenter(customers);
+        setFields(fields);
+        setSelectInputCenter(selectedInputs);
+      }
+    });
+
+    //eslint-disable-next-line
+  }, [action]);
+
   return [
     dataCenter,
     errorCenter,
     refCenter,
+    fields,
     selectedTab,
     tabs,
-    plans,
-    townships,
+
     iconAccessCodes,
     iconFailCodes,
     selectInputCenter,

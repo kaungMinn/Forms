@@ -5,6 +5,7 @@ import { FilterDataTypes } from "../../../Filters/_types";
 import { DataCenterTypes, ErrorCenterTypes, FieldTypes } from "./_types";
 
 export const headers = [
+  { _id: 29, key: "id", name: "ID" },
   { _id: 2, key: "customerName", name: "Customer Name" },
   { _id: 1, key: "brandName", name: "Brand Name" },
   { _id: 3, key: "customerType", name: "Customer Type" },
@@ -33,7 +34,6 @@ export const headers = [
   { _id: 26, key: "viberNumber", name: "Viber Number" },
   { _id: 27, key: "email", name: "Email" },
   { _id: 28, key: "remark", name: "Remark" },
-  { _id: 29, key: "id", name: "ID" },
 ];
 
 export const DEFAULT_INPUT_DATA: FilterDataTypes[] = [
@@ -84,7 +84,7 @@ export const DEFAULT_INPUT_DATA: FilterDataTypes[] = [
     hasSearch: false,
   },
   {
-    id: 5,
+    id: 6,
     type: "datetime-local",
     label: "End Date",
     dataKey: "",

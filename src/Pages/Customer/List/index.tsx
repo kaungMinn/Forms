@@ -4,11 +4,13 @@ import { DEFAULT_INPUT_DATA, headers } from "./constants";
 import { useAppSelector } from "../../../Hooks/ReduxProvider";
 import Heading from "../../../Components/Labels/Heading";
 import { db } from "../../../DB/db";
-import { Customer } from "../../../DB/_types";
 import DataLoading from "../../../Components/Loadings/DataLoading";
 import SuccessBox from "../../../Components/ModalBox/SuccessBox";
 import Filters from "../../../Filters";
 import Hook from "./hook";
+import { useNavigate } from "react-router-dom";
+import { valueFrequency } from "../../../Utils/Data/object.utils";
+import { DataCenterTypes } from "../Components/Forms/CustomerForm/_types";
 
 const CustomerList = () => {
   const [
@@ -29,7 +31,7 @@ const CustomerList = () => {
     handleResetDataCenter,
   ] = Hook();
 
-  const [body, setBody] = useState<Customer[]>([]);
+  const [body, setBody] = useState<DataCenterTypes[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(10);
   const [currentData, setCurrentData] = useState<typeof body>([]);
@@ -39,6 +41,8 @@ const CustomerList = () => {
   const [dashboardBg, dashboardText] = dashboardColor;
   const [searchData, setSearchedData] = useState<string>("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const navigate = useNavigate();
+
   const handleIsSuccess = (value: boolean) => {
     setIsSuccess(value);
   };
@@ -46,7 +50,8 @@ const CustomerList = () => {
   const handleSearching = useCallback(async (value: string) => {
     try {
       const data = await db.customers
-        .filter((customer) => {
+        .filter((customerData) => {
+          const customer = customerData.customers;
           return (
             customer.customerName.toLowerCase().includes(value.toLowerCase()) ||
             customer.serviceID.toLowerCase().includes(value.toLowerCase())
@@ -54,7 +59,9 @@ const CustomerList = () => {
         })
         .toArray();
 
-      setBody(data);
+      const tmp_body = data.map((customer) => customer.customers);
+
+      setBody(tmp_body);
     } catch (error) {
       console.error(error);
     }
@@ -87,7 +94,9 @@ const CustomerList = () => {
     setLoading(true);
     try {
       const response = await db.customers.orderBy("id").reverse().toArray();
-      setBody(response);
+      const tmp_body = response.map((data) => data.customers);
+
+      setBody(tmp_body);
     } catch (error) {
       console.error(error);
     } finally {
@@ -96,6 +105,7 @@ const CustomerList = () => {
   };
 
   const handleDeleteBodyData = async (id: number | string | boolean) => {
+    console.log("Id", id);
     if (typeof id !== "number") return;
     try {
       await db.customers.delete(id);
@@ -111,11 +121,15 @@ const CustomerList = () => {
   }, []);
 
   const handleFilterData = async () => {
+    const frequency = valueFrequency(dataCenter);
+    if (frequency <= 0) return;
     try {
       const { serviceType, plan, city, township, startDate, endDate } =
         dataCenter;
+
       const results = await db.customers
-        .filter((customer) => {
+        .filter((customerData) => {
+          const customer = customerData.customers;
           const matchServiceType = serviceType
             ? serviceType === customer.serviceType
             : true;
@@ -145,10 +159,16 @@ const CustomerList = () => {
         })
         .toArray();
 
-      setBody(results);
+      const tmp_body = results.map((result) => result.customers);
+
+      setBody(tmp_body);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleUpdateModal = (id: string) => {
+    navigate(`/customers/${id}/update`);
   };
 
   return (
@@ -189,9 +209,7 @@ const CustomerList = () => {
         handleOnChangePageSize={handleChangeOnPageSize}
         handleOnChangePagination={handleChangeOnPagination}
         handleSearching={handleSearching}
-        handleUpdateModal={() => {
-          "test";
-        }}
+        handleUpdateModal={handleUpdateModal}
         handleOnRouteConnection={() => {
           "test";
         }}
