@@ -9,11 +9,57 @@ class MyDatabase extends Dexie {
     super("database");
     this.version(1).stores({
       customers: `
-        ++id,             // auto-incremented primary key
-        customers,        // customer data
-        fields,           // additional fields
-        selectedInputs    // inputs that are selected
-      `,
+                ++id, 
+                _id,
+                brandName, 
+                customerName,
+                customerType,
+                customerTypeServer,
+                companyName,
+                autoGeneratePPOEAccount,
+                autoGeneratePPOEAccountServer,
+                radUserName,
+                radPassword,
+                serviceID,
+                serviceIDName,
+                containIP,
+                containIPServer,
+                mode,
+                modeServer,
+                staticIP,
+                serviceType,
+                serviceTypeServer,
+                plan,
+                planServer,
+                paymentCurrency,
+                price,
+                serviceStatus,
+                billingMethod,
+                billingMethodServer,
+                serviceStartDate,
+                serviceEndDate,
+                duration,
+                durationNumber,
+                enable,
+                enableServer,
+                paymentTypes,
+                mmk,
+                sgd,
+                baht,
+                city,
+                township,
+                address,
+                coordinates,
+                phoneNumber,
+                viberNumber,
+                email,
+                remark,
+                
+                label,
+                value,
+                plans,
+           
+            `,
     });
   }
 }
