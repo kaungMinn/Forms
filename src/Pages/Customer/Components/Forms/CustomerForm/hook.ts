@@ -379,7 +379,7 @@ const Hook = ({ action }: CustomerFormType): HookType => {
       if (action === "update") {
         await db.customers.put({
           id: Number(id),
-          customers: { ...tmp_data_center },
+          customers: { ...tmp_data_center, id: Number(id) },
           fields: fields,
           selectedInputs: selectInputCenter,
         });
@@ -389,7 +389,7 @@ const Hook = ({ action }: CustomerFormType): HookType => {
 
       await db.customers.add({
         id: customerId,
-        customers: { ...tmp_data_center },
+        customers: { ...tmp_data_center, id: customerId },
         fields: fields,
         selectedInputs: selectInputCenter,
       });
