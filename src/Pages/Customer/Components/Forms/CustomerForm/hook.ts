@@ -550,7 +550,7 @@ const Hook = ({ action }: CustomerFormType): HookType => {
     });
 
     //eslint-disable-next-line
-  }, [action]);
+  }, []);
 
   return [
     dataCenter,
