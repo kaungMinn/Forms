@@ -146,11 +146,13 @@ const CustomerForm = (props: CustomerFormType) => {
             )}
           </div>
         </div>
+        <div className="w-32 mt-5  absolute right-0  pb-5">
+          <PrimaryButton
+            label="Confirm"
+            handleClickOn={handleCreateCustomers}
+          />
+        </div>
       </PrimaryWrapper>
-
-      <div className="w-32 mt-5  absolute right-0  pb-5">
-        <PrimaryButton label="Confirm" handleClickOn={handleCreateCustomers} />
-      </div>
 
       <SuccessBox
         isOpen={isSuccess}
