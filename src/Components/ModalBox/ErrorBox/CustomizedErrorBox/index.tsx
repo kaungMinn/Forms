@@ -1,8 +1,5 @@
-
 const CustomizedErrorBox = () => {
-    return (
-        <div>CustomizedErrorBox</div>
-    )
-}
+  return <div>CustomizedErrorBox</div>;
+};
 
-export default CustomizedErrorBox
+export default CustomizedErrorBox;
