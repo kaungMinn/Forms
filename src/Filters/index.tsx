@@ -165,7 +165,13 @@ const Filters = (props: filterTypes) => {
 
         <div className="flex justify-between">
           <div className="w-32">
-            <SecondaryButton label="Clear" handleClickOn={handleReset} />
+            <SecondaryButton
+              label="Clear"
+              handleClickOn={() => {
+                handleReset();
+                setIsOpen(false);
+              }}
+            />
           </div>
           <div className="w-32">
             <PrimaryButton
