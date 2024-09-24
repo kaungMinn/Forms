@@ -146,7 +146,7 @@ const Filters = (props: filterTypes) => {
       )}
 
       <div
-        className={` fixed top-1/2 -translate-y-1/2 w-screen laptop:w-[30rem] h-screen overflow-auto p-8 duration-200 z-[56] ${primaryBg} ${primaryText} ${
+        className={` fixed top-1/2 -translate-y-1/2 w-screen laptop:w-[30rem] laptop:h-screen overflow-auto p-8 duration-200 z-[56] ${primaryBg} ${primaryText} ${
           isOpen ? "right-0" : "-right-[30rem]"
         }`}
       >
