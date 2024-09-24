@@ -147,8 +147,8 @@ const CustomerForm = (props: CustomerFormType) => {
           </div>
         </div>
 
-        <div className="flex justify-end">
-          <div className="w-32 mt-10    pb-5 ">
+        <div className=" mt-5 flex  justify-end">
+          <div className="w-32  ">
             <PrimaryButton
               label="Confirm"
               handleClickOn={handleCreateCustomers}
