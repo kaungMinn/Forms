@@ -146,7 +146,7 @@ const Filters = (props: filterTypes) => {
       )}
 
       <div
-        className={` fixed top-1/2 -translate-y-1/2  w-[30rem] h-screen overflow-auto p-8 duration-200 z-[56] ${primaryBg} ${primaryText} ${
+        className={` fixed top-1/2 -translate-y-1/2 w-screen laptop:w-[30rem] h-screen overflow-auto p-8 duration-200 z-[56] ${primaryBg} ${primaryText} ${
           isOpen ? "right-0" : "-right-[30rem]"
         }`}
       >
@@ -168,7 +168,13 @@ const Filters = (props: filterTypes) => {
             <SecondaryButton label="Clear" handleClickOn={handleReset} />
           </div>
           <div className="w-32">
-            <PrimaryButton label="Filter" handleClickOn={handleFilterData} />
+            <PrimaryButton
+              label="Filter"
+              handleClickOn={() => {
+                handleFilterData();
+                setIsOpen(false);
+              }}
+            />
           </div>
         </div>
       </div>
