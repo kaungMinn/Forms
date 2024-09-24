@@ -229,6 +229,7 @@ const Hook = ({ action }: CustomerFormType): HookType => {
   */
 
   const childCleaningStructure = {
+    customerType: ["companyName"],
     autoGeneratePPOEAccount: ["radUserName", "radUserName"],
     containIP: ["mode", "modeServer", "staticIP"],
     mode: ["staticIP"],
