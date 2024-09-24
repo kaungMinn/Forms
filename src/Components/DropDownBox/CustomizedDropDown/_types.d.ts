@@ -10,25 +10,37 @@ export type CustomizedDropDownDataTypes = {
 
 export type CustomizedDropDownTypes = {
   label?: string;
-  isRequired?: boolean;
-  isDisabled?: boolean;
-  theme: DefaultThemeTypes;
-  errorMessage?: string;
-  value: string;
-  hasMultiSelect?: boolean;
   dropDownData: CustomizedDropDownDataTypes[];
+  value: string;
+  errorMessage?: string;
+  containerRef?: RefObject;
+
   dataKey: string;
   dataCenterKey: string;
   secondaryDataKey?: string;
   secondaryDataCenterKey?: string;
-  containerRef?: RefObject;
+
+  theme: DefaultThemeTypes;
+  isRequired?: boolean;
+  isDisabled?: boolean;
+  hasMultiSelect?: boolean;
   hasSearch?: boolean;
+
+  /*
+    Structures
+  */
+  childCleaningStructure?: { [key: string]: string[] };
+  childPassingStructure?: {
+    [key: string]: (data: Record<string, unknown>) => void;
+  };
   /*
     Actions
   */
-  handleSelect: (
+  handleSelect?: (
     data: CustomizedDropDownDataTypes,
     dataKey: string,
     dataCenterKey: string
   ) => void;
+  updateDataCenter?: (key: string, value: string) => void;
+  updateErrorCenter?: (key: string, value: string) => void;
 };

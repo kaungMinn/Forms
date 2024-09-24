@@ -27,7 +27,7 @@ const SideBar = ({
   const [navBg, navText, selectedBg, selectedText] = navColor;
   return (
     <div
-      className={`absolute left-0 top-0 z-20 h-screen  duration-100 ${dashboardBg}   ${
+      className={`absolute left-0 top-0 z-[51] h-screen  duration-100 ${dashboardBg}   ${
         isOpenSide
           ? "w-2/3 translate-x-0 laptop:w-44"
           : "w-2/3 -translate-x-[95%] laptop:w-16 laptop:translate-x-0"

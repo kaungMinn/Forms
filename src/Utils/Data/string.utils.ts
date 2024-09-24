@@ -29,3 +29,62 @@ export function camelCaseToLowerSpace(value: string) {
     .trim() // Remove any leading or trailing spaces
     .toLowerCase(); // Convert to lowercase
 }
+
+export function generateRandomName() {
+  const firstNames = [
+    "Alice",
+    "Bob",
+    "Charlie",
+    "David",
+    "Eva",
+    "Fiona",
+    "George",
+    "Hannah",
+    "Ian",
+    "Julia",
+    "Kevin",
+    "Laura",
+    "Mike",
+    "Nina",
+    "Oscar",
+    "Paula",
+    "Quinn",
+    "Ryan",
+    "Sara",
+    "Tom",
+  ];
+
+  const lastNames = [
+    "Smith",
+    "Johnson",
+    "Williams",
+    "Jones",
+    "Brown",
+    "Davis",
+    "Miller",
+    "Wilson",
+    "Moore",
+    "Taylor",
+    "Anderson",
+    "Thomas",
+    "Jackson",
+    "White",
+    "Harris",
+    "Martin",
+    "Thompson",
+    "Garcia",
+    "Martinez",
+    "Robinson",
+  ];
+
+  const randomFirstName =
+    firstNames[Math.floor(Math.random() * firstNames.length)];
+  const randomLastName =
+    lastNames[Math.floor(Math.random() * lastNames.length)];
+
+  return `${randomFirstName} ${randomLastName}`;
+}
+
+export function generateRandomSixDigit() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}

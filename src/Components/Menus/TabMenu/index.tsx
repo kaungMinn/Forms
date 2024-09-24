@@ -67,13 +67,13 @@ const TabMenu = (props: TabMenuTypes) => {
               {tab.name}
 
               {hasAccess && (
-                <div className="w-[4rem] absolute top-3 z-50 right-[50%] -translate-x-[-50%]  ">
+                <div className="w-[4rem] absolute top-4 laptop:top-3 z-50 right-[50%] -translate-x-[-50%]  ">
                   <SuccessTick isLoop={false} />
                 </div>
               )}
 
               {hasFail && (
-                <div className="w-[4rem] absolute -top-1 z-50 right-[50%] -translate-x-[-50%]  ">
+                <div className="w-[4rem] absolute top-0 laptop:-top-1 z-50 right-[50%] -translate-x-[-50%]  ">
                   <FailCross />
                 </div>
               )}

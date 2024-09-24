@@ -1,17 +1,72 @@
 import { useCallback, useEffect, useState } from "react";
 import CustomizedTable from "../../../Components/Table/CustomizedTable";
-import { body, headers } from "./constants";
+import { DEFAULT_INPUT_DATA, headers } from "./constants";
 import { useAppSelector } from "../../../Hooks/ReduxProvider";
 import Heading from "../../../Components/Labels/Heading";
+import { db } from "../../../DB/db";
+import DataLoading from "../../../Components/Loadings/DataLoading";
+import SuccessBox from "../../../Components/ModalBox/SuccessBox";
+import Filters from "../../../Filters";
+import Hook from "./hook";
+import { useNavigate } from "react-router-dom";
+import { valueFrequency } from "../../../Utils/Data/object.utils";
+import { DataCenterTypes } from "../Components/Forms/CustomerForm/_types";
 
 const CustomerList = () => {
+  const [
+    dataCenter,
+    errorCenter,
+    refCenter,
+    fields,
+    /*
+      Structures
+    */
+    childPassingStructure,
+    childCleaningStructure,
+    /*
+      Actions
+    */
+    updateDataCenter,
+    updateErrorCenter,
+    handleResetDataCenter,
+  ] = Hook();
+
+  const [body, setBody] = useState<DataCenterTypes[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(10);
   const [currentData, setCurrentData] = useState<typeof body>([]);
-
+  const [loading, setLoading] = useState(false);
   const theme = useAppSelector((state) => state.theme);
   const { dashboardColor } = theme;
   const [dashboardBg, dashboardText] = dashboardColor;
+  const [searchData, setSearchedData] = useState<string>("");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const navigate = useNavigate();
+
+  const handleIsSuccess = (value: boolean) => {
+    setIsSuccess(value);
+  };
+
+  const handleSearching = useCallback(async (value: string) => {
+    try {
+      const data = await db.customers
+        .filter((customerData) => {
+          const customer = customerData.customers;
+          return (
+            customer.customerName.toLowerCase().includes(value.toLowerCase()) ||
+            customer.serviceID.toLowerCase().includes(value.toLowerCase())
+          );
+        })
+        .toArray();
+
+      const tmp_body = data.map((customer) => customer.customers);
+
+      setBody(tmp_body);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
   // Calculate the indices for slicing the data
 
   // Change page by number
@@ -24,7 +79,7 @@ const CustomerList = () => {
     const indexOfFirstItem = indexOfLastItem - dataPerPage;
     const currentData = body.slice(indexOfFirstItem, indexOfLastItem);
     setCurrentData(currentData);
-  }, [currentPage, dataPerPage]);
+  }, [currentPage, dataPerPage, body]);
 
   useEffect(() => {
     dataHandlerForPagination();
@@ -35,9 +90,108 @@ const CustomerList = () => {
     setDataPerPage(value);
   };
 
+  const handleGetBodyData = async () => {
+    setLoading(true);
+    try {
+      const response = await db.customers.orderBy("id").reverse().toArray();
+      const tmp_body = response.map((data) => data.customers);
+
+      setBody(tmp_body);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteBodyData = async (id: number | string | boolean) => {
+    console.log("Id", id);
+    if (typeof id !== "number") return;
+    try {
+      await db.customers.delete(id);
+      handleGetBodyData();
+      handleIsSuccess(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    handleGetBodyData();
+  }, []);
+
+  const handleFilterData = async () => {
+    const frequency = valueFrequency(dataCenter);
+    if (frequency <= 0) return;
+    try {
+      const { serviceType, plan, city, township, startDate, endDate } =
+        dataCenter;
+
+      const results = await db.customers
+        .filter((customerData) => {
+          const customer = customerData.customers;
+          const matchServiceType = serviceType
+            ? serviceType === customer.serviceType
+            : true;
+          const matchPlan = plan ? plan === customer.plan : true;
+          const matchCity = city ? city === customer.city : true;
+          const matchTownship = township
+            ? township === customer.township
+            : true;
+
+          const matchesDate =
+            startDate || endDate
+              ? (startDate
+                  ? new Date(customer.serviceStartDate) >= new Date(startDate)
+                  : true) &&
+                (endDate
+                  ? new Date(customer.serviceStartDate) <= new Date(endDate)
+                  : true)
+              : true;
+
+          return (
+            matchServiceType &&
+            matchPlan &&
+            matchCity &&
+            matchTownship &&
+            matchesDate
+          );
+        })
+        .toArray();
+
+      const tmp_body = results.map((result) => result.customers);
+
+      setBody(tmp_body);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleUpdateModal = (id: string) => {
+    navigate(`/customers/${id}/update`);
+  };
+
   return (
     <div className={`${dashboardBg} ${dashboardText}`}>
+      {loading && <DataLoading />}
+
       <Heading heading="Customers" subHeading="Manage your customers" />
+      <Filters
+        inputData={DEFAULT_INPUT_DATA}
+        dataCenter={dataCenter}
+        errorCenter={errorCenter}
+        refCenter={refCenter}
+        fields={fields}
+        childPassingStructure={childPassingStructure}
+        childCleaningStructure={childCleaningStructure}
+        updateDataCenter={updateDataCenter}
+        updateErrorCenter={updateErrorCenter}
+        handleFilterData={handleFilterData}
+        handleReset={() => {
+          handleResetDataCenter();
+          handleGetBodyData();
+        }}
+      />
 
       <CustomizedTable
         IsLoading={false}
@@ -50,26 +204,28 @@ const CustomerList = () => {
         }}
         PageSize={dataPerPage}
         PageNumber={currentPage}
-        searchedData=""
+        searchedData={searchData}
         settingIconList={<></>}
         handleOnChangePageSize={handleChangeOnPageSize}
         handleOnChangePagination={handleChangeOnPagination}
-        handleSearching={() => {
-          "test";
-        }}
-        handleUpdateModal={() => {
-          "test";
-        }}
+        handleSearching={handleSearching}
+        handleUpdateModal={handleUpdateModal}
         handleOnRouteConnection={() => {
           "test";
         }}
-        handleOnDelete={() => {
-          "test";
-        }}
-        setSearchedData={() => {
-          "test";
-        }}
+        handleOnDelete={handleDeleteBodyData}
+        setSearchedData={setSearchedData}
         theme={theme}
+      />
+
+      <SuccessBox
+        isOpen={isSuccess}
+        titleLabel="Success"
+        bodyText="Successfully create a customer"
+        btnLabel="Close"
+        clickOn={() => {
+          handleIsSuccess(!isSuccess);
+        }}
       />
     </div>
   );

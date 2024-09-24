@@ -10,7 +10,9 @@ const PrimaryWrapper = ({
 }) => {
   const [primaryBg] = theme.primaryColor;
   return (
-    <div className={`rounded-md p-5 shadow-md ${primaryBg}`}>{children}</div>
+    <div className={`rounded-md pt-5 px-5 pb-2 shadow-md h-full ${primaryBg}`}>
+      {children}
+    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-import { ChangeEvent, RefObject, useEffect } from "react";
+import { ChangeEvent, RefObject } from "react";
 import { AvaliableSelectionType } from ".";
 import { DefaultThemeTypes } from "../../../Pages/Theme/_types";
 import CheckboxInput from "../../Inputs/CheckboxInput";
@@ -46,10 +46,12 @@ const TertiaryInputList = (props: {
     }
   };
 
-  useEffect(() => {
-    handleDataDropDown();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  handleDataDropDown();
+
+  // useEffect(() => {
+  //   handleDataDropDown();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [errorCenter]);
 
   return (
     <TertiaryInput

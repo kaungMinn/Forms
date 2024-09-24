@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CustomizedDropDownDataTypes, CustomizedDropDownTypes } from "./_types";
 import DataShower from "./DataShower";
 import DropDownContainer from "../Components/DropDownContainer";
+import { stateCleaner } from "../../../Utils/Data/States/cleaner.utils";
 
 const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
   const {
@@ -17,11 +18,20 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
     dataCenterKey,
     secondaryDataKey,
     secondaryDataCenterKey,
+    hasSearch = false,
+
+    /*
+      Structures
+    */
+    childCleaningStructure,
+    childPassingStructure,
+
     /*
       Actions
     */
     handleSelect,
-    hasSearch = false,
+    updateDataCenter,
+    updateErrorCenter,
   } = props;
   const [hasDropDown, setHasDropDown] = useState(false);
 
@@ -29,12 +39,50 @@ const CustomizedDropDown = (props: CustomizedDropDownTypes) => {
     setHasDropDown(value);
   };
 
+  const select = (
+    data: Record<string, unknown>,
+    dataKey: string,
+    dataCenterKey: string
+  ) => {
+    let value = data[dataKey];
+    if (typeof value === "undefined") {
+      console.log("Change valid datakey");
+      return;
+    }
+    if (typeof value === "number") value = value.toString();
+    updateDataCenter && updateDataCenter(dataCenterKey, value as string);
+    updateErrorCenter && updateErrorCenter(dataCenterKey, "");
+
+    if (childPassingStructure) {
+      const childPasser = childPassingStructure[dataCenterKey];
+      if (childPasser) {
+        childPasser(data);
+      }
+    }
+
+    if (childCleaningStructure) {
+      const childCleaner = childCleaningStructure[dataCenterKey];
+      if (childCleaner) {
+        if (updateDataCenter) {
+          stateCleaner(childCleaner, updateDataCenter);
+        }
+        if (updateErrorCenter) {
+          stateCleaner(childCleaner, updateErrorCenter);
+        }
+      }
+    }
+  };
+
   const updatedHandleSelect = (
     data: CustomizedDropDownDataTypes,
     dataKey: string,
     dataCenterKey: string
   ) => {
-    handleSelect(data, dataKey, dataCenterKey);
+    if (handleSelect) {
+      handleSelect(data, dataKey, dataCenterKey);
+    } else {
+      select(data, dataKey, dataCenterKey);
+    }
     if (hasMultiSelect) return;
     handleHasDropDown(!hasDropDown);
   };

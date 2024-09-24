@@ -4,7 +4,7 @@ export const THEME_ROUTE = "/theme";
 //customer route
 export const CUSTOMER_LIST_ROUTE = "/customers";
 export const CUSTOMER_CREATE_ROUTE = "/customers/create";
-export const CUSTOMER_UPDATE_ROUTE = "/customers/update";
+export const CUSTOMER_UPDATE_ROUTE = "/customers/:id/update";
 
 //-------------------------------------------------------
 

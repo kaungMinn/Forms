@@ -1,30 +1,18 @@
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import {
-  DEFAULT_DATA_CENTER,
-  DEFAULT_ERROR_CENTER,
-  DEFAULT_REF_CENTER,
-  DEFAULT_SELECT_INPUT_CENTER,
-  TABS,
-} from "../constants";
-import {
-  DataCenterTypes,
-  ErrorCenterTypes,
-  RefCenterTypes,
-  SelectInputTypes,
-} from "../_types";
-import { modifyState } from "../../../Utils/Data/States/state.utils";
-import { TabType } from "../../../Components/Menus/TabMenu/_types";
-import { AvaliableSelectionType } from "../../../Components/DropDownBox/SelectDropDown";
-import { arrayToggle } from "../../../Utils/Data/array.utils";
-import { PlanType } from "../../../Constants/Packages/constants";
-import {
-  endDateCreator,
-  inputAcceptableDate,
-} from "../../../Utils/Date/date.utils";
+import { TabType } from "../../../../../Components/Menus/TabMenu/_types";
 import {
   CityType,
   TownshipType,
-} from "../../../Constants/Location/myanmar.constants";
+} from "../../../../../Constants/Location/myanmar.constants";
+import { PlanType } from "../../../../../Constants/Packages/constants";
+import {
+  DataCenterTypes,
+  DefaultServerErrorType,
+  ErrorCenterTypes,
+  FieldTypes,
+  RefCenterTypes,
+  SelectInputTypes,
+} from "./_types";
 import {
   AccessCodeTypes,
   DEFAULT_ICON_ACCESSES,
@@ -32,9 +20,32 @@ import {
   fancyValidator,
   formShield,
   IconAccessTypes,
-} from "../Components/Forms/CustomerForm/validation";
-import { validationSchemaGenerator } from "./utils";
-import { stateCleaner } from "../../../Utils/Data/States/cleaner.utils";
+} from "./validation";
+import { AvaliableSelectionType } from "../../../../../Components/DropDownBox/SelectDropDown";
+import {
+  DEFAULT_DATA_CENTER,
+  DEFAULT_ERROR_CENTER,
+  DEFAULT_REF_CENTER,
+  DEFAULT_SELECT_INPUT_CENTER,
+  DEFAULT_SERVER_ERRORS,
+  FIELDS,
+  TABS,
+} from "./constants";
+import { useAppDispatch } from "../../../../../Hooks/ReduxProvider";
+import { modifyState } from "../../../../../Utils/Data/States/state.utils";
+import {
+  endDateCreator,
+  inputAcceptableDate,
+} from "../../../../../Utils/Date/date.utils";
+import { stateCleaner } from "../../../../../Utils/Data/States/cleaner.utils";
+import { arrayToggle } from "../../../../../Utils/Data/array.utils";
+import { setError } from "../../../../../Store/slices/error.slice";
+import {
+  camelCaseToLowerSpace,
+  generateRandomName,
+  generateRandomSixDigit,
+} from "../../../../../Utils/Data/string.utils";
+import { validationSchemaGenerator } from "../../../Create/utils";
 import {
   isMeaningfulCoordinate,
   isMeaningfulEmail,
@@ -42,24 +53,32 @@ import {
   isMeaningfullDuration,
   isMeaningfullMoneyValue,
   isMeaningfulPhoneNumber,
-} from "../../../Utils/regex.utils";
-import { camelCaseToLowerSpace } from "../../../Utils/Data/string.utils";
-import { db } from "../../../DB/db";
-import { useAppDispatch } from "../../../Hooks/ReduxProvider";
-import { setError } from "../../../Store/slices/error.slice";
+} from "../../../../../Utils/regex.utils";
+import { db } from "../../../../../DB/db";
+import { CustomerFormType } from ".";
+import { useParams } from "react-router-dom";
 
 type HookType = [
   dataCenter: DataCenterTypes,
   errorCenter: ErrorCenterTypes,
   refCenter: RefCenterTypes,
+  fields: FieldTypes,
   selectedTab: TabType,
   tabs: TabType[],
-  plans: PlanType[],
-  townships: TownshipType[],
   iconAccessCodes: IconAccessTypes,
   iconFailCodes: IconAccessTypes,
   selectInputCenter: SelectInputTypes,
   isSuccess: boolean,
+  serverErrors: DefaultServerErrorType,
+  loading: boolean,
+
+  /*
+    Structures
+  */
+  childCleaningStructure: { [key: string]: string[] },
+  childPassingStructure: {
+    [key: string]: (data: Record<string, unknown>) => void;
+  },
 
   /*
     Actions
@@ -85,10 +104,11 @@ type HookType = [
     value: ErrorCenterTypes[keyof ErrorCenterTypes]
   ) => void,
   handleCreateCustomers: () => void,
-  handleIsSuccess: (value: boolean) => void
+  handleIsSuccess: (value: boolean) => void,
+  resetDataCenter: () => void
 ];
 
-const Hook = (): HookType => {
+const Hook = ({ action }: CustomerFormType): HookType => {
   /*
     STATES
   */
@@ -101,8 +121,8 @@ const Hook = (): HookType => {
   const [selectInputCenter, setSelectInputCenter] = useState<SelectInputTypes>(
     DEFAULT_SELECT_INPUT_CENTER
   );
-  const [plans, setPlans] = useState<PlanType[]>([]);
-  const [townships, setTownships] = useState<TownshipType[]>([]);
+
+  const [fields, setFields] = useState<FieldTypes>(FIELDS);
   const [iconAccessCodes, setIconAccessCodes] = useState<IconAccessTypes>(
     DEFAULT_ICON_ACCESSES
   );
@@ -111,6 +131,11 @@ const Hook = (): HookType => {
   );
   const [isSuccess, setIsSuccess] = useState(false);
   const dispatch = useAppDispatch();
+  const [serverErrors, setServerErrors] = useState<DefaultServerErrorType>(
+    DEFAULT_SERVER_ERRORS
+  );
+  const [loading, setLoading] = useState(false);
+  const { id } = useParams();
 
   /*
     STATE ACTIONS
@@ -140,16 +165,30 @@ const Hook = (): HookType => {
     setIsSuccess(value);
   };
 
+  const updateFields = (key: string, value: FieldTypes[keyof FieldTypes]) => {
+    return modifyState(key, value, setFields);
+  };
+
+  const resetDataCenter = () => {
+    setDataCenter(DEFAULT_DATA_CENTER);
+    setSelectInputCenter(DEFAULT_SELECT_INPUT_CENTER);
+    setIconAccessCodes(DEFAULT_ICON_ACCESSES);
+    setIconFailCodes(DEFAULT_ICON_ACCESSES);
+
+    setFields(FIELDS);
+    setSelectedTab(TABS[0]);
+  };
+
   /*
     CHILD PASSING ACTIONS
   */
 
-  const handleUpdatePlans = (data: Record<string, unknown>) => {
+  const handleChildOfServiceType = (data: Record<string, unknown>) => {
     const plans = data.plans;
-    setPlans(plans as PlanType[]);
+    updateFields("plan", plans as PlanType[]);
   };
 
-  const handleUpdatePrice = (data: Record<string, unknown>) => {
+  const handleChildOfPlan = (data: Record<string, unknown>) => {
     const planData = data as PlanType;
     const price = planData.price;
 
@@ -174,15 +213,15 @@ const Hook = (): HookType => {
     updateDataCenter("serviceEndDate", endDate);
   };
 
-  const handleUpdateTownship = (data: Record<string, unknown>) => {
+  const handleChildOfCity = (data: Record<string, unknown>) => {
     const { townships } = data as CityType;
-    setTownships(townships);
+    updateFields("township", townships as TownshipType[]);
   };
 
-  const childDataStructure = {
-    serviceType: handleUpdatePlans,
-    plan: handleUpdatePrice,
-    city: handleUpdateTownship,
+  const childPassingStructure = {
+    serviceType: handleChildOfServiceType,
+    plan: handleChildOfPlan,
+    city: handleChildOfCity,
   };
 
   /*
@@ -190,6 +229,7 @@ const Hook = (): HookType => {
   */
 
   const childCleaningStructure = {
+    customerType: ["companyName"],
     autoGeneratePPOEAccount: ["radUserName", "radUserName"],
     containIP: ["mode", "modeServer", "staticIP"],
     mode: ["staticIP"],
@@ -231,7 +271,9 @@ const Hook = (): HookType => {
     updateErrorCenter(dataCenterKey, "");
 
     const childData =
-      childDataStructure[dataCenterKey as keyof typeof childDataStructure];
+      childPassingStructure[
+        dataCenterKey as keyof typeof childPassingStructure
+      ];
 
     const childCleaningKeys =
       childCleaningStructure[
@@ -284,11 +326,23 @@ const Hook = (): HookType => {
   const handleCreateCustomers = async () => {
     try {
       const customers = await db.customers.toArray();
-      const id =
+      const customerId =
         customers.length > 0 ? customers[customers.length - 1].id + 1 : 1;
 
       const { isValidate } = handleNextStep();
-      if (!isValidate) return;
+
+      if (!isValidate) {
+        dispatch(
+          setError({
+            isError: true,
+            statusCode: 499,
+            errorMessage: "Please fill out all the required fields!",
+          })
+        );
+        return;
+      }
+
+      setLoading(true);
 
       const sameServiceID = await db.customers.get({
         serviceID: dataCenter.serviceID,
@@ -303,18 +357,50 @@ const Hook = (): HookType => {
           })
         );
 
-        setSelectedTab(TABS[1]);
-        updateErrorCenter("serviceID", "Hee hee");
-        setIconAccessCodes((prev) => ({ ...prev, 2: false }));
+        setServerErrors((prev) => ({ ...prev, duplicate: true }));
 
+        setSelectedTab(TABS[1]);
+        updateErrorCenter("serviceID", "Service ID Already Exists");
+        setIconAccessCodes((prev) => ({ ...prev, 2: false }));
+        return;
+      } else {
+        setServerErrors(DEFAULT_SERVER_ERRORS);
+      }
+
+      let tmp_data_center = { ...dataCenter };
+      if (tmp_data_center.autoGeneratePPOEAccountServer) {
+        tmp_data_center = {
+          ...tmp_data_center,
+          radUserName: generateRandomName(),
+          radPassword: generateRandomSixDigit(),
+          duration: `${tmp_data_center.durationNumber} ${tmp_data_center.duration}`,
+        };
+      }
+
+      if (action === "update") {
+        await db.customers.put({
+          id: Number(id),
+          customers: { ...tmp_data_center, id: Number(id) },
+          fields: fields,
+          selectedInputs: selectInputCenter,
+        });
+        setIsSuccess(true);
         return;
       }
 
-      await db.customers.add({ ...dataCenter, id });
+      await db.customers.add({
+        id: customerId,
+        customers: { ...tmp_data_center, id: customerId },
+        fields: fields,
+        selectedInputs: selectInputCenter,
+      });
+
       setIsSuccess(true);
     } catch (error) {
       console.error(error);
       setIsSuccess(false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -449,18 +535,44 @@ const Hook = (): HookType => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataCenter]);
 
+  //Update circles
+
+  useEffect(() => {
+    if (action !== "update") return;
+
+    db.customers.get(Number(id)).then((response) => {
+      if (response) {
+        const { fields, customers, selectedInputs } = response;
+
+        setDataCenter(customers);
+        setFields(fields);
+        setSelectInputCenter(selectedInputs);
+      }
+    });
+
+    //eslint-disable-next-line
+  }, []);
+
   return [
     dataCenter,
     errorCenter,
     refCenter,
+    fields,
     selectedTab,
     tabs,
-    plans,
-    townships,
+
     iconAccessCodes,
     iconFailCodes,
     selectInputCenter,
     isSuccess,
+    serverErrors,
+    loading,
+
+    /*
+      Structures
+    */
+    childCleaningStructure,
+    childPassingStructure,
 
     /*
       Actions
@@ -473,6 +585,7 @@ const Hook = (): HookType => {
     updateErrorCenter,
     handleCreateCustomers,
     handleIsSuccess,
+    resetDataCenter,
   ];
 };
 

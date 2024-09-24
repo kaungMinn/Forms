@@ -3,6 +3,7 @@ import { CustomizedDropDownDataTypes } from "../../../../../../../Components/Dro
 import { DefaultThemeTypes } from "../../../../../../Theme/_types";
 import {
   DataCenterTypes,
+  DefaultServerErrorType,
   ErrorCenterTypes,
   RefCenterTypes,
   SelectInputTypes,
@@ -13,20 +14,25 @@ import SelectDropDown, {
 } from "../../../../../../../Components/DropDownBox/SelectDropDown";
 import { AVA_PAYMENTS } from "../../../../../../../Constants/Customers/payment.constants";
 import CustomizedDropDown from "../../../../../../../Components/DropDownBox/CustomizedDropDown";
-import {
-  CITIES,
-  TownshipType,
-} from "../../../../../../../Constants/Location/myanmar.constants";
 import PrimaryInput from "../../../../../../../Components/Inputs/PrimaryInput";
 import { stateCleaner } from "../../../../../../../Utils/Data/States/cleaner.utils";
+import { FieldTypes } from "../../_types";
 
 type BillingType = {
   dataCenter: DataCenterTypes;
   errorCenter: ErrorCenterTypes;
   refCenter: RefCenterTypes;
+  fields: FieldTypes;
   theme: DefaultThemeTypes;
-  townships: TownshipType[];
   selectInputCenter: SelectInputTypes;
+  serverErrors?: DefaultServerErrorType;
+  /*
+    Structures
+  */
+  childCleaningStructure: { [key: string]: string[] };
+  childPassingStructure: {
+    [key: string]: (data: Record<string, unknown>) => void;
+  };
   /*
     Actions
   */
@@ -51,28 +57,26 @@ const BillingContactInformation = (props: BillingType) => {
     dataCenter,
     errorCenter,
     refCenter,
-    townships,
+    fields,
     updateDataCenter,
     updateErrorCenter,
     selectInputCenter,
+    serverErrors,
+    /*
+      Structures
+    */
+    childCleaningStructure,
+    childPassingStructure,
     /*
       Actions
     */
     handleOnChange,
-    handleSelect,
     handleCheck,
   } = props;
 
   useEffect(() => {
-    const keys = [
-      "paymentTypes",
-      "address",
-      "coordinates",
-      "phoneNumber",
-      "viberNumber",
-      "email",
-      "remark",
-    ];
+    if (serverErrors && serverErrors.duplicate) return;
+    const keys = ["paymentTypes"];
 
     stateCleaner(keys, updateErrorCenter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -103,30 +107,50 @@ const BillingContactInformation = (props: BillingType) => {
         <div></div>
 
         <CustomizedDropDown
-          dropDownData={CITIES}
+          dropDownData={fields.city}
           label="Cities"
           theme={theme}
           value={dataCenter.city || "Select a city"}
           dataKey="label"
           dataCenterKey="city"
-          handleSelect={handleSelect}
           hasSearch={true}
           isRequired={true}
           errorMessage={errorCenter.city}
+          /*
+            Structures
+          */
+          childCleaningStructure={childCleaningStructure}
+          childPassingStructure={childPassingStructure}
+          /*
+            Actions
+          */
+
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
         />
 
         <CustomizedDropDown
-          dropDownData={townships}
+          dropDownData={fields.township}
           label="Townships"
           theme={theme}
           value={dataCenter.township || "Select a township"}
           dataKey="label"
           dataCenterKey="township"
-          handleSelect={handleSelect}
           hasSearch={true}
-          isDisabled={townships.length <= 0}
+          isDisabled={fields.township.length <= 0}
           isRequired={true}
           errorMessage={errorCenter.township}
+          /*
+            Structures
+          */
+          childCleaningStructure={childCleaningStructure}
+          childPassingStructure={childPassingStructure}
+          /*
+            Actions
+          */
+
+          updateDataCenter={updateDataCenter}
+          updateErrorCenter={updateErrorCenter}
         />
 
         <PrimaryInput

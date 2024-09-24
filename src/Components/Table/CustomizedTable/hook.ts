@@ -56,7 +56,7 @@ export function Hook(props: TABLE_PROPS_TYPE): HookType {
   useEffect(() => {
     const updatedHeader: UPDATED_HEADER_TYPE = updateColumnHeader(
       Data.HeadingColumn,
-      DESCENDING_ORDER
+      ASCENDING_ORDER
     );
     const updatedBody: TABLE_BODY_ROW[] = updateColumnBody(
       Data.DataRow,
@@ -172,8 +172,8 @@ export function Hook(props: TABLE_PROPS_TYPE): HookType {
 
     const tmpJoinedList = col.invisibleCols.concat(col.visibleCols);
 
-    const nodeId = tmpJoinedList.filter((list) => list.key === "_id")[0] || "";
-
+    const nodeId = tmpJoinedList.filter((list) => list.key === "id")[0] || "";
+    console.log("nodeid", nodeId);
     const subNodes =
       tmpJoinedList.filter((list) => list.key === "Sub Nodes")[0] || "";
 

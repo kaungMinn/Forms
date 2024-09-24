@@ -6,16 +6,20 @@ import { BsCheck2All } from "react-icons/bs";
 // components
 import Box from "../Box";
 import PrimaryButton from "../../Buttons/PrimaryButton";
+import SecondaryButton from "../../Buttons/SecondaryButton";
 
 interface SuccessBoxPropType {
   isOpen: boolean;
   titleLabel?: string;
   bodyText: string;
-  btnLabel: string;
+  btnLabel?: string;
+  navigationLabel?: string;
   /**
    * action
    */
   clickOn?: () => void;
+  navigation?: () => void;
+  isCreate?: boolean;
 }
 
 const SuccessBox: React.FC<SuccessBoxPropType> = ({
@@ -23,10 +27,13 @@ const SuccessBox: React.FC<SuccessBoxPropType> = ({
   titleLabel,
   bodyText,
   btnLabel,
+  navigationLabel,
   /**
    * action
    */
   clickOn,
+  navigation,
+  isCreate,
 }) => {
   return (
     <Box open={isOpen}>
@@ -42,17 +49,42 @@ const SuccessBox: React.FC<SuccessBoxPropType> = ({
           </p>
           <p className="body-font text-center text-base_light">{bodyText}</p>
         </div>
-        <div className="flex justify-center">
-          <div className="h-auto w-36">
-            <PrimaryButton
-              label={btnLabel}
-              /**
-               * action
-               */
-              handleClickOn={clickOn}
-            />
+        {isCreate && (
+          <div className="flex justify-center gap-5">
+            <div className="h-auto w-36">
+              <PrimaryButton
+                label={navigationLabel || "List"}
+                /**
+                 * action
+                 */
+                handleClickOn={navigation}
+              />
+            </div>
+            <div className="h-auto w-36">
+              <SecondaryButton
+                label={btnLabel || "Close"}
+                /**
+                 * action
+                 */
+                handleClickOn={clickOn}
+              />
+            </div>
           </div>
-        </div>
+        )}
+
+        {!isCreate && (
+          <div className="flex justify-center gap-5">
+            <div className="h-auto w-36">
+              <PrimaryButton
+                label={btnLabel || "Close"}
+                /**
+                 * action
+                 */
+                handleClickOn={clickOn}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </Box>
   );

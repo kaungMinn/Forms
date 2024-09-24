@@ -24,7 +24,7 @@ export function updateColumnHeader(
     updatedHeader.list.push({
       name: col.name,
       key: col.key,
-      hidden: col.key === "_id" ? true : false,
+      hidden: col.key === "_id" ? true : col.key === "id" ? true : false,
       sortType: sortType,
     });
   });
@@ -53,7 +53,7 @@ export function updateColumnBody(
   const tmpRowList: TABLE_BODY_ROW[] = dataRow.map((row) => {
     const tmpColList: TABLE_BODY_COL[] = headingCol.map((col) => {
       tmpCol = {
-        key: col.name,
+        key: col.key,
         value: row[col.key],
         isLink: linkList?.some((l) => l.key === col.name) || false,
         linkAction: linkList?.map((l) => {
@@ -62,7 +62,7 @@ export function updateColumnBody(
           }
           return null;
         })[0],
-        hidden: col.key === "_id" ? true : false,
+        hidden: col.key === "_id" ? true : col.key === "id" ? true : false,
       };
       return tmpCol;
     });

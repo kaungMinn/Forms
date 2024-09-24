@@ -8,52 +8,10 @@ class MyDatabase extends Dexie {
   constructor() {
     super("database");
     this.version(1).stores({
-      customers: `db
-                ++id, 
-                brandName,
-                customerName,
-                customerType,
-                customerTypeServer,
-                companyName,
-                autoGeneratePPOEAccount,
-                autoGeneratePPOEAccountServer,
-                radUserName,
-                radPassword,
-                serviceID,
-                serviceIDName,
-                containIP,
-                containIPServer,
-                mode,
-                modeServer,
-                staticIP,
-                serviceType,
-                serviceTypeServer,
-                plan,
-                planServer,
-                paymentCurrency,
-                price,
-                serviceStatus,
-                billingMethod,
-                billingMethodServer,
-                serviceStartDate,
-                serviceEndDate,
-                duration,
-                durationNumber,
-                enable,
-                enableServer,
-                paymentTypes,
-                mmk,
-                sgd,
-                baht,
-                city,
-                township,
-                address,
-                coordinates,
-                phoneNumber,
-                viberNumber,
-                email,
-                remark
-            `,
+      customers: `
+        ++id,     
+        serviceID , serviceID.asc
+      `,
     });
   }
 }

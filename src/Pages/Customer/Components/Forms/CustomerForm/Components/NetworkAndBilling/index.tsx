@@ -3,6 +3,7 @@ import { CustomizedDropDownDataTypes } from "../../../../../../../Components/Dro
 import { DefaultThemeTypes } from "../../../../../../Theme/_types";
 import {
   DataCenterTypes,
+  DefaultServerErrorType,
   ErrorCenterTypes,
   RefCenterTypes,
 } from "../../../../../_types";
@@ -13,21 +14,27 @@ import { SERVICE_CODES } from "../../../../../../../Constants/Customers/customer
 import ExtraInputWrapper from "../ExtraInputWrapper";
 import { DEFAULT_MODES_FOR_IP } from "../../../../../../../Constants/Network/network.constants";
 import {
-  PACKAGES,
-  PlanType,
-} from "../../../../../../../Constants/Packages/constants";
-import {
   DEFAULT_BILLING_METHODS,
   PAYMENTS,
 } from "../../../../../../../Constants/Customers/payment.constants";
 import { stateCleaner } from "../../../../../../../Utils/Data/States/cleaner.utils";
+import { FieldTypes } from "../../_types";
 
 type NetworkType = {
   dataCenter: DataCenterTypes;
   errorCenter: ErrorCenterTypes;
   refCenter: RefCenterTypes;
+  fields: FieldTypes;
   theme: DefaultThemeTypes;
-  plans: PlanType[];
+
+  serverErrors?: DefaultServerErrorType;
+  /*
+    Structures
+  */
+  childCleaningStructure: { [key: string]: string[] };
+  childPassingStructure: {
+    [key: string]: (data: Record<string, unknown>) => void;
+  };
   /*
     Actions
   */
@@ -46,18 +53,26 @@ const NetworkAndBilling = (props: NetworkType) => {
     dataCenter,
     errorCenter,
     refCenter,
+    fields,
     theme,
-    plans,
+
+    serverErrors,
+    /*
+      Structures
+    */
+    childCleaningStructure,
+    childPassingStructure,
     /*
       Actions
     */
-    handleSelect,
+
     updateDataCenter,
     updateErrorCenter,
   } = props;
 
   useEffect(() => {
-    const keys = ["serviceID", "mode", "staticIP", "serviceType", "plan"];
+    if (serverErrors && serverErrors.duplicate) return;
+    const keys = ["serviceID"];
 
     stateCleaner(keys, updateErrorCenter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,9 +105,16 @@ const NetworkAndBilling = (props: NetworkType) => {
             secondaryDataCenterKey="autoGeneratePPOEAccountServer"
             theme={theme}
             /*
+            Structures
+           */
+            childCleaningStructure={childCleaningStructure}
+            childPassingStructure={childPassingStructure}
+            /*
              Actions
             */
-            handleSelect={handleSelect}
+
+            updateDataCenter={updateDataCenter}
+            updateErrorCenter={updateErrorCenter}
           />
 
           {!dataCenter.autoGeneratePPOEAccountServer && (
@@ -145,9 +167,16 @@ const NetworkAndBilling = (props: NetworkType) => {
             dataCenterKey="serviceID"
             isRequired={true}
             /*
+            Structures
+            */
+            childCleaningStructure={childCleaningStructure}
+            childPassingStructure={childPassingStructure}
+            /*
               Actions
             */
-            handleSelect={handleSelect}
+
+            updateDataCenter={updateDataCenter}
+            updateErrorCenter={updateErrorCenter}
           />
           <PrimaryInput
             type="text"
@@ -182,9 +211,16 @@ const NetworkAndBilling = (props: NetworkType) => {
             secondaryDataCenterKey="containIPServer"
             theme={theme}
             /*
+            Structures
+           */
+            childCleaningStructure={childCleaningStructure}
+            childPassingStructure={childPassingStructure}
+            /*
               Actions
             */
-            handleSelect={handleSelect}
+
+            updateDataCenter={updateDataCenter}
+            updateErrorCenter={updateErrorCenter}
           />
 
           {dataCenter.containIPServer && (
@@ -200,9 +236,16 @@ const NetworkAndBilling = (props: NetworkType) => {
               theme={theme}
               isRequired={true}
               /*
+              Structures
+              */
+              childCleaningStructure={childCleaningStructure}
+              childPassingStructure={childPassingStructure}
+              /*
                 Actions
               */
-              handleSelect={handleSelect}
+
+              updateDataCenter={updateDataCenter}
+              updateErrorCenter={updateErrorCenter}
             />
           )}
 
@@ -265,16 +308,23 @@ const NetworkAndBilling = (props: NetworkType) => {
             secondaryDataCenterKey="billingMethodServer"
             theme={theme}
             /*
+            Structures
+            */
+            childCleaningStructure={childCleaningStructure}
+            childPassingStructure={childPassingStructure}
+            /*
               Actions
             */
-            handleSelect={handleSelect}
+
+            updateDataCenter={updateDataCenter}
+            updateErrorCenter={updateErrorCenter}
           />
         </ExtraInputWrapper>
 
         <ExtraInputWrapper theme={theme}>
           <CustomizedDropDown
             label={"packages"}
-            dropDownData={PACKAGES}
+            dropDownData={fields.serviceType}
             value={dataCenter.serviceType || "Select service type"}
             errorMessage={errorCenter.serviceType}
             dataKey="label"
@@ -285,13 +335,20 @@ const NetworkAndBilling = (props: NetworkType) => {
             isRequired={true}
             hasSearch={true}
             /*
+            Structures
+           */
+            childCleaningStructure={childCleaningStructure}
+            childPassingStructure={childPassingStructure}
+            /*
               Actions
             */
-            handleSelect={handleSelect}
+
+            updateDataCenter={updateDataCenter}
+            updateErrorCenter={updateErrorCenter}
           />
           <CustomizedDropDown
             label={"Plans"}
-            dropDownData={plans}
+            dropDownData={fields.plan}
             value={dataCenter.plan || "Select service type"}
             errorMessage={errorCenter.plan}
             dataKey="label"
@@ -300,12 +357,18 @@ const NetworkAndBilling = (props: NetworkType) => {
             secondaryDataCenterKey="planServer"
             theme={theme}
             hasSearch={true}
-            isDisabled={plans.length <= 0}
+            isDisabled={fields.plan.length <= 0}
             isRequired={true}
+            /*
+            Structures
+           */
+            childCleaningStructure={childCleaningStructure}
+            childPassingStructure={childPassingStructure}
             /*
               Actions
             */
-            handleSelect={handleSelect}
+            updateDataCenter={updateDataCenter}
+            updateErrorCenter={updateErrorCenter}
           />
 
           <CustomizedDropDown
@@ -318,9 +381,16 @@ const NetworkAndBilling = (props: NetworkType) => {
             theme={theme}
             isRequired={true}
             /*
+            Structures
+          */
+            childCleaningStructure={childCleaningStructure}
+            childPassingStructure={childPassingStructure}
+            /*
               Actions
             */
-            handleSelect={handleSelect}
+
+            updateDataCenter={updateDataCenter}
+            updateErrorCenter={updateErrorCenter}
           />
 
           <PrimaryInput
