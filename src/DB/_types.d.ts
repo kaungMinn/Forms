@@ -14,7 +14,6 @@ export interface Customer {
 }
 
 export interface CustomerData {
-  id: number;
   brandName: string;
   customerName: string;
   customerType: string;

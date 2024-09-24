@@ -1,17 +1,41 @@
+import Dexie from "dexie";
+import { useEffect } from "react";
+
+type Users = {
+  id: number;
+  name: string;
+};
+
+class MyDatabase extends Dexie {
+  users!: Dexie.Table<Users, number>;
+  constructor() {
+    super("database");
+    this.version(1).stores({
+      users: `++id, name`,
+    });
+  }
+}
+
+const database = new MyDatabase();
+
 const Test = () => {
-  const buttons = ["one", "two"];
+  const getData = async () => {
+    const response = await database.users.toArray();
+    console.log("REsponse", response);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div>
-      <div className="flex items-center gap-2">
-        {buttons.map((button, index) => (
-          <button
-            key={index}
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-1 text-sm rounded-lg"
-          >
-            {button}
-          </button>
-        ))}
-      </div>
+      <button
+        className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-400"
+        onClick={() => getData()}
+      >
+        Test
+      </button>
     </div>
   );
 };
