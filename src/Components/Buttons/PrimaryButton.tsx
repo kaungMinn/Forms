@@ -1,5 +1,6 @@
 import React from "react";
 import { TbSettings } from "react-icons/tb";
+import { useAppSelector } from "../../Hooks/ReduxProvider";
 
 interface PrimaryButtonPropType {
   label?: string;
@@ -22,12 +23,13 @@ const PrimaryButton: React.FC<PrimaryButtonPropType> = ({
    */
   handleClickOn,
 }: PrimaryButtonPropType) => {
+  const theme = useAppSelector((state) => state.theme);
+  const { primaryColor } = theme;
+
   return (
     <>
       <button
-        className={`desktop4k:py-2.5 flex h-auto w-full items-center justify-center space-x-2 rounded-md border border-primary bg-primary px-4 py-1.5 text-default duration-300 hover:shadow-xl ${
-          !isLoading && "laptop:hover:bg-transparent"
-        } laptop:hover:text-primary`}
+        className={`desktop4k:py-2.5 flex h-auto w-full items-center justify-center space-x-2 rounded-md border  px-4 py-1.5 text-default duration-300 hover:shadow-xl  ${primaryColor[2]} ${primaryColor[3]} ${primaryColor[6]} ${primaryColor[7]} ${primaryColor[8]}`}
         disabled={isLoading || isDisabled}
         /**
          * action
