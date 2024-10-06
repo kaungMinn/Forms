@@ -1,11 +1,12 @@
 // src/db.ts
 import Dexie from "dexie";
-import { Customer } from "./_types";
+import { Activity, Customer } from "./_types";
 import { DefaultThemeTypes } from "../Pages/Theme/_types";
 
 class MyDatabase extends Dexie {
   customers!: Dexie.Table<Customer, number>;
   theme!: Dexie.Table<DefaultThemeTypes, number>;
+  activities!: Dexie.Table<Activity, number>;
   constructor() {
     super("database");
     this.version(1).stores({
@@ -14,6 +15,7 @@ class MyDatabase extends Dexie {
         serviceID , serviceID.asc
       `,
       theme: `++id`,
+      activities: `++id`,
     });
   }
 }

@@ -48,3 +48,15 @@ export const endDateCreator = (
 
   return dt;
 };
+
+export const humanReadableDate = (date: string) => {
+  return new Date(date).toLocaleString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  });
+};

@@ -420,7 +420,7 @@ const NetworkAndBilling = (props: NetworkType) => {
             name="durationNumber"
             type="text"
             theme={theme}
-            badgeLabel="Months"
+            badgeLabel={dataCenter.duration}
             isRequired={true}
             /*
               Actions

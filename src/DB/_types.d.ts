@@ -65,3 +65,15 @@ export interface CustomerFields {
   city: CityType[];
   township: TownshipType[];
 }
+
+export interface ActivityLogTypes {
+  change: { key: string; from: string; to: string };
+}
+
+export interface Activity {
+  id: number;
+  activityLog: ActivityLogTypes[];
+  action: string;
+  field: string;
+  date: string;
+}

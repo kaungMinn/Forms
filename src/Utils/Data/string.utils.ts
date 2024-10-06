@@ -88,3 +88,9 @@ export function generateRandomName() {
 export function generateRandomSixDigit() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
+
+export function camelCaseToName(str: string) {
+  return str
+    .replace(/([a-z])([A-Z])/g, "$1 $2") // Insert space between lowercase and uppercase letters
+    .replace(/^./, (match) => match.toUpperCase()); // Capitalize the first letter
+}

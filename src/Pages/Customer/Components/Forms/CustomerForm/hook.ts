@@ -57,6 +57,8 @@ import {
 import { db } from "../../../../../DB/db";
 import { CustomerFormType } from ".";
 import { useParams } from "react-router-dom";
+import { diffJSON } from "../../../../../Utils/Data/jsoncompasser.utils";
+import { capitalize } from "lodash";
 
 type HookType = [
   dataCenter: DataCenterTypes,
@@ -199,7 +201,7 @@ const Hook = ({ action }: CustomerFormType): HookType => {
     //Duration
     const durationValue = planData.duration;
     const [durationNumber, durationType] = durationValue.split(" ");
-    updateDataCenter("duration", durationType);
+    updateDataCenter("duration", capitalize(durationType) + "s");
     updateDataCenter("durationNumber", durationNumber);
 
     //End Date
@@ -230,7 +232,7 @@ const Hook = ({ action }: CustomerFormType): HookType => {
 
   const childCleaningStructure = {
     customerType: ["companyName"],
-    autoGeneratePPOEAccount: ["radUserName", "radUserName"],
+    autoGeneratePPOEAccount: ["radUserName", "radPassword"],
     containIP: ["mode", "modeServer", "staticIP"],
     mode: ["staticIP"],
     serviceType: [
@@ -328,6 +330,7 @@ const Hook = ({ action }: CustomerFormType): HookType => {
       const customers = await db.customers.toArray();
       const customerId =
         customers.length > 0 ? customers[customers.length - 1].id + 1 : 1;
+      const activityId = (await db.activities.toArray()).length + 1;
 
       const { isValidate } = handleNextStep();
 
@@ -367,24 +370,47 @@ const Hook = ({ action }: CustomerFormType): HookType => {
         setServerErrors(DEFAULT_SERVER_ERRORS);
       }
 
-      let tmp_data_center = { ...dataCenter };
-      if (tmp_data_center.autoGeneratePPOEAccountServer) {
+      let tmp_data_center = {
+        ...dataCenter,
+        // duration: `${dataCenter.durationNumber} ${dataCenter.duration}`,
+      };
+
+      if (
+        tmp_data_center.autoGeneratePPOEAccountServer &&
+        action !== "update"
+      ) {
         tmp_data_center = {
           ...tmp_data_center,
           radUserName: generateRandomName(),
           radPassword: generateRandomSixDigit(),
-          duration: `${tmp_data_center.durationNumber} ${tmp_data_center.duration}`,
         };
       }
 
       if (action === "update") {
+        const response = await db.customers.get({ id: Number(id) });
+
         await db.customers.put({
           id: Number(id),
           customers: { ...tmp_data_center, id: Number(id) },
           fields: fields,
           selectedInputs: selectInputCenter,
         });
+
         setIsSuccess(true);
+        const updateActivity = diffJSON("Update", response?.customers, {
+          ...tmp_data_center,
+          id: Number(id),
+        }) as {
+          activityLog: { change: { key: string; from: string; to: string } }[];
+          field: string;
+        };
+
+        await db.activities.add({
+          id: activityId,
+          action: "Changes in Customer" + "," + dataCenter.customerName,
+          ...updateActivity,
+          date: new Date().toString(),
+        });
         return;
       }
 

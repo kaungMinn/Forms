@@ -60,6 +60,20 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
     description: "Welcome to the default theme",
     font: Mukta,
     websiteLink: "www.google.com",
+    generalColor: {
+      primary: { bg: "bg-default", text: "text-black" },
+      secondary: { bg: "bg-default_light", text: "text-black" },
+    },
+    statusColor: {
+      success: { bg: "bg-success", text: "text-default" },
+      danger: { bg: "bg-danger", text: "text-default" },
+      disabled: { bg: "bg-default_dark", text: "text-default" },
+    },
+    actionColor: {
+      createColor: { bg: "bg-success", text: "text-default" },
+      updateColor: { bg: "bg-primary", text: "text-default" },
+      deleteColor: { bg: "bg-danger", text: "text-default" },
+    },
   },
   {
     id: 2,
@@ -117,5 +131,19 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
     description: "Welcome to the default theme",
     font: Mukta,
     websiteLink: "www.google.com",
+    generalColor: {
+      primary: { bg: "bg-primary", text: "text-default" },
+      secondary: { bg: "bg-default_light", text: "text-black" },
+    },
+    statusColor: {
+      success: { bg: "bg-success", text: "text-default" },
+      danger: { bg: "bg-danger", text: "text-default" },
+      disabled: { bg: "bg-default_dark", text: "text-default" },
+    },
+    actionColor: {
+      createColor: { bg: "bg-success", text: "text-default" },
+      updateColor: { bg: "bg-primary_light", text: "text-black" },
+      deleteColor: { bg: "bg-danger", text: "text-default" },
+    },
   },
 ];

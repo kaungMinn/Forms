@@ -27,6 +27,7 @@ const TabMenu = (props: TabMenuTypes) => {
     */
     handleSelectTab,
   } = props;
+
   const { textColor, primaryColor, alertColor } = theme;
   const selectedTextColor = textColor[1];
   const selectedBg = primaryColor[2];

@@ -1,4 +1,5 @@
 import {
+  ACTIVITY_ROUTE,
   CUSTOMER_CREATE_ROUTE,
   CUSTOMER_LIST_ROUTE,
   CUSTOMER_UPDATE_ROUTE,
@@ -6,6 +7,7 @@ import {
   THEME_ROUTE,
 } from "./route_paths";
 import {
+  ActivityLog,
   CustomerCreate,
   CustomerList,
   CustomerUpdate,
@@ -32,6 +34,10 @@ export const PROTECTED_ROUTE_LIST = [
   {
     path: THEME_ROUTE,
     element: <Theme />,
+  },
+  {
+    path: ACTIVITY_ROUTE,
+    element: <ActivityLog />,
   },
   {
     path: "/test",

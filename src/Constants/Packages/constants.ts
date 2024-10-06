@@ -32,7 +32,7 @@ export const PACKAGES: PackageType[] = [
         id: 102,
         label: "Basic 25 Mbps",
         price: { number: 30, type: "SGD" },
-        duration: "4 month",
+        duration: "4 day",
       },
       {
         id: 103,
@@ -62,7 +62,7 @@ export const PACKAGES: PackageType[] = [
         id: 201,
         label: "Streaming Standard",
         price: { number: 20, type: "BAHT" },
-        duration: "1 month",
+        duration: "1 year",
       },
       {
         id: 202,
@@ -98,7 +98,7 @@ export const PACKAGES: PackageType[] = [
         id: 301,
         label: "Gaming 50 Mbps",
         price: { number: 40, type: "MMK" },
-        duration: "4 month",
+        duration: "4 year",
       },
       {
         id: 302,
@@ -146,7 +146,7 @@ export const PACKAGES: PackageType[] = [
         id: 403,
         label: "Business 500 Mbps",
         price: { number: 200, type: "SGD" },
-        duration: "4 month",
+        duration: "4 day",
       },
       {
         id: 404,
