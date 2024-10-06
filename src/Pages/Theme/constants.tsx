@@ -124,7 +124,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "bg-primary_dark",
       "text-base_light",
       "border-slate-100 border-dashed",
-      "bg-red-400",
+      "bg-red-300",
       "text-yellow-300",
       "border-yellow-300",
     ],

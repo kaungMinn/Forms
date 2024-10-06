@@ -70,9 +70,9 @@ const DropDownBox = ({
           />
         </button>
         <div
-          className={`absolute left-0 top-9 z-10 max-h-60 w-full space-y-2 overflow-y-auto rounded-lg border bg-default_light py-2.5 shadow-md ${
+          className={`absolute left-0 top-9 z-10 max-h-60 w-full space-y-2 overflow-y-auto rounded-lg border py-2.5 shadow-md ${
             isOpen ? "scale-100" : "scale-0"
-          } duration-200`}
+          } ${primaryColor[0] && primaryColor[0]} duration-200`}
         >
           {optionList.length > 0 ? (
             optionList.map((option, index) => (
@@ -80,8 +80,12 @@ const DropDownBox = ({
                 key={index}
                 className={`mx-1 cursor-pointer rounded-lg py-1 ${
                   defaultOption === checkOptionKey(optionKey, option)
-                    ? primaryColor[2] && primaryColor[2]
-                    : "bg-transparent laptop:hover:bg-primary_light"
+                    ? `${primaryColor[2] && primaryColor[2]} ${
+                        primaryColor[3] && primaryColor[3]
+                      }`
+                    : `bg-transparent ${primaryColor[4] && primaryColor[6]} ${
+                        primaryColor[5] && primaryColor[7]
+                      } `
                 }`}
                 /**
                  * action

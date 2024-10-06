@@ -62,7 +62,9 @@ const CustomizedPagination = ({
       <div className="order-2 col-span-1 laptop:order-none  laptop:col-span-1">
         <div className="flex items-center justify-start space-x-3">
           {PageSizeComponent}
-          <p className="caption-font text-left font-semibold text-base_dark laptop:text-center">
+          <p
+            className={`caption-font text-left   laptop:text-center ${primaryText}`}
+          >
             {currentPage} / {paginationRange.length}
           </p>
         </div>
@@ -127,7 +129,9 @@ const CustomizedPagination = ({
         </div>
       </div>
       <div className="order-3 col-span-1 laptop:order-none laptop:col-span-1">
-        <p className="caption-font ml-5 text-right font-medium text-base_dark laptop:text-end">
+        <p
+          className={`caption-font ml-5 text-right font-medium  laptop:text-end ${primaryText}`}
+        >
           {totalRowCount} of {totalCount}
         </p>
       </div>

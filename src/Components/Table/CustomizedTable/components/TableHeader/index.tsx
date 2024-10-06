@@ -93,17 +93,17 @@ const TableHeader: React.FC<TABLE_HEADER_PROP_TYPE> = (props) => {
   if (headerList.length <= 0) return <></>;
   const { primaryColor } = theme;
 
-
   const selectedBg = primaryColor[2];
-  const selectedText = primaryColor[3]
+  const selectedText = primaryColor[3];
   return (
     <React.Fragment>
       <thead className="">
         <tr className="rounded-md ">
           <th className={`px-2 rounded-tl-md  ${selectedBg} ${selectedText}`}>
             <BiChevronsRight
-              className={`mx-auto h-auto w-5 cursor-pointer  ${isExpandAll ? "rotate-90" : "rotate-0"
-                } duration-200`}
+              className={`mx-auto h-auto w-5 cursor-pointer  ${
+                isExpandAll ? "rotate-90" : "rotate-0"
+              } duration-200`}
               /**
                * action
                * */

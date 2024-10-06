@@ -44,10 +44,10 @@ const SuccessBox: React.FC<SuccessBoxPropType> = ({
           </div>
         </div>
         <div className="space-y-2">
-          <p className="sub-heading-font text-center font-medium text-success">
+          <p className="sub-heading-font text-center font-medium ">
             {titleLabel}
           </p>
-          <p className="body-font text-center text-base_light">{bodyText}</p>
+          <p className="body-font text-center ">{bodyText}</p>
         </div>
         {isCreate && (
           <div className="flex justify-center gap-5">

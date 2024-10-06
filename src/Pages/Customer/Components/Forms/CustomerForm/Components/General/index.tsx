@@ -6,10 +6,7 @@ import {
   ErrorCenterTypes,
   RefCenterTypes,
 } from "../../../../../_types";
-import {
-  BRAND_NAMES,
-  PACKAGES,
-} from "../../../../../../../Constants/Packages/constants";
+import { BRAND_NAMES } from "../../../../../../../Constants/Packages/constants";
 import PrimaryInput from "../../../../../../../Components/Inputs/PrimaryInput";
 import ExtraInputWrapper from "../ExtraInputWrapper";
 import CustomerTypeInput from "./CustomerTypeInput";

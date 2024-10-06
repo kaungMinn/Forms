@@ -1,4 +1,3 @@
-import { GrDashboard } from "react-icons/gr";
 import { MENU_LIST_TYPE } from "../Layouts/SidebarLayout/type";
 import {
   ACTIVITY_ROUTE,

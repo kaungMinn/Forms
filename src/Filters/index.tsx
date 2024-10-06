@@ -129,7 +129,9 @@ const Filters = (props: filterTypes) => {
     <div className="w-full">
       <div className="flex justify-end">
         <div className="w-20 relative">
-          <div className="border bg-default rounded-full absolute w-4 caption-font flex items-center justify-center shadow-md -right-1 -top-1">
+          <div
+            className={`"border  rounded-full absolute w-4 caption-font flex items-center justify-center shadow-md -right-1 -top-1" ${primaryBg}`}
+          >
             {valueFrequency(dataCenter)}
           </div>
           <PrimaryButton

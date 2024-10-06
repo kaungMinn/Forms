@@ -57,6 +57,7 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
     updateErrorCenter,
   } = props;
   const [hasDropDown, setHasDropDown] = useState(false);
+  const { alertColor } = theme;
 
   const handleHasDropDown = (value: boolean) => {
     setHasDropDown(value);
@@ -108,7 +109,7 @@ const SelectDropDown = (props: SelectDropDownTypes) => {
       />
 
       {primaryError ? (
-        <div className="text-xs ps-1 text-red-500">{primaryError}</div>
+        <div className={`caption-font ${alertColor[4]}`}>{primaryError}</div>
       ) : (
         <div className="py-2"></div>
       )}
