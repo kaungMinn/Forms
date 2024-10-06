@@ -1,4 +1,6 @@
-type KeyValue = Record<string, unknown> | unknown[]; // Object or array
+import { CustomerData } from "../../DB/_types";
+
+type KeyValue = Record<string, unknown> | unknown[] | CustomerData; // Object or array
 
 interface ActivityLog {
   delete?: { key: string; value: string };

@@ -387,8 +387,10 @@ const Hook = ({ action }: CustomerFormType): HookType => {
       }
 
       if (action === "update") {
+        console.log("Update");
         const response = await db.customers.get({ id: Number(id) });
-        if (!response || response.customers)
+        console.log("customer", response);
+        if (!response || !response.customers)
           return "Console.log No Customer found!";
 
         await db.customers.put({
@@ -407,7 +409,9 @@ const Hook = ({ action }: CustomerFormType): HookType => {
           field: string;
         };
 
-        if (updateActivity.activityLog.length <= 0) return;
+        console.log("Update activity log", updateActivity);
+
+        if (updateActivity.activityLog.length <= 0) return "No Changes Found";
 
         await db.activities.add({
           id: activityId,
