@@ -388,6 +388,8 @@ const Hook = ({ action }: CustomerFormType): HookType => {
 
       if (action === "update") {
         const response = await db.customers.get({ id: Number(id) });
+        if (!response || response.customers)
+          return "Console.log No Customer found!";
 
         await db.customers.put({
           id: Number(id),
@@ -397,7 +399,7 @@ const Hook = ({ action }: CustomerFormType): HookType => {
         });
 
         setIsSuccess(true);
-        const updateActivity = diffJSON("Update", response?.customers, {
+        const updateActivity = diffJSON("Update", response.customers, {
           ...tmp_data_center,
           id: Number(id),
         }) as {
