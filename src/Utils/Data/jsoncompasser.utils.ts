@@ -12,28 +12,33 @@ const KC = "/"; // Key Connector
 
 let valueArray: unknown[] = [];
 let activityLogArray: ActivityLog[] = [];
-let oldObjectKeys: string[] = [];
-let newObjectKeys: string[] = [];
 let globalStorage = "";
-let res: unknown[] = [];
 
+// Remove unused variables
+// let oldObjectKeys: string[] = [];
+// let newObjectKeys: string[] = [];
+// let res: unknown[] = [];
+
+// Recursively scan the object
 const recursivelyScanObject = (
   aValue: KeyValue,
   parent: string | null = null
 ): void => {
   if (typeof aValue === OBJECT_TYPE) {
-    // If a value is an object, it can be nested JSON or array, ignoring other cases
     if (!Array.isArray(aValue)) {
       // Recursive call for objects
-      Object.keys(aValue).map((key) => {
+      Object.keys(aValue).forEach((key) => {
         const current = parent ? `${parent}${NKC}${key}` : key;
-        recursivelyScanObject(aValue[key], current);
+        recursivelyScanObject(
+          (aValue as Record<string, KeyValue>)[key],
+          current
+        );
       });
     } else {
       // Recursive call for arrays
-      aValue.map((ele, i) => {
-        let current = parent ? `${parent}${NKC}${i}` : i.toString();
-        recursivelyScanObject(ele, current);
+      (aValue as unknown[]).forEach((ele, i) => {
+        const current = parent ? `${parent}${NKC}${i}` : i.toString();
+        recursivelyScanObject(ele as KeyValue, current);
       });
     }
   } else {
@@ -41,25 +46,34 @@ const recursivelyScanObject = (
   }
 };
 
+// Get value from nested keys
+// Get value from nested keys
 const getValueFromKeys = (
   keysArray: string[],
   index: number,
-  obj: KeyValue
+  obj: unknown
 ): unknown => {
-  if (typeof obj === OBJECT_TYPE || Array.isArray(obj)) {
+  if (obj !== null && (typeof obj === OBJECT_TYPE || Array.isArray(obj))) {
     return getValueFromKeys(
       keysArray,
       index + 1,
-      (obj as KeyValue)[keysArray[index]]
+      (obj as KeyValue)[keysArray[index] as keyof KeyValue]
     );
   }
   return obj;
 };
 
+// Read a specific object key
 const readObject = (key: string, obj: KeyValue): unknown => {
-  return obj[key];
+  if (Array.isArray(obj)) {
+    return obj[parseInt(key)];
+  } else if (typeof obj === OBJECT_TYPE) {
+    return (obj as Record<string, unknown>)[key];
+  }
+  return undefined;
 };
 
+// Process comparison and log changes
 const process = (
   manipulatedString: string,
   scannedObject: KeyValue,
@@ -78,9 +92,9 @@ const process = (
       if (nestedArray[j].length === 0) return;
       const key = nestedArray[j];
 
-      consumerObject = readObject(key, consumerObject);
+      consumerObject = readObject(key, consumerObject) as KeyValue;
       if (cloneSupporting !== undefined)
-        cloneSupporting = readObject(key, cloneSupporting);
+        cloneSupporting = readObject(key, cloneSupporting) as KeyValue;
 
       if (consumerObject && cloneSupporting === undefined) {
         if (reversing === undefined) {
@@ -116,6 +130,7 @@ const process = (
   }
 };
 
+// Check if a value is plain (not object/array)
 const isPlainValue = (
   reversing: boolean | undefined,
   consumerObject: unknown,
@@ -133,11 +148,13 @@ const isPlainValue = (
   );
 };
 
+// Scan the object
 const scanObject = (aValue: KeyValue): void => {
   globalStorage = "";
   recursivelyScanObject(aValue);
 };
 
+// Read scanned object and log differences
 const readScannedObject = (
   manipulatedString: string,
   scannedObject: KeyValue,
@@ -147,6 +164,7 @@ const readScannedObject = (
   process(manipulatedString, scannedObject, paralleledObject, reversing);
 };
 
+// Main function to find the difference between two objects
 export const diffJSON = (
   field: string,
   oldObject: KeyValue,
@@ -156,12 +174,11 @@ export const diffJSON = (
   scanObject(oldObject);
   const nko = globalStorage.split(KC);
   nko.pop();
-  oldObjectKeys = nko;
+
   readScannedObject(globalStorage, oldObject, newObject);
   scanObject(newObject);
   const oko = globalStorage.split(KC);
   oko.pop();
-  newObjectKeys = oko;
   readScannedObject(globalStorage, newObject, oldObject, true);
 
   returnedObject.activityLog = activityLogArray;
@@ -170,10 +187,7 @@ export const diffJSON = (
   // Reset all global data
   valueArray = [];
   activityLogArray = [];
-  oldObjectKeys = [];
-  newObjectKeys = [];
   globalStorage = "";
-  res = [];
 
   return returnedObject;
 };
