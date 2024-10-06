@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 // images
 import { BiChevronDown } from "react-icons/bi";
+import { DefaultThemeTypes } from "../../Pages/Theme/_types";
 
 const DropDownBox = ({
   optionList = [],
@@ -10,6 +11,7 @@ const DropDownBox = ({
   isDisabled = false,
   errorMessage = "",
   icon,
+  theme,
   /**
    * action
    */
@@ -21,6 +23,7 @@ const DropDownBox = ({
   isDisabled?: boolean;
   errorMessage?: string;
   icon?: React.ReactElement;
+  theme?: DefaultThemeTypes;
   /**
    * action
    */
@@ -34,12 +37,16 @@ const DropDownBox = ({
     return option.value;
   };
 
+  const { primaryColor } = theme || { primaryColor: [] };
+
   return (
     <React.Fragment>
       <div className="relative h-auto w-full space-y-1">
         <button
-          className="flex h-full w-full items-center justify-center space-x-2 rounded-lg
-          border border-default_dark bg-transparent py-2 text-base_light shadow-sm duration-200 tablet:py-1.5"
+          className={`flex h-full w-full items-center justify-center space-x-2 rounded-lg
+           bg-transparent py-2 text-base_light shadow-sm duration-200 tablet:py-1.5 border ${
+             primaryColor[8] && primaryColor[8]
+           }`}
           disabled={isDisabled}
           /**
            * action
@@ -48,12 +55,18 @@ const DropDownBox = ({
         >
           <div className="flex items-center space-x-1">
             {icon}
-            <p className="caption-font font-medium ">{defaultOption}</p>
+            <p
+              className={`caption-font font-medium ${
+                primaryColor[1] && primaryColor[1]
+              }`}
+            >
+              {defaultOption}
+            </p>
           </div>
           <BiChevronDown
             className={`h-auto w-5 ${
               isOpen ? "rotate-180" : "rotate-0"
-            } duration-300`}
+            } duration-300 ${primaryColor[1] && primaryColor[1]}`}
           />
         </button>
         <div
@@ -67,7 +80,7 @@ const DropDownBox = ({
                 key={index}
                 className={`mx-1 cursor-pointer rounded-lg py-1 ${
                   defaultOption === checkOptionKey(optionKey, option)
-                    ? "bg-primary text-default_light"
+                    ? primaryColor[2] && primaryColor[2]
                     : "bg-transparent laptop:hover:bg-primary_light"
                 }`}
                 /**

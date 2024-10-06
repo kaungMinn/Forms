@@ -27,7 +27,7 @@ const TopNav = (props: TopNavType) => {
   const [actionTitle, actionName] = action.split(",");
 
   return (
-    <div className="grid grid-cols-12 mb-2">
+    <div className="grid grid-cols-12 ">
       <div className="col-span-12 laptop:col-span-2   ">
         <div className="w-20 ">
           <PrimaryBadge
@@ -40,7 +40,7 @@ const TopNav = (props: TopNavType) => {
         </div>
       </div>
 
-      <div className="col-span-12 laptop:col-span-5  body-font flex justify-end laptop:justify-start laptop:mx-0 mt-5 laptop:mt-0">
+      <div className="col-span-12 laptop:col-span-5  body-font mt-5 laptop:mt-0">
         <div className="flex items-center gap-3">
           <p>{actionTitle}</p>
 
@@ -54,7 +54,7 @@ const TopNav = (props: TopNavType) => {
         </div>
       </div>
 
-      <p className="body-font col-span-12 laptop:col-span-5 flex items-center justify-end laptop:justify-end mt-1 laptop:mt-0">
+      <p className="body-font col-span-12 laptop:col-span-5 flex items-center laptop:justify-end mt-1 laptop:mt-0">
         {humanReadableDate(date)}
       </p>
     </div>

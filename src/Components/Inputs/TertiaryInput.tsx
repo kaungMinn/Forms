@@ -43,7 +43,7 @@ const TertiaryInput = (props: TertiaryInputTypes) => {
     <div>
       <div className="flex items-center gap-2 ">
         <input
-          className={`border h-9 px-3 w-full block outline-none text-sm  rounded-lg  ${placeHolderColor} ${textColor} ${
+          className={`border h-9  px-3 w-full block outline-none caption-font  rounded-lg  ${placeHolderColor} ${textColor} ${
             primaryColor[0]
           } ${
             isDisabled && `${disabledBg} ${disabledBorder} ${disabledText}`
@@ -70,7 +70,7 @@ const TertiaryInput = (props: TertiaryInputTypes) => {
           {errorMessage}
         </div>
       ) : (
-        <div className="py-2"></div>
+        <div className=""></div>
       )}
     </div>
   );

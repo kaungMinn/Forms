@@ -105,12 +105,22 @@ const CustomerList = () => {
   };
 
   const handleDeleteBodyData = async (id: number | string | boolean) => {
-    console.log("Id", id);
     if (typeof id !== "number") return;
     try {
+      const customer = await db.customers.get({ id: id });
       await db.customers.delete(id);
       handleGetBodyData();
       handleIsSuccess(true);
+
+      const activityId = (await db.activities.toArray()).length + 1;
+
+      await db.activities.add({
+        id: activityId,
+        activityLog: [],
+        action: "Deleted a customer" + "," + customer?.customers.customerName,
+        field: "Delete",
+        date: new Date().toString(),
+      });
     } catch (error) {
       console.error(error);
     }
@@ -206,6 +216,26 @@ const CustomerList = () => {
         PageNumber={currentPage}
         searchedData={searchData}
         settingIconList={<></>}
+        theme={theme}
+        LinkList={[
+          {
+            key: "coordinates",
+            action: async (id: string) => {
+              const response = await db.customers.get({ id: id });
+              const customer = response?.customers;
+
+              if (customer?.coordinates) {
+                window.location.href = `https://www.google.com/maps?q=${customer?.coordinates}`;
+              }
+            },
+          },
+        ]}
+        /*
+          Action
+        */
+
+        handleOnDelete={handleDeleteBodyData}
+        setSearchedData={setSearchedData}
         handleOnChangePageSize={handleChangeOnPageSize}
         handleOnChangePagination={handleChangeOnPagination}
         handleSearching={handleSearching}
@@ -213,9 +243,6 @@ const CustomerList = () => {
         handleOnRouteConnection={() => {
           "test";
         }}
-        handleOnDelete={handleDeleteBodyData}
-        setSearchedData={setSearchedData}
-        theme={theme}
       />
 
       <SuccessBox

@@ -124,6 +124,7 @@ const CustomizedTable: React.FC<TABLE_PROPS_TYPE> = (props) => {
                     optionList={ROW_LIMIT}
                     optionKey="value"
                     defaultOption={PageSize}
+                    theme={theme}
                     handleChangeOnDropDown={handleOnChangePageSize}
                   />
                 </div>

@@ -405,6 +405,8 @@ const Hook = ({ action }: CustomerFormType): HookType => {
           field: string;
         };
 
+        if (updateActivity.activityLog.length <= 0) return;
+
         await db.activities.add({
           id: activityId,
           action: "Changes in Customer" + "," + dataCenter.customerName,
@@ -426,7 +428,7 @@ const Hook = ({ action }: CustomerFormType): HookType => {
       await db.activities.add({
         id: activityId,
         activityLog: [],
-        action: "Created a customer" + " " + dataCenter.customerName,
+        action: "Created a customer" + "," + dataCenter.customerName,
         field: "Create",
         date: new Date().toString(),
       });

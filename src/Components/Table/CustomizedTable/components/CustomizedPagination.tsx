@@ -27,7 +27,7 @@ const CustomizedPagination = ({
   siblingCount?: number;
   currentPage: number;
   pageSize: number;
-  theme: DefaultThemeTypes
+  theme: DefaultThemeTypes;
   /**
    * action
    */
@@ -54,7 +54,8 @@ const CustomizedPagination = ({
   const lastPage = paginationRange[paginationRange.length - 1];
 
   const { primaryColor } = theme;
-  const [primaryBg, primaryText, selectedBg, selectedText, hoverBg, hoverText] = primaryColor;
+  const [primaryBg, primaryText, selectedBg, selectedText, hoverBg, hoverText] =
+    primaryColor;
 
   return (
     <div className=" grid grid-cols-2 gap-y-3 pt-3 laptop:grid-cols-3 laptop:pt-0">
@@ -71,10 +72,11 @@ const CustomizedPagination = ({
           {/* Left navigation arrow */}
           <button
             type="button"
-            className={`flex h-8 w-8 items-center  justify-center rounded-full duration-200 laptop:h-6 laptop:w-6 ${currentPage === 1
-              ? `border ${selectedBg} ${selectedText}`
-              : `border ${primaryBg} ${primaryText} ${hoverBg} ${hoverText}`
-              }`}
+            className={`flex h-8 w-8 items-center  justify-center rounded-full duration-200 laptop:h-6 laptop:w-6 ${
+              currentPage === 1
+                ? `border ${selectedBg} ${selectedText}`
+                : `border ${primaryBg} ${primaryText} ${hoverBg} ${hoverText}`
+            }`}
             disabled={currentPage === 1}
             /**
              * action
@@ -91,10 +93,11 @@ const CustomizedPagination = ({
               return (
                 <div
                   key={pageNumber}
-                  className={`flex h-8 w-8 items-center  justify-center rounded-full duration-200 laptop:h-6 laptop:w-6 laptop:cursor-pointer ${currentPage === pageNumber
-                    ? `border ${selectedBg} ${selectedText}`
-                    : `border  ${primaryBg} ${primaryText} ${hoverBg} ${hoverText}`
-                    }`}
+                  className={`flex h-8 w-8 items-center  justify-center rounded-full duration-200 laptop:h-6 laptop:w-6 laptop:cursor-pointer ${
+                    currentPage === pageNumber
+                      ? `border ${selectedBg} ${selectedText}`
+                      : `border  ${primaryBg} ${primaryText} ${hoverBg} ${hoverText}`
+                  }`}
                   /**
                    * action
                    */
@@ -108,10 +111,11 @@ const CustomizedPagination = ({
           {/* Right navigation arrow */}
           <button
             type="button"
-            className={`flex h-8 w-8 items-center  justify-center rounded-full duration-200 laptop:h-6 laptop:w-6 laptop:cursor-pointer ${currentPage === lastPage
-              ? `"border ${selectedBg} ${selectedText}`
-              : `border ${primaryBg} ${primaryText} ${hoverBg} ${hoverText}`
-              }`}
+            className={`flex h-8 w-8 items-center  justify-center rounded-full duration-200 laptop:h-6 laptop:w-6 laptop:cursor-pointer ${
+              currentPage === lastPage
+                ? `"border ${selectedBg} ${selectedText}`
+                : `border ${primaryBg} ${primaryText} ${hoverBg} ${hoverText}`
+            }`}
             disabled={currentPage === lastPage}
             /**
              * action

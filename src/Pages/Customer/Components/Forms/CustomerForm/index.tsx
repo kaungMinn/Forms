@@ -61,7 +61,7 @@ const CustomerForm = (props: CustomerFormType) => {
     navigate("/customers");
   };
   return (
-    <>
+    <div>
       <PrimaryWrapper theme={theme}>
         {loading && <DataLoading />}
         <div className="space-y-5">
@@ -174,7 +174,7 @@ const CustomerForm = (props: CustomerFormType) => {
         }}
         navigation={toCustomers}
       />
-    </>
+    </div>
   );
 };
 

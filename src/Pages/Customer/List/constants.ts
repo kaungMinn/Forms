@@ -8,7 +8,10 @@ export const headers = [
   { _id: 29, key: "id", name: "ID" },
   { _id: 2, key: "customerName", name: "Customer Name" },
   { _id: 1, key: "brandName", name: "Brand Name" },
+  { _id: 24, key: "coordinates", name: "Coordinates" },
+
   { _id: 3, key: "customerType", name: "Customer Type" },
+
   { _id: 4, key: "companyName", name: "Company Name" },
   { _id: 11, key: "serviceType", name: "Service Type" },
   { _id: 12, key: "plan", name: "Plan" },
@@ -29,7 +32,7 @@ export const headers = [
   { _id: 21, key: "city", name: "City" },
   { _id: 22, key: "township", name: "Township" },
   { _id: 23, key: "address", name: "Address" },
-  { _id: 24, key: "coordinates", name: "Coordinates" },
+
   { _id: 25, key: "phoneNumber", name: "Phone Number" },
   { _id: 26, key: "viberNumber", name: "Viber Number" },
   { _id: 27, key: "email", name: "Email" },

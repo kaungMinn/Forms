@@ -8,7 +8,7 @@ const CustomerCreate = () => {
   const [dashboardBg, dashboardText] = dashboardColor;
 
   return (
-    <div className={`relative ${dashboardBg} ${dashboardText}`}>
+    <div className={`relative  ${dashboardBg} ${dashboardText}`}>
       <Heading heading="Create Customers" subHeading="Create your customers" />
 
       <div className="mb-7" />

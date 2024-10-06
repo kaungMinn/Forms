@@ -4,6 +4,7 @@ import _ from "lodash";
 import { UPDATED_HEADER_TYPE } from "../components/TableHeader/__type";
 import { TABLE_BODY_COL, TABLE_BODY_ROW } from "../components/TableBody/__type";
 import { FIXED_COLUMN_WIDTH } from "../constants";
+import { humanReadableDate } from "../../../../Utils/Date/date.utils";
 
 export function getColumnSize() {
   return Math.round(window.innerWidth / FIXED_COLUMN_WIDTH);
@@ -54,10 +55,12 @@ export function updateColumnBody(
     const tmpColList: TABLE_BODY_COL[] = headingCol.map((col) => {
       tmpCol = {
         key: col.key,
-        value: row[col.key],
-        isLink: linkList?.some((l) => l.key === col.name) || false,
+        value: col.key.toLowerCase().includes("date")
+          ? humanReadableDate(row[col.key])
+          : row[col.key],
+        isLink: linkList?.some((l) => l.key === col.key) || false,
         linkAction: linkList?.map((l) => {
-          if (l.key === col.name) {
+          if (l.key === col.key) {
             return l.action;
           }
           return null;

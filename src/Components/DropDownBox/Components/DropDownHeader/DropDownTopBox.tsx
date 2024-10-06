@@ -15,17 +15,20 @@ const Chev = ({
   hasChev,
   hasDropDown,
   errorMessage,
+  theme,
 }: {
   hasChev: boolean;
   hasDropDown: boolean;
+  theme: DefaultThemeTypes;
   errorMessage: string;
 }) => {
+  const { alertColor } = theme;
   return (
     <>
       {hasChev && (
         <span
           className={` duration-200 block ${hasDropDown ? "rotate-180" : "0"} ${
-            errorMessage && "text-red-500"
+            errorMessage && alertColor[4]
           }`}
         >
           <CiCircleChevDown size={20} />
@@ -75,6 +78,7 @@ const DropDownTopBox = (props: DropDownTopBoxType) => {
           <Chev
             hasChev={hasChev}
             errorMessage={errorMessage}
+            theme={theme}
             hasDropDown={hasDropDown}
           />
         </div>

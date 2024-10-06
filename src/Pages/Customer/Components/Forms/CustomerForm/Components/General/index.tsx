@@ -6,7 +6,10 @@ import {
   ErrorCenterTypes,
   RefCenterTypes,
 } from "../../../../../_types";
-import { PACKAGES } from "../../../../../../../Constants/Packages/constants";
+import {
+  BRAND_NAMES,
+  PACKAGES,
+} from "../../../../../../../Constants/Packages/constants";
 import PrimaryInput from "../../../../../../../Components/Inputs/PrimaryInput";
 import ExtraInputWrapper from "../ExtraInputWrapper";
 import CustomerTypeInput from "./CustomerTypeInput";
@@ -80,7 +83,7 @@ const General = (props: GeneralType) => {
       <ExtraInputWrapper theme={theme}>
         <CustomizedDropDown
           label="Brand Name"
-          dropDownData={PACKAGES}
+          dropDownData={BRAND_NAMES}
           value={dataCenter.brandName || "Select a brand name"}
           errorMessage={errorCenter.brandName}
           dataKey="label"

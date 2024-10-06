@@ -85,7 +85,7 @@ const MenuList: React.FC<MENU_LIST_PROPS_TYPE> = ({
                 }`}
               >
                 <div
-                  className="flex items-center justify-between px-3 laptop:hover:cursor-pointer"
+                  className="flex items-center justify-between px-2.5 py-2 laptop:hover:cursor-pointer"
                   /**
                    * action
                    */

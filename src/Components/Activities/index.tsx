@@ -51,7 +51,7 @@ const ActivityCard = (props: ActivityCardType) => {
   return (
     <div
       key={id}
-      className={`border p-5 rounded-lg shadow-md ${primary.bg} ${primary.text}`}
+      className={`border p-5 rounded-lg shadow-md space-y-3 laptop:space-y-0 ${primary.bg} ${primary.text}`}
     >
       <TopNav field={field} action={action} date={date} theme={theme} />
 
@@ -69,18 +69,19 @@ const ActivityCard = (props: ActivityCardType) => {
           </div>
         )}
 
-        <div
-          className={`col-span-12 laptop:col-span-10  laptop:mt-3 p-5 rounded-lg space-y-5 laptop:space-y-3 relative duration-200  ${secondary.bg} ${secondary.text}`}
-        >
-          {activityLogData.length > 0 &&
-            activityLogData.map((activity, index) => {
+        {activityLogData.length > 0 && (
+          <div
+            className={`col-span-12 laptop:col-span-10  laptop:mt-3 p-5 rounded-lg space-y-5 laptop:space-y-3 relative duration-200  ${secondary.bg} ${secondary.text}`}
+          >
+            {activityLogData.map((activity, index) => {
               return (
                 <div key={index}>
                   <BottomActivities activity={activity} theme={theme} />
                 </div>
               );
             })}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

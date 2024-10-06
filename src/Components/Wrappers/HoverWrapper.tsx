@@ -17,7 +17,7 @@ const HoverWrapper = (props: HoverWrapperType) => {
   };
   return (
     <div
-      className={`cursor-pointer rounded-md ${
+      className={`cursor-pointer rounded-lg ${
         (isHover || isSelected) && `${selectedBg} ${selectedText}`
       }`}
       onMouseEnter={() => handleIsHover(true)}

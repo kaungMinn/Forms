@@ -53,8 +53,8 @@ const ShowData = ({
     <>
       {dropDownData.length > 0 ? (
         <div
-          className={`space-y-2 p-4 rounded-md ${primaryBg} ${
-            dropDownData.length > 5 && "h-[13rem] overflow-auto"
+          className={`space-y-2 p-3 rounded-md ${primaryBg} ${
+            dropDownData.length > 5 && "h-[10.4rem] overflow-auto"
           }`}
         >
           {dropDownData.map((data, index) => {
@@ -80,7 +80,7 @@ const ShowData = ({
                     value.toLowerCase() === label.toLowerCase() || isSelected
                   }
                 >
-                  <div className="caption-font p-2">
+                  <div className="caption-font px-3 py-2">
                     <p>{label}</p>
                   </div>
                 </HoverWrapper>
@@ -160,7 +160,9 @@ const DataShower = (props: DataShowerType) => {
   }, [searchedValue, dropDownData]);
 
   return (
-    <div className={`border shadow-md p-4 rounded-lg space-y-2 ${dashboardBg}`}>
+    <div
+      className={`border shadow-md p-2 rounded-lg space-y-2  ${dashboardBg}`}
+    >
       {hasSearch && (
         <TertiaryInput
           name="searchedData"

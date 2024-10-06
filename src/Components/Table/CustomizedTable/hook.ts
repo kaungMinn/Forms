@@ -58,6 +58,7 @@ export function Hook(props: TABLE_PROPS_TYPE): HookType {
       Data.HeadingColumn,
       ASCENDING_ORDER
     );
+
     const updatedBody: TABLE_BODY_ROW[] = updateColumnBody(
       Data.DataRow,
       Data.HeadingColumn,

@@ -23,7 +23,7 @@ const DropDownHeader = (props: DropDownHeaderType) => {
   return (
     <>
       <div className="mb-2">
-        <DropDownLabel label={label} isRequired={isRequired} />
+        <DropDownLabel label={label} isRequired={isRequired} theme={theme} />
       </div>
       <DropDownTopBox
         errorMessage={errorMessage}

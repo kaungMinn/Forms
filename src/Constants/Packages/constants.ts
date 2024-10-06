@@ -17,6 +17,12 @@ export type PackageType = {
   plans: PlanType[];
 };
 
+export type BrandNameType = {
+  id: number;
+  label: string;
+  value: string;
+};
+
 export const PACKAGES: PackageType[] = [
   {
     id: 1,
@@ -631,4 +637,10 @@ export const PACKAGES: PackageType[] = [
       },
     ],
   },
+];
+
+export const BRAND_NAMES: BrandNameType[] = [
+  { id: 1, label: "Hi Internet", value: "hiInternet" },
+  { id: 2, label: "Hi Wifi", value: "hiWifi" },
+  { id: 3, label: "We Link", value: "weLink" },
 ];
