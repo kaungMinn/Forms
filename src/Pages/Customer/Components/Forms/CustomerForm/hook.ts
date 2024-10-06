@@ -422,6 +422,14 @@ const Hook = ({ action }: CustomerFormType): HookType => {
       });
 
       setIsSuccess(true);
+
+      await db.activities.add({
+        id: activityId,
+        activityLog: [],
+        action: "Create",
+        field: "Created a customer" + " " + dataCenter.customerName,
+        date: new Date().toString(),
+      });
     } catch (error) {
       console.error(error);
       setIsSuccess(false);
