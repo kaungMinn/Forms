@@ -9,7 +9,7 @@ class MyDatabase extends Dexie {
   activities!: Dexie.Table<Activity, number>;
   constructor() {
     super("database");
-    this.version(1).stores({
+    this.version(3).stores({
       customers: `
         ++id,     
         serviceID , serviceID.asc
