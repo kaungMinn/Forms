@@ -59,7 +59,7 @@ export const ExpandDataBox = (props: ExpandDataBoxType) => {
               <div className="grid grid-cols-5">
                 <div className="col-span-2 border-r px-5 py-2 tablet:col-span-1">
                   <p className="caption-font text-center font-medium text-default_dark">
-                    {invCol.key}
+                    {invCol.name}
                   </p>
                 </div>
                 <div className="col-span-3 border-l px-5 py-1.5 tablet:col-span-2">

@@ -124,6 +124,8 @@ const Hook = ({ action }: CustomerFormType): HookType => {
     DEFAULT_SELECT_INPUT_CENTER
   );
 
+  console.log("DataCenter", dataCenter);
+
   const [fields, setFields] = useState<FieldTypes>(FIELDS);
   const [iconAccessCodes, setIconAccessCodes] = useState<IconAccessTypes>(
     DEFAULT_ICON_ACCESSES

@@ -45,6 +45,7 @@ export function updateColumnBody(
   };
   let tmpCol: TABLE_BODY_COL = {
     key: "",
+    name: "",
     value: "",
     isLink: false,
     linkAction: null,
@@ -55,6 +56,7 @@ export function updateColumnBody(
     const tmpColList: TABLE_BODY_COL[] = headingCol.map((col) => {
       tmpCol = {
         key: col.key,
+        name: col.name,
         value: col.key.toLowerCase().includes("date")
           ? humanReadableDate(row[col.key])
           : row[col.key],

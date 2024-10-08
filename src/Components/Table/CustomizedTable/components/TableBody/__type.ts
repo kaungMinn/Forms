@@ -8,6 +8,7 @@ export type TABLE_BODY_ROW = {
 
 export type TABLE_BODY_COL = {
   key: string;
+  name: string;
   value: any;
   isLink: boolean;
   linkAction: any;

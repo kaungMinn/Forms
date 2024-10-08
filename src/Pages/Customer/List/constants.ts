@@ -28,15 +28,16 @@ export const headers = [
   { _id: 17, key: "serviceStartDate", name: "Start Date" },
   { _id: 18, key: "serviceEndDate", name: "End Date" },
   { _id: 19, key: "duration", name: "Duration" },
-  { _id: 20, key: "paymentTypes", name: "Payment Types" },
-  { _id: 21, key: "city", name: "City" },
-  { _id: 22, key: "township", name: "Township" },
-  { _id: 23, key: "address", name: "Address" },
-
-  { _id: 25, key: "phoneNumber", name: "Phone Number" },
-  { _id: 26, key: "viberNumber", name: "Viber Number" },
-  { _id: 27, key: "email", name: "Email" },
-  { _id: 28, key: "remark", name: "Remark" },
+  { _id: 20, key: "mmk", name: "MMK" },
+  { _id: 21, key: "sgd", name: "SGD" },
+  { _id: 22, key: "baht", name: "BAHT" },
+  { _id: 23, key: "city", name: "City" },
+  { _id: 24, key: "township", name: "Township" },
+  { _id: 25, key: "address", name: "Address" },
+  { _id: 26, key: "phoneNumber", name: "Phone Number" },
+  { _id: 27, key: "viberNumber", name: "Viber Number" },
+  { _id: 28, key: "email", name: "Email" },
+  { _id: 29, key: "remark", name: "Remark" },
 ];
 
 export const DEFAULT_INPUT_DATA: FilterDataTypes[] = [
