@@ -4,7 +4,10 @@ import {
   CityType,
   TownshipType,
 } from "../../../../../Constants/Location/myanmar.constants";
-import { PlanType } from "../../../../../Constants/Packages/constants";
+import {
+  PlanType,
+  PriceType,
+} from "../../../../../Constants/Packages/constants";
 import {
   DataCenterTypes,
   DefaultServerErrorType,
@@ -65,6 +68,7 @@ type HookType = [
   errorCenter: ErrorCenterTypes,
   refCenter: RefCenterTypes,
   fields: FieldTypes,
+
   selectedTab: TabType,
   tabs: TabType[],
   iconAccessCodes: IconAccessTypes,
@@ -123,8 +127,6 @@ const Hook = ({ action }: CustomerFormType): HookType => {
   const [selectInputCenter, setSelectInputCenter] = useState<SelectInputTypes>(
     DEFAULT_SELECT_INPUT_CENTER
   );
-
-  console.log("DataCenter", dataCenter);
 
   const [fields, setFields] = useState<FieldTypes>(FIELDS);
   const [iconAccessCodes, setIconAccessCodes] = useState<IconAccessTypes>(
@@ -196,9 +198,10 @@ const Hook = ({ action }: CustomerFormType): HookType => {
     const planData = data as PlanType;
     const price = planData.price;
 
-    const { number, type } = price;
-    updateDataCenter("price", number.toString());
-    updateDataCenter("paymentCurrency", type);
+    const { label, value } = price[0];
+    updateFields("price", price);
+    updateDataCenter("price", value.toString());
+    updateDataCenter("paymentCurrency", label);
 
     //Duration
     const durationValue = planData.duration;
@@ -217,6 +220,13 @@ const Hook = ({ action }: CustomerFormType): HookType => {
     updateDataCenter("serviceEndDate", endDate);
   };
 
+  const handleChildOfPaymentTypes = (data: Record<string, unknown>) => {
+    const { value } = data as PriceType;
+
+    updateDataCenter("price", value.toString());
+    updateErrorCenter("price", "");
+  };
+
   const handleChildOfCity = (data: Record<string, unknown>) => {
     const { townships } = data as CityType;
     updateFields("township", townships as TownshipType[]);
@@ -225,8 +235,11 @@ const Hook = ({ action }: CustomerFormType): HookType => {
   const childPassingStructure = {
     serviceType: handleChildOfServiceType,
     plan: handleChildOfPlan,
+    paymentCurrency: handleChildOfPaymentTypes,
     city: handleChildOfCity,
   };
+
+  console.log("dataCenter", dataCenter);
 
   /*
     CHILD CLEANING ACTIONS
@@ -410,8 +423,6 @@ const Hook = ({ action }: CustomerFormType): HookType => {
           activityLog: { change: { key: string; from: string; to: string } }[];
           field: string;
         };
-
-        console.log("Update activity log", updateActivity);
 
         if (updateActivity.activityLog.length <= 0) return "No Changes Found";
 

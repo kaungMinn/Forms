@@ -13,10 +13,7 @@ import PrimaryInput from "../../../../../../../Components/Inputs/PrimaryInput";
 import { SERVICE_CODES } from "../../../../../../../Constants/Customers/customer.type";
 import ExtraInputWrapper from "../ExtraInputWrapper";
 import { DEFAULT_MODES_FOR_IP } from "../../../../../../../Constants/Network/network.constants";
-import {
-  DEFAULT_BILLING_METHODS,
-  PAYMENTS,
-} from "../../../../../../../Constants/Customers/payment.constants";
+import { DEFAULT_BILLING_METHODS } from "../../../../../../../Constants/Customers/payment.constants";
 import { stateCleaner } from "../../../../../../../Utils/Data/States/cleaner.utils";
 import { FieldTypes } from "../../_types";
 
@@ -25,6 +22,7 @@ type NetworkType = {
   errorCenter: ErrorCenterTypes;
   refCenter: RefCenterTypes;
   fields: FieldTypes;
+
   theme: DefaultThemeTypes;
 
   serverErrors?: DefaultServerErrorType;
@@ -54,6 +52,7 @@ const NetworkAndBilling = (props: NetworkType) => {
     errorCenter,
     refCenter,
     fields,
+
     theme,
 
     serverErrors,
@@ -81,7 +80,7 @@ const NetworkAndBilling = (props: NetworkType) => {
   const { primaryColor } = theme;
   const [primaryBg, primaryText] = primaryColor;
   return (
-    <>
+    <div className="">
       <div className="pt-6 px-2 pb-2 border-gray-400 rounded-lg border  relative space-y-3">
         <div
           className={`absolute -top-[0.6rem] px-2 left-4 body-font ${primaryBg} ${primaryText}`}
@@ -373,13 +372,14 @@ const NetworkAndBilling = (props: NetworkType) => {
 
           <CustomizedDropDown
             label={"Payment Currency"}
-            dropDownData={PAYMENTS}
+            dropDownData={fields.price}
             value={dataCenter.paymentCurrency || "Select service type"}
             errorMessage={errorCenter.paymentCurrency}
             dataKey="label"
             dataCenterKey="paymentCurrency"
             theme={theme}
             isRequired={true}
+            isDisabled={fields.plan.length <= 0}
             /*
             Structures
           */
@@ -468,7 +468,7 @@ const NetworkAndBilling = (props: NetworkType) => {
           />
         </ExtraInputWrapper>
       </div>
-    </>
+    </div>
   );
 };
 

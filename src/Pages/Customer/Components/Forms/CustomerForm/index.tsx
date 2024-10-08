@@ -27,6 +27,7 @@ const CustomerForm = (props: CustomerFormType) => {
     errorCenter,
     refCenter,
     fields,
+
     selectedTab,
     tabs,
     iconAccessCodes,

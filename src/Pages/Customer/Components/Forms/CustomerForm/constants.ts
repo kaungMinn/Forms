@@ -208,6 +208,7 @@ export const DEFAULT_CUSTOMER_VALIDATIONS: CustomerValidationTypes = {
 export const FIELDS: FieldTypes = {
   serviceType: PACKAGES,
   plan: [],
+  price: [],
   city: CITIES,
   township: [],
 };

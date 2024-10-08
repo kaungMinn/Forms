@@ -2,7 +2,11 @@ import {
   CityType,
   TownshipType,
 } from "../Constants/Location/myanmar.constants";
-import { PackageType, PlanType } from "../Constants/Packages/constants";
+import {
+  PackageType,
+  PlanType,
+  PriceType,
+} from "../Constants/Packages/constants";
 import { SelectInputTypes } from "../Pages/Customer/_types";
 
 // src/types.ts
@@ -62,6 +66,7 @@ export interface CustomerData {
 export interface CustomerFields {
   serviceType: PackageType[];
   plan: PlanType[];
+  price: PriceType[];
   city: CityType[];
   township: TownshipType[];
 }

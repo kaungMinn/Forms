@@ -5,7 +5,7 @@ import {
   CityType,
   TownshipType,
 } from "../../../../../Constants/Location/myanmar.constants";
-import { PackageType } from "../../../../../Constants/Packages/constants";
+import { PackageType, PriceType } from "../../../../../Constants/Packages/constants";
 
 export type DataCenterTypes = {
   brandName: string;
@@ -190,6 +190,7 @@ export type CustomerValidationTypes = {
 export type FieldTypes = {
   serviceType: PackageType[];
   plan: PlanType[];
+  price: PriceType[];
   city: CityType[];
   township: TownshipType[];
 };
