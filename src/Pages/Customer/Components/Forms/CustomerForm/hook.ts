@@ -210,14 +210,14 @@ const Hook = ({ action }: CustomerFormType): HookType => {
     updateDataCenter("durationNumber", durationNumber);
 
     //End Date
-    const endDate = inputAcceptableDate(
-      endDateCreator(
-        durationType,
-        durationNumber.toString(),
-        dataCenter.serviceStartDate
-      )
-    );
-    updateDataCenter("serviceEndDate", endDate);
+    // const endDate = inputAcceptableDate(
+    //   endDateCreator(
+    //     durationType,
+    //     durationNumber.toString(),
+    //     dataCenter.serviceStartDate
+    //   )
+    // );
+    // updateDataCenter("serviceEndDate", endDate);
   };
 
   const handleChildOfPaymentTypes = (data: Record<string, unknown>) => {
@@ -238,8 +238,6 @@ const Hook = ({ action }: CustomerFormType): HookType => {
     paymentCurrency: handleChildOfPaymentTypes,
     city: handleChildOfCity,
   };
-
-  console.log("dataCenter", dataCenter);
 
   /*
     CHILD CLEANING ACTIONS

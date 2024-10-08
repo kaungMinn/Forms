@@ -1,4 +1,4 @@
-import { DURATION_MEASURED_TYPE_VALUES } from "../../Constants/General/date.constants";
+import { DURATION_MEASURED_TYPE_CAP_VALUES } from "../../Constants/General/date.constants";
 
 export const inputAcceptableDate = (dateValue: Date) => {
   if (!dateValue) return "";
@@ -23,26 +23,31 @@ export const endDateCreator = (
   startDate: string
 ) => {
   const dt = new Date(startDate);
+  console.log("DurationType", durationType);
 
   switch (durationType) {
-    case DURATION_MEASURED_TYPE_VALUES.MINUTE:
+    case DURATION_MEASURED_TYPE_CAP_VALUES.MINUTE:
       dt.setMinutes(dt.getMinutes() + parseInt(durationNumber));
       break;
 
-    case DURATION_MEASURED_TYPE_VALUES.HOUR:
+    case DURATION_MEASURED_TYPE_CAP_VALUES.HOUR:
       dt.setHours(dt.getHours() + parseInt(durationNumber));
       break;
 
-    case DURATION_MEASURED_TYPE_VALUES.DAY:
+    case DURATION_MEASURED_TYPE_CAP_VALUES.DAY:
       dt.setDate(dt.getDate() + parseInt(durationNumber));
       break;
 
-    case DURATION_MEASURED_TYPE_VALUES.MONTH:
+    case DURATION_MEASURED_TYPE_CAP_VALUES.MONTH:
       dt.setDate(
         new Date(
           dt.setMonth(dt.getMonth() + parseInt(durationNumber))
-        ).getDate() - 1
+        ).getDate()
       );
+      break;
+
+    case DURATION_MEASURED_TYPE_CAP_VALUES.YEAR: // Add this case for year
+      dt.setFullYear(dt.getFullYear() + parseInt(durationNumber));
       break;
   }
 
