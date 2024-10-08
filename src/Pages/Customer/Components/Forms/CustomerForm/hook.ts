@@ -206,7 +206,7 @@ const Hook = ({ action }: CustomerFormType): HookType => {
     //Duration
     const durationValue = planData.duration;
     const [durationNumber, durationType] = durationValue.split(" ");
-    updateDataCenter("duration", capitalize(durationType) + "s");
+    updateDataCenter("duration", durationType);
     updateDataCenter("durationNumber", durationNumber);
 
     //End Date

@@ -43,7 +43,7 @@ const BottomActivities = (props: BottomActivitesType) => {
                 bgColor={to ? disabled.bg : danger.bg}
                 textColor={to ? disabled.text : danger.text}
                 height="h-4"
-                width="w-12"
+                width="w-15"
               />
 
               <span className="inline-block">{handleHumanReadable(from)}</span>
@@ -55,7 +55,7 @@ const BottomActivities = (props: BottomActivitesType) => {
                 label={from ? "To" : "Added"}
                 theme={theme}
                 height="h-4"
-                width="w-12"
+                width="w-15"
                 bgColor={success.bg}
                 textColor={success.text}
               />

@@ -36,7 +36,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "148" },
           { id: 3, label: "SGD", value: "5.8" },
         ],
-        duration: "1 month",
+        duration: "1 Months",
       },
       {
         id: 102,
@@ -46,7 +46,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "206.3" },
           { id: 3, label: "SGD", value: "11.6" },
         ],
-        duration: "4 day",
+        duration: "4 Days",
       },
       {
         id: 103,
@@ -56,7 +56,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "206.3" },
           { id: 3, label: "SGD", value: "11.6" },
         ],
-        duration: "1 month",
+        duration: "1 Months",
       },
     ],
   },
@@ -72,7 +72,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "14800" },
           { id: 3, label: "SGD", value: "58" },
         ],
-        duration: "1 year",
+        duration: "1 Years",
       },
       {
         id: 202,
@@ -81,7 +81,7 @@ export const PACKAGES: PackageType[] = [
           { id: 1, label: "MMK", value: "30000" },
           { id: 2, label: "BAHT", value: "22.2" },
         ],
-        duration: "5 month",
+        duration: "5 Months",
       },
       {
         id: 203,
@@ -91,7 +91,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "206.3" },
           { id: 3, label: "SGD", value: "11.6" },
         ],
-        duration: "4 month",
+        duration: "4 Months",
       },
       {
         id: 204,
@@ -101,7 +101,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "206.3" },
           { id: 3, label: "SGD", value: "11.6" },
         ],
-        duration: "1 month",
+        duration: "1 Months",
       },
       {
         id: 205,
@@ -111,7 +111,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "148" },
           { id: 3, label: "SGD", value: "5.8" },
         ],
-        duration: "5 month",
+        duration: "5 Months",
       },
     ],
   },
@@ -127,7 +127,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "20630" },
           { id: 3, label: "SGD", value: "1160" },
         ],
-        duration: "4 year",
+        duration: "4 Years",
       },
       {
         id: 302,
@@ -137,7 +137,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "148" },
           { id: 3, label: "SGD", value: "5.8" },
         ],
-        duration: "5 month",
+        duration: "5 Months",
       },
       {
         id: 303,
@@ -146,7 +146,7 @@ export const PACKAGES: PackageType[] = [
           { id: 1, label: "MMK", value: "30000" },
           { id: 2, label: "BAHT", value: "22.2" },
         ],
-        duration: "1 month",
+        duration: "1 Months",
       },
       {
         id: 304,
@@ -156,7 +156,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "206.3" },
           { id: 3, label: "SGD", value: "11.6" },
         ],
-        duration: "1 month",
+        duration: "1 Months",
       },
       {
         id: 305,
@@ -166,7 +166,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "206.3" },
           { id: 3, label: "SGD", value: "11.6" },
         ],
-        duration: "5 month",
+        duration: "5 Months",
       },
     ],
   },
@@ -182,7 +182,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "206.3" },
           { id: 3, label: "SGD", value: "11.6" },
         ],
-        duration: "1 month",
+        duration: "1 Months",
       },
       {
         id: 402,
@@ -192,7 +192,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "148" },
           { id: 3, label: "SGD", value: "5.8" },
         ],
-        duration: "5 month",
+        duration: "5 Months",
       },
       {
         id: 403,
@@ -202,7 +202,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "206.3" },
           { id: 3, label: "SGD", value: "11.6" },
         ],
-        duration: "4 day",
+        duration: "4 Days",
       },
       {
         id: 404,
@@ -212,7 +212,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "20630" },
           { id: 3, label: "SGD", value: "1160" },
         ],
-        duration: "1 month",
+        duration: "1 Months",
       },
       {
         id: 405,
@@ -221,7 +221,7 @@ export const PACKAGES: PackageType[] = [
           { id: 1, label: "MMK", value: "30000000" },
           { id: 2, label: "BAHT", value: "22200" },
         ],
-        duration: "5 month",
+        duration: "5 Months",
       },
     ],
   },
@@ -237,7 +237,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "148" },
           { id: 3, label: "SGD", value: "5.8" },
         ],
-        duration: "4 month",
+        duration: "4 Months",
       },
       {
         id: 502,
@@ -247,7 +247,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "206.3" },
           { id: 3, label: "SGD", value: "11.6" },
         ],
-        duration: "1 month",
+        duration: "1 Months",
       },
       {
         id: 503,
@@ -257,7 +257,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "206.3" },
           { id: 3, label: "SGD", value: "11.6" },
         ],
-        duration: "5 month",
+        duration: "5 Months",
       },
       {
         id: 504,
@@ -266,7 +266,7 @@ export const PACKAGES: PackageType[] = [
           { id: 1, label: "MMK", value: "30000" },
           { id: 2, label: "BAHT", value: "22.2" },
         ],
-        duration: "4 month",
+        duration: "4 Months",
       },
       {
         id: 505,
@@ -276,7 +276,7 @@ export const PACKAGES: PackageType[] = [
           { id: 2, label: "BAHT", value: "148" },
           { id: 3, label: "SGD", value: "5.8" },
         ],
-        duration: "1 month",
+        duration: "1 Months",
       },
     ],
   },

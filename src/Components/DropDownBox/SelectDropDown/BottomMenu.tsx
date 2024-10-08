@@ -165,10 +165,12 @@ const BottomMenu = (props: BottomMenuType) => {
   const { primaryColor } = theme;
   const value = valueFinder(dataCenter, dataCenterKey);
 
-  const [primaryBg] = primaryColor;
+  const [primaryBg, primaryText] = primaryColor;
 
   return (
-    <div className={` p-5  shadow rounded-lg space-y-5 ${primaryBg}`}>
+    <div
+      className={` p-5  shadow rounded-lg space-y-5 ${primaryBg} ${primaryText}`}
+    >
       <div className="flex justify-between">
         {avaliableSelection.map(
           (selection: AvaliableSelectionType, idx: number) => {

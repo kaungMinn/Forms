@@ -12,7 +12,7 @@ const SimpleCard = (props: PropTypes) => {
   const { label, logo, handleClick, bgColor, textColor } = props;
   return (
     <div
-      className={` h-[9rem] p-4 rounded-md space-y-5 border  cursor-pointer  ${
+      className={` h-[9rem] flex flex-col justify-center rounded-md space-y-5 border  cursor-pointer  ${
         bgColor ? bgColor : "bg-default"
       } ${textColor && textColor}`}
       onClick={() => handleClick()}

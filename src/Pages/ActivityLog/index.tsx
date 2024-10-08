@@ -6,7 +6,8 @@ import { ActivityLogTypes } from "../../DB/_types";
 
 const ActivityLog = () => {
   const theme = useAppSelector((state) => state.theme);
-
+  const { dashboardColor } = theme;
+  const [dashboardBg, dashboardText] = dashboardColor;
   const [activities] = Hook();
 
   const handleFilterActivity = (activityLog: ActivityLogTypes[]) => {
@@ -23,7 +24,7 @@ const ActivityLog = () => {
   };
 
   return (
-    <div>
+    <div className={`${dashboardBg} ${dashboardText}`}>
       <h1 className="heading-font space-y-2">
         <p>Activities</p>
         <p className="caption-font">Manage your activities</p>
