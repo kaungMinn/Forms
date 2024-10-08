@@ -58,7 +58,7 @@ const TabMenu = (props: TabMenuTypes) => {
                 ? `${alertColor[4]}`
                 : tab.id === selectedTab.id
                 ? `${selectedTextColor}`
-                : ``
+                : primaryColor[1]
             }`}
             onClick={() => {
               handleSelectTab(tab);

@@ -7,12 +7,13 @@ type DropDownLabelType = {
 };
 const DropDownLabel = (props: DropDownLabelType) => {
   const { label = "", isRequired = false, theme } = props;
-  const { alertColor } = theme;
+  const { alertColor, primaryColor } = theme;
   return (
     <>
       {label && (
-        <div className="block caption-font">
-          {label} {isRequired && <span className={`${alertColor[4]}`}>**</span>}
+        <div className={`block caption-font ${primaryColor[1]}`}>
+          {label}{" "}
+          {isRequired && <span className={`${alertColor[4]} `}>**</span>}
         </div>
       )}
     </>

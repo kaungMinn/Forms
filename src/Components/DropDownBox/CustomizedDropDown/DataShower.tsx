@@ -38,7 +38,7 @@ const ShowData = ({
   ) => void;
 }) => {
   const { primaryColor } = theme;
-  const [primaryBg] = primaryColor;
+  const [primaryBg, primaryText] = primaryColor;
 
   const handleIsSelected = (label: string) => {
     let isSelected = false;
@@ -53,7 +53,7 @@ const ShowData = ({
     <>
       {dropDownData.length > 0 ? (
         <div
-          className={`space-y-2 p-3 rounded-md ${primaryBg} ${
+          className={`space-y-2 p-3 rounded-md ${primaryBg} ${primaryText} ${
             dropDownData.length > 5 && "h-[10.4rem] overflow-auto"
           }`}
         >
