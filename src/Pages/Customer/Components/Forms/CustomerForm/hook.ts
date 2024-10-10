@@ -61,7 +61,6 @@ import { db } from "../../../../../DB/db";
 import { CustomerFormType } from ".";
 import { useParams } from "react-router-dom";
 import { diffJSON } from "../../../../../Utils/Data/jsoncompasser.utils";
-import { capitalize } from "lodash";
 
 type HookType = [
   dataCenter: DataCenterTypes,

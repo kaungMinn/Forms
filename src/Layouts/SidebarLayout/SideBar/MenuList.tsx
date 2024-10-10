@@ -140,26 +140,7 @@ const MenuList: React.FC<MENU_LIST_PROPS_TYPE> = ({
           </React.Fragment>
         ))}
       <div className="absolute bottom-0 left-0 h-auto w-full">
-        <div className="mx-3 border-t border-default_dark py-2">
-          <div
-            className={`flex items-center space-x-2 rounded-md px-2.5 py-2 text-base_dark laptop:hover:cursor-pointer laptop:hover:bg-default_light laptop:hover:text-base_light ${textColor}`}
-            /**
-             * action
-             */
-            onClick={() => handleChangeOnLogoutBox()}
-          >
-            <div className="w-[20px] min-w-[20px]">
-              <BiLogOut className="h-auto w-4" />
-            </div>
-            <p
-              className={`secondary-font  ${
-                !isOpenSide && "scale-0"
-              } duration-100`}
-            >
-              Logout
-            </p>
-          </div>
-        </div>
+        <div className="mx-3 border-t border-default_dark py-2"></div>
       </div>
     </>
   );
