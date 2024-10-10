@@ -29,7 +29,7 @@ const ActivityLog = () => {
         <p>Activities</p>
         <p className="caption-font">Manage your activities</p>
       </h1>
-      <div className="space-y-3 mt-5">
+      <div className="space-y-3 mt-5 pb-5">
         {activities.length > 0 &&
           activities.map((activity) => {
             const { id, field, action, date, activityLog } = activity;

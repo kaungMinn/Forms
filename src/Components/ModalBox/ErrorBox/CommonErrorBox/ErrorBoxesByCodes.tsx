@@ -237,7 +237,7 @@ const CommonBox: React.FC<ErrorResponsePropsType> = (err) => {
                   handleClickOn={() => dispatch(resetError())}
                 />
               </div>
-            </div>{" "}
+            </div>
           </motion.div>
         </div>
       )}

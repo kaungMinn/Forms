@@ -55,10 +55,8 @@ const DeleteBox = (props: DeleteBoxType) => {
       </div>
     ) : (
       <div className="space-y-1">
-        <p className="body-font text-center font-semibold text-danger">
-          Are you sure to delete?
-        </p>
-        <p className="caption-font text-center font-semibold text-base_light">
+        <p className="body-font text-center ">Are you sure to delete?</p>
+        <p className="caption-font text-center ">
           If you delete this, you can't recover it.
         </p>
       </div>

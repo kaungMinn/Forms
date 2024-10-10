@@ -230,7 +230,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
     primaryColor: [
       "bg-[#2a2b32]",
       "text-white",
-      "bg-gray-700",
+      "bg-[#3d3e47]",
       "text-default_light",
       "laptop:hover:bg-default_light",
       "laptop:hover:text-base_light",
@@ -238,7 +238,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "laptop:hover:text-default",
       "border-default ",
     ],
-    secondaryColor: ["bg-gray-500", "text-default"],
+    secondaryColor: ["bg-[#3d3e47]", "text-default"],
     dashboardColor: [
       "bg-[#5C5858]",
       "text-default",
@@ -380,7 +380,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
       "laptop:hover:text-default",
       "border-default ",
     ],
-    secondaryColor: ["bg-gray-500", "text-default"],
+    secondaryColor: ["bg-[#3d928c]", "text-default"],
     dashboardColor: [
       "bg-[#599786]",
       "text-default",
@@ -398,7 +398,7 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
     tableColor: [
       "odd:bg-default_light",
       "even:bg-default",
-      "laptop:hover:bg-[#317873]",
+      "laptop:hover:bg-[#af8b2e]",
     ],
     inputColor: [
       "placeholder:text-default_light",

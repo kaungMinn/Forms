@@ -27,7 +27,7 @@ const BottomActivities = (props: BottomActivitesType) => {
 
   return (
     <div
-      className={`laptop:list-item laptop:list-disc rounded-md laptop:px-5 laptop:mx-5 `}
+      className={`laptop:list-item laptop:list-disc rounded-md laptop:px-5 laptop:mx-5  `}
     >
       <div className=" space-y-1 laptop:space-y-0 laptop:flex gap-5 body-font ">
         <div className="sub-heading-font laptop:body-font">
