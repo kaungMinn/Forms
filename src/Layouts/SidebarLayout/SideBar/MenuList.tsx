@@ -4,7 +4,7 @@ import _ from "lodash";
 
 // icons
 import { BsChevronRight } from "react-icons/bs";
-import { BiLogOut } from "react-icons/bi";
+
 import { MENU_LIST_PROPS_TYPE, MENU_LIST_TYPE, SUB_MENU_TYPE } from "../type";
 
 // components
@@ -50,7 +50,7 @@ const MenuList: React.FC<MENU_LIST_PROPS_TYPE> = ({
   /**
    * action
    */
-  handleChangeOnLogoutBox,
+
   handleClickOn,
   colors,
 }) => {
