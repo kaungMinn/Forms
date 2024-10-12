@@ -34,7 +34,7 @@ const BottomActivities = (props: BottomActivitesType) => {
           {camelCaseToName(key)}
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-col gap-1 laptop:flex-row laptop:gap-3">
           {from && (
             <div className=" laptop:space-x-2 laptop:flex">
               <PrimaryBadge
@@ -43,7 +43,6 @@ const BottomActivities = (props: BottomActivitesType) => {
                 bgColor={to ? disabled.bg : danger.bg}
                 textColor={to ? disabled.text : danger.text}
                 height="h-4"
-                width="w-15"
               />
 
               <span className="inline-block">{handleHumanReadable(from)}</span>
@@ -55,7 +54,6 @@ const BottomActivities = (props: BottomActivitesType) => {
                 label={from ? "To" : "Added"}
                 theme={theme}
                 height="h-4"
-                width="w-15"
                 bgColor={success.bg}
                 textColor={success.text}
               />

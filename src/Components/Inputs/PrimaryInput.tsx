@@ -83,7 +83,7 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
         </div>
       )}
       <div>
-        <div className="flex gap-1 items-center">
+        <div className="flex gap-1 items-center relative">
           <input
             type={type}
             name={name}
@@ -114,6 +114,8 @@ const PrimaryInput: React.FC<PrimaryInputPropType> = ({
             }
             onClick={handleClick}
           />
+
+          {backIcon && <div className="absolute right-2">{backIcon}</div>}
 
           {badgeLabel && (
             <PrimaryBadge

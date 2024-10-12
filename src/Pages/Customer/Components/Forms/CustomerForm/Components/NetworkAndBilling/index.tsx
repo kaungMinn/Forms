@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { CustomizedDropDownDataTypes } from "../../../../../../../Components/DropDownBox/CustomizedDropDown/_types";
 import { DefaultThemeTypes } from "../../../../../../Theme/_types";
 import {
@@ -16,6 +16,7 @@ import { DEFAULT_MODES_FOR_IP } from "../../../../../../../Constants/Network/net
 import { DEFAULT_BILLING_METHODS } from "../../../../../../../Constants/Customers/payment.constants";
 import { stateCleaner } from "../../../../../../../Utils/Data/States/cleaner.utils";
 import { FieldTypes } from "../../_types";
+import { LuEye, LuEyeOff } from "react-icons/lu";
 
 type NetworkType = {
   dataCenter: DataCenterTypes;
@@ -76,6 +77,8 @@ const NetworkAndBilling = (props: NetworkType) => {
     stateCleaner(keys, updateErrorCenter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const [hasPass, setHasPass] = useState(false);
 
   const { primaryColor } = theme;
   const [primaryBg, primaryText] = primaryColor;
@@ -143,9 +146,17 @@ const NetworkAndBilling = (props: NetworkType) => {
               inputRef={refCenter.radPassword}
               placeHolderText="Enter rad password"
               name="radPassword"
-              type="text"
+              type={hasPass ? "text" : "password"}
               isRequired={true}
               theme={theme}
+              backIcon={
+                <div
+                  className="cursor-pointer"
+                  onClick={() => setHasPass(!hasPass)}
+                >
+                  {!hasPass ? <LuEye /> : <LuEyeOff />}
+                </div>
+              }
               /*
                 Actions
               */
@@ -379,7 +390,7 @@ const NetworkAndBilling = (props: NetworkType) => {
             dataCenterKey="paymentCurrency"
             theme={theme}
             isRequired={true}
-            isDisabled={fields.plan.length <= 0}
+            isDisabled={!dataCenter.plan}
             /*
             Structures
           */
