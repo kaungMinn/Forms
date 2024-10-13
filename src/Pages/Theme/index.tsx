@@ -5,6 +5,7 @@ import { setTheme } from "../../Store/slices/theme.slice";
 import ThemeCards from "./Components/ThemeCards";
 import { DefaultThemeTypes } from "./_types";
 import PrimaryWrapper from "../../Components/Wrappers/PrimaryWrapper";
+import { db } from "../../DB/db";
 
 const Theme = () => {
   const [themes] = useState<DefaultThemeTypes[]>(DEFAULT_THEMES);
@@ -14,8 +15,30 @@ const Theme = () => {
   const { id, primaryColor, dashboardColor } = theme;
   const [dashboardBg, dashboardText] = dashboardColor;
 
-  const handleTheme = (theme: DefaultThemeTypes) => {
+  const handleTheme = async (theme: DefaultThemeTypes) => {
     dispatch(setTheme(theme));
+
+    try {
+      const dbtheme = await db.theme.toArray();
+
+      if (dbtheme.length <= 0) {
+        db.theme.add({
+          id: 1,
+          theme: {
+            ...theme,
+            logo: theme.id,
+            detailLogo: theme.id,
+          },
+        });
+        return;
+      }
+      await db.theme.put({
+        id: 1,
+        theme: { ...theme, logo: theme.id, detailLogo: theme.id },
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div className={`${dashboardBg} ${dashboardText}`}>

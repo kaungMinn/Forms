@@ -436,3 +436,12 @@ export const DEFAULT_THEMES: DefaultThemeTypes[] = [
     },
   },
 ];
+
+export const THEME_ICON_STRUCTURE = {
+  1: <SiGoogleearth size={60} />,
+  2: <HiColorSwatch size={60} />,
+  3: <IoColorFill size={60} />,
+  4: <IoColorFilter size={60} />,
+  5: <BiSolidColor size={60} />,
+  6: <IoIosColorPalette size={60} />,
+};

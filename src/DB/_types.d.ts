@@ -8,6 +8,7 @@ import {
   PriceType,
 } from "../Constants/Packages/constants";
 import { SelectInputTypes } from "../Pages/Customer/_types";
+import { DefaultThemeTypes } from "../Pages/Theme/_types";
 
 // src/types.ts
 export interface Customer {
@@ -81,4 +82,30 @@ export interface Activity {
   action: string;
   field: string;
   date: string;
+}
+
+export interface ThemeType {
+  id: number;
+  logo: string;
+  detailLogo: string;
+  name: string;
+  primaryColor: string[];
+  secondaryColor: string[];
+  dashboardColor: string[];
+  navColor: string[];
+  tableColor: string[];
+  inputColor: string[];
+  textColor: string[];
+  alertColor: string[];
+  description: string;
+  font: string;
+  websiteLink: string;
+  statusColor: StatusColor;
+  actionColor: ActionColor;
+  generalColor: GeneralColorTypes;
+}
+
+export interface Theme {
+  id: number;
+  theme: DefaultThemeTypes;
 }
