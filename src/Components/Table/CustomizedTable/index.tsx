@@ -55,6 +55,7 @@ const CustomizedTable: React.FC<TABLE_PROPS_TYPE> = (props) => {
 
   const { numberOfColumn } = useWindowResize();
   const { isLoading, isSuccess } = useAppSelector((state) => state.list);
+  const { generalColor } = theme;
 
   return (
     <React.Fragment>
@@ -143,7 +144,9 @@ const CustomizedTable: React.FC<TABLE_PROPS_TYPE> = (props) => {
           </div>
         ) : (
           <div>
-            <p className="secondary-font text-center text-default_dark">
+            <p
+              className={`secondary-font text-center ${generalColor.primary.text}`}
+            >
               No data!
             </p>
           </div>

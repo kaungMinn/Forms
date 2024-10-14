@@ -90,7 +90,6 @@ export const ExpandDataBox = (props: ExpandDataBoxType) => {
 const TableBody: React.FC<TABLE_BODY_PROPS_TYPE> = (props) => {
   const {
     numberOfColumn,
-
     /**
      * action
      */
