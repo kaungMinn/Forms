@@ -136,7 +136,7 @@ const Hook = ({ action }: CustomerFormType): HookType => {
   );
   const [isSuccess, setIsSuccess] = useState(false);
   const dispatch = useAppDispatch();
-  const [serverErrors, setServerErrors] = useState<DefaultServerErrorType>(
+  const [serverErrors] = useState<DefaultServerErrorType>(
     DEFAULT_SERVER_ERRORS
   );
   const [loading, setLoading] = useState(false);
