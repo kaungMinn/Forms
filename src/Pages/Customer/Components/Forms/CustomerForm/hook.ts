@@ -340,6 +340,7 @@ const Hook = ({ action }: CustomerFormType): HookType => {
   const handleCreateCustomers = async () => {
     try {
       const customers = await db.customers.toArray();
+
       const customerId =
         customers.length > 0 ? customers[customers.length - 1].id + 1 : 1;
       const activityId = (await db.activities.toArray()).length + 1;
@@ -359,11 +360,10 @@ const Hook = ({ action }: CustomerFormType): HookType => {
 
       setLoading(true);
 
-      const sameServiceID = await db.customers.get({
-        serviceID: dataCenter.serviceID,
+      const sameServiceID = customers.filter((customer) => {
+        return customer.customers.serviceID === dataCenter.serviceID;
       });
-
-      if (sameServiceID) {
+      if (sameServiceID.length > 0) {
         dispatch(
           setError({
             isError: true,

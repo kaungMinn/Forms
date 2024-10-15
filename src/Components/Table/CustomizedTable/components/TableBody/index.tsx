@@ -145,7 +145,7 @@ const TableBody: React.FC<TABLE_BODY_PROPS_TYPE> = (props) => {
               )}
             <td>
               <div className="flex items-center justify-center space-x-3 px-2">
-                <Tooltip position="top" tooltipLabel="edit node">
+                <Tooltip position="top" tooltipLabel="edit customer">
                   <AiTwotoneEdit
                     className="h-auto w-4 text-success duration-200 laptop:cursor-pointer laptop:hover:rotate-12 laptop:group-hover:text-default"
                     /**
@@ -159,7 +159,7 @@ const TableBody: React.FC<TABLE_BODY_PROPS_TYPE> = (props) => {
 
                 <div className="h-6 w-px bg-default_dark bg-opacity-60" />
 
-                <Tooltip position="top" tooltipLabel="delete node">
+                <Tooltip position="top" tooltipLabel="delete customer">
                   <TbTrash
                     className="h-auto w-4 text-danger duration-200 laptop:cursor-pointer laptop:hover:rotate-12 laptop:group-hover:text-default"
                     /**
