@@ -360,34 +360,34 @@ const Hook = ({ action }: CustomerFormType): HookType => {
 
       setLoading(true);
 
-      const sameServiceID = customers.filter((customer) => {
-        return customer.customers.serviceID === dataCenter.serviceID;
-      });
+      // const sameServiceID = customers.filter((customer) => {
+      //   return customer.customers.serviceID === dataCenter.serviceID;
+      // });
 
-      const handleServiceIDError = () => {
-        dispatch(
-          setError({
-            isError: true,
-            statusCode: 409,
-            errorMessage: "Service ID Already exits!",
-          })
-        );
+      // const handleServiceIDError = () => {
+      //   dispatch(
+      //     setError({
+      //       isError: true,
+      //       statusCode: 409,
+      //       errorMessage: "Service ID Already exits!",
+      //     })
+      //   );
 
-        setServerErrors((prev) => ({ ...prev, duplicate: true }));
+      //   setServerErrors((prev) => ({ ...prev, duplicate: true }));
 
-        setSelectedTab(TABS[1]);
-        updateErrorCenter("serviceID", "Service ID Already Exists");
-        setIconAccessCodes((prev) => ({ ...prev, 2: false }));
-      };
-      if (sameServiceID.length > 0 && action !== "update") {
-        handleServiceIDError();
-        return;
-      } else if (action === "update" && sameServiceID.length > 1) {
-        handleServiceIDError();
-        return;
-      } else {
-        setServerErrors(DEFAULT_SERVER_ERRORS);
-      }
+      //   setSelectedTab(TABS[1]);
+      //   updateErrorCenter("serviceID", "Service ID Already Exists");
+      //   setIconAccessCodes((prev) => ({ ...prev, 2: false }));
+      // };
+      // if (sameServiceID.length > 0 && action !== "update") {
+      //   handleServiceIDError();
+      //   return;
+      // } else if (action === "update" && sameServiceID.length > 1) {
+      //   handleServiceIDError();
+      //   return;
+      // } else {
+      //   setServerErrors(DEFAULT_SERVER_ERRORS);
+      // }
 
       let tmp_data_center = {
         ...dataCenter,
