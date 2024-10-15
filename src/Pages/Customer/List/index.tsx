@@ -88,6 +88,7 @@ const CustomerList = () => {
   const handleChangeOnPageSize = (pageSize: { id: number; value: number }) => {
     const { value } = pageSize;
     setDataPerPage(value);
+    setCurrentPage(1);
   };
 
   const handleGetBodyData = async () => {
@@ -186,6 +187,7 @@ const CustomerList = () => {
       {loading && <DataLoading />}
 
       <Heading heading="Customers" subHeading="Manage your customers" />
+
       <Filters
         inputData={DEFAULT_INPUT_DATA}
         dataCenter={dataCenter}
