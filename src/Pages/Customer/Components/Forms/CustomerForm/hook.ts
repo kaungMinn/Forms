@@ -363,7 +363,7 @@ const Hook = ({ action }: CustomerFormType): HookType => {
       const sameServiceID = customers.filter((customer) => {
         return customer.customers.serviceID === dataCenter.serviceID;
       });
-      if (sameServiceID.length > 0) {
+      if (sameServiceID.length > 0 && action !== "update") {
         dispatch(
           setError({
             isError: true,
