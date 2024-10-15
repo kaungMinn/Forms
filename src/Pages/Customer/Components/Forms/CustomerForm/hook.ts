@@ -363,7 +363,8 @@ const Hook = ({ action }: CustomerFormType): HookType => {
       const sameServiceID = customers.filter((customer) => {
         return customer.customers.serviceID === dataCenter.serviceID;
       });
-      if (sameServiceID.length > 0 && action !== "update") {
+
+      const handleServiceIDError = () => {
         dispatch(
           setError({
             isError: true,
@@ -377,6 +378,12 @@ const Hook = ({ action }: CustomerFormType): HookType => {
         setSelectedTab(TABS[1]);
         updateErrorCenter("serviceID", "Service ID Already Exists");
         setIconAccessCodes((prev) => ({ ...prev, 2: false }));
+      };
+      if (sameServiceID.length > 0 && action !== "update") {
+        handleServiceIDError();
+        return;
+      } else if (action === "update" && sameServiceID.length > 1) {
+        handleServiceIDError();
         return;
       } else {
         setServerErrors(DEFAULT_SERVER_ERRORS);
