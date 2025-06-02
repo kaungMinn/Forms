@@ -1,6 +1,9 @@
 import {
+  isMeaningfulCoordinate,
+  isMeaningfulEmail,
   isMeaningfullDuration,
   isMeaningfullMoneyValue,
+  isMeaningfulPhoneNumber,
 } from "../../../Utils/regex.utils";
 import { DataCenterTypes } from "../_types";
 import {
@@ -171,5 +174,25 @@ export const validationSchemaGenerator = (
       field: "township",
       step: handleStepThree,
     },
+    {
+      condition: dataCenter.coordinates.length > 0 && !isMeaningfulCoordinate(dataCenter.coordinates),
+      field: "coordinates",
+      step: handleStepThree
+    },
+    {
+      condition: dataCenter.phoneNumber.length > 0 && !isMeaningfulPhoneNumber(dataCenter.phoneNumber),
+      field: "phoneNumber",
+      step: handleStepThree
+    },
+    {
+      condition: dataCenter.viberNumber.length > 0 && !isMeaningfulPhoneNumber(dataCenter.viberNumber),
+      field: "viberNumber",
+      step: handleStepThree
+    },
+    {
+      condition: dataCenter.email.length > 0 && !isMeaningfulEmail(dataCenter.email),
+      field: "email",
+      step: handleStepThree
+    }
   ];
 };

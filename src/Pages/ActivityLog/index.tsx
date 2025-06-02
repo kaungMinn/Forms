@@ -52,7 +52,7 @@ const ActivityLog = () => {
             className="flex items-center justify-center caption-font
           "
           >
-            No Data!
+            Please create, update or delete to see activity!
           </div>
         )}
       </div>

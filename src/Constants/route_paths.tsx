@@ -1,6 +1,6 @@
 //PROTECTED ROUTE LIST
 export const THEME_ROUTE = "/theme";
-
+export const DASHBOARD_ROUTE = "/";
 //customer route
 export const CUSTOMER_LIST_ROUTE = "/customers";
 export const CUSTOMER_CREATE_ROUTE = "/customers/create";

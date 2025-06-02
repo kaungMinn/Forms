@@ -546,7 +546,7 @@ const Hook = ({ action }: CustomerFormType): HookType => {
     failIconGenerator();
   }, [failIconGenerator]);
 
-  //Regex validations
+  //Regex validationss
   const regexTesting = (key: string, regexFun: (value: string) => boolean) => {
     const data = dataCenter[key as keyof DataCenterTypes];
 

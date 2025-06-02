@@ -1,6 +1,8 @@
 import { lazy } from "react";
 
 export const Theme = lazy(() => import("../Pages/Theme"));
+export const Dashboard = lazy(() => import("../Pages/Dashboard"));
+
 
 export const CustomerList = lazy(() => import("../Pages/Customer/List"));
 export const CustomerCreate = lazy(() => import("../Pages/Customer/Create"));
