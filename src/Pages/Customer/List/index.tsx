@@ -153,11 +153,11 @@ const CustomerList = () => {
           const matchesDate =
             startDate || endDate
               ? (startDate
-                  ? new Date(customer.serviceStartDate) >= new Date(startDate)
-                  : true) &&
-                (endDate
-                  ? new Date(customer.serviceStartDate) <= new Date(endDate)
-                  : true)
+                ? new Date(customer.serviceStartDate) >= new Date(startDate)
+                : true) &&
+              (endDate
+                ? new Date(customer.serviceStartDate) <= new Date(endDate)
+                : true)
               : true;
 
           return (
