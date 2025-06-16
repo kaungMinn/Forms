@@ -14,7 +14,8 @@ const Dashboard = () => {
                     <li className="list-item body-font">
                         Customized UI, Customized Logics
                     </li>
-                    <li className="list-item body-font">                             Create, update, delete Customers
+                    <li className="list-item body-font">
+                        Create, update, delete Customers
                     </li>
                     <li className="list-item body-font">
                         Change themes
