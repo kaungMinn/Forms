@@ -1,14 +1,28 @@
-// import UnderConstructionIcon from "../../Components/Icons/AnimatedIcons/Dashboard/UnderConstructionIcon"
+import Heading from "../../Components/Labels/Heading"
+import { useAppSelector } from "../../Hooks/ReduxProvider"
 
 const Dashboard = () => {
+    const theme = useAppSelector((state) => state.theme);
+    const { dashboardColor, primaryColor } = theme;
+    const [dashboardBg, dashboardText] = dashboardColor;
+    const [primaryBg] = primaryColor;
     return (
-        <div className="flex h-screen items-center justify-center">
-            <div className="w-[50rem] relative">
-                <h4 className="absolute top-20 left-1/2 -translate-x-1/2">
-                    Create Update Delete and have fun!
-                </h4>
-
-                {/* <UnderConstructionIcon /> */}
+        <div className={`relative ${dashboardBg} ${dashboardText} p-5`}>
+            <Heading heading="Dashboard" subHeading="What you can do here" />
+            <div className="">
+                <ul className={`${primaryBg} px-10 py-4 rounded-md shadow-md list-disc inline-block mt-5`}>
+                    <li className="list-item body-font">
+                        Customized UI, Customized Logics
+                    </li>
+                    <li className="list-item body-font">                             Create, update, delete Customers
+                    </li>
+                    <li className="list-item body-font">
+                        Change themes
+                    </li>
+                    <li className="list-item body-font">
+                        Track Activities
+                    </li>
+                </ul>
 
             </div>
         </div>
